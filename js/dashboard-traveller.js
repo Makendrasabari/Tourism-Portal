@@ -372,7 +372,7 @@ window.switchToTab = function(tabId, options = {}) {
 
   // Scroll main container to top ONLY if not preserving scroll
   if (!options || !options.preserveScroll) {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }
 };
 
@@ -505,7 +505,7 @@ function triggerShuffleArrangeCards(containerSelector = '#tabTravellerOverview .
               duration: 0.65,
               delay: delay,
               ease: 'power2.out',
-              clearProps: 'transform,boxShadow,zIndex'
+              clearProps: 'transform,boxShadow,zIndex,opacity'
             }
           );
         });
@@ -518,6 +518,8 @@ function triggerShuffleArrangeCards(containerSelector = '#tabTravellerOverview .
     // Pure CSS reflow fallback
     cards.forEach(card => {
       card.style.animation = 'none';
+      card.style.opacity = '1';
+      card.style.visibility = 'visible';
       void card.offsetWidth;
       card.style.animation = '';
     });

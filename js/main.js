@@ -498,7 +498,7 @@ function initContactForm() {
     }
 
     // Success - All required details valid: Navigate to 404 page as requested
-    captureNavigationReturnState(form);
+    captureNavigationReturnState(contactForm);
     window.location.href = '404.html';
   });
 }
@@ -2218,7 +2218,8 @@ window.addEventListener('beforeunload', function() {
 
 // Footer brand logo click on home page navigates/scrolls smoothly to the top of the home page
 document.addEventListener('click', function(e) {
-  const footerLogo = e.target.closest('.footer-brand-col a, .footer-logo-link, #footerLogoLink');
+  if (e.target.closest('.social-icon-btn, .social-links')) return;
+  const footerLogo = e.target.closest('#footerLogoLink, .footer-logo-link, .footer-brand-col > a');
   if (!footerLogo) return;
 
   const currentPath = window.location.pathname.split('/').pop().toLowerCase();
