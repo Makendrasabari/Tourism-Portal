@@ -2216,6 +2216,26 @@ window.addEventListener('beforeunload', function() {
   }
 });
 
+// Footer brand logo click on home page navigates/scrolls smoothly to the top of the home page
+document.addEventListener('click', function(e) {
+  const footerLogo = e.target.closest('.footer-brand-col a, .footer-logo-link, #footerLogoLink');
+  if (!footerLogo) return;
+
+  const currentPath = window.location.pathname.split('/').pop().toLowerCase();
+  const isHomePage = currentPath === '' || currentPath === 'index.html' || currentPath === 'index';
+
+  if (isHomePage) {
+    e.preventDefault();
+    sessionStorage.removeItem('stackly_should_restore_scroll');
+    sessionStorage.removeItem('stackly_nav_return_state');
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+});
+
 // 2. Go Back Handler for 404 page
 let isNavigatingBack = false;
 window.handleGoBack = function() {
@@ -2267,7 +2287,7 @@ function restorePreviousScrollPosition() {
                         (currentPath.includes('index') && (savedPath === '/' || savedPath === '')) ||
                         (savedPath.includes('index') && (currentPath === '/' || currentPath === ''));
 
-    if (!pathMatches && shouldRestore !== 'true') return;
+    if (shouldRestore !== 'true' || !pathMatches) return;
 
     // Dismiss preloader immediately on back navigation to prevent blocking scroll
     const preloader = document.getElementById('stacklyPreloader');
