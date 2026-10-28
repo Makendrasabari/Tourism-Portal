@@ -176,7 +176,7 @@ function initMobileDrawer() {
   const backdrop = document.getElementById('drawerBackdrop');
   const closeBtn = document.getElementById('drawerCloseBtn');
 
-  if (!toggleBtn || !drawer) return;
+  if (!drawer) return;
 
   function openDrawer() {
     drawer.classList.add('open');
@@ -190,12 +190,42 @@ function initMobileDrawer() {
     document.body.style.overflow = '';
   }
 
-  toggleBtn.addEventListener('click', openDrawer);
+  if (toggleBtn) toggleBtn.addEventListener('click', openDrawer);
   if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
   if (backdrop) backdrop.addEventListener('click', closeDrawer);
 
   document.querySelectorAll('.drawer-nav-link').forEach(link => {
     link.addEventListener('click', closeDrawer);
+  });
+
+  // Automatically close drawer and restore page scrolling when moving to desktop view
+  function handleResizeToDesktop() {
+    if (window.innerWidth >= 992) {
+      if (drawer.classList.contains('open') || (backdrop && backdrop.classList.contains('open'))) {
+        closeDrawer();
+      } else if (document.body.style.overflow === 'hidden') {
+        document.body.style.overflow = '';
+      }
+    }
+  }
+
+  window.addEventListener('resize', handleResizeToDesktop, { passive: true });
+
+  const desktopMq = window.matchMedia('(min-width: 992px)');
+  if (desktopMq.addEventListener) {
+    desktopMq.addEventListener('change', (e) => {
+      if (e.matches) closeDrawer();
+    });
+  } else if (desktopMq.addListener) {
+    desktopMq.addListener((e) => {
+      if (e.matches) closeDrawer();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) {
+      closeDrawer();
+    }
   });
 }
 

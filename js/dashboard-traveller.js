@@ -29,7 +29,9 @@ function initTravellerDashboard() {
   setTimeout(() => {
     const preloader = document.getElementById('stacklyPreloader');
     if (!preloader || preloader.style.display === 'none' || preloader.classList.contains('fade-out')) {
-      animateAllTabSections('tabTravellerOverview');
+      const activeEl = document.querySelector('.dashboard-tab-content.active');
+      const activeTabId = activeEl ? activeEl.id : 'tabTravellerOverview';
+      animateAllTabSections(activeTabId);
     }
   }, 400);
 }
@@ -278,6 +280,15 @@ function initTravellerCleanNav() {
     else if (hash === '#tour-packages') window.switchToTab('tabTravellerExplore');
     else if (hash === '#analytics') window.switchToTab('tabTravellerAnalytics');
     else if (hash === '#wishlist' || hash === '#settings') window.switchToTab('tabTravellerWishlist');
+    else {
+      // Restore previously saved tab if available
+      try {
+        const savedTab = sessionStorage.getItem('stackly_active_traveller_tab');
+        if (savedTab && document.getElementById(savedTab)) {
+          window.switchToTab(savedTab, { preserveScroll: true });
+        }
+      } catch (e) {}
+    }
   }
 
   window.addEventListener('hashchange', handleHash);
@@ -286,7 +297,7 @@ function initTravellerCleanNav() {
   }
 }
 
-window.switchToTab = function(tabId) {
+window.switchToTab = function(tabId, options = {}) {
   const links = document.querySelectorAll('.sidebar-clean-link');
   const tabs = document.querySelectorAll('.dashboard-tab-content');
   const pageTitle = document.getElementById('travellerPageTitle');
@@ -316,7 +327,28 @@ window.switchToTab = function(tabId) {
 
   if (!foundActiveLink && pageTitle) {
     if (tabId === 'tabTravellerWishlist' || tabId === 'tabTravellerSettings') pageTitle.textContent = 'Wishlist';
+    else if (tabId === 'tabTravellerExplore') pageTitle.textContent = 'Tour Packages';
+    else if (tabId === 'tabTravellerTrips') pageTitle.textContent = 'My Trips';
+    else if (tabId === 'tabTravellerAnalytics') pageTitle.textContent = 'Travel Analytics';
   }
+
+  // Update URL hash without jumping page
+  const tabSlugMap = {
+    'tabTravellerOverview': 'overview',
+    'tabTravellerTrips': 'my-trips',
+    'tabTravellerExplore': 'tour-packages',
+    'tabTravellerAnalytics': 'analytics',
+    'tabTravellerWishlist': 'wishlist'
+  };
+  const slug = tabSlugMap[tabId];
+  if (slug) {
+    try {
+      history.replaceState(null, '', '#' + slug);
+    } catch (err) {}
+  }
+  try {
+    sessionStorage.setItem('stackly_active_traveller_tab', tabId);
+  } catch (err) {}
 
   // Trigger resize so Chart.js recalculates dimensions for newly visible tab
   setTimeout(() => {
@@ -338,8 +370,10 @@ window.switchToTab = function(tabId) {
     sidebar.classList.remove('open');
   }
 
-  // Scroll main container to top
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Scroll main container to top ONLY if not preserving scroll
+  if (!options || !options.preserveScroll) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 };
 
 // 4a. Master Orchestrator: Alternating Section Entrances & Combined Component Animations
@@ -650,6 +684,12 @@ function initTravellerSidebar() {
         }
       }
     });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900 && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    }, { passive: true });
   }
 }
 
@@ -1159,16 +1199,41 @@ function captureTravellerNavigationReturnState(targetElement) {
     const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
     let elemY = currentScrollY;
     let elementId = '';
+
+    // Find active tab or parent tab of the clicked element
+    let activeTabId = '';
+    const parentTab = targetElement ? targetElement.closest('.dashboard-tab-content') : null;
+    if (parentTab && parentTab.id) {
+      activeTabId = parentTab.id;
+    } else {
+      const activeEl = document.querySelector('.dashboard-tab-content.active');
+      if (activeEl && activeEl.id) {
+        activeTabId = activeEl.id;
+      }
+    }
+
     if (targetElement) {
+      elementId = targetElement.id || '';
       if (typeof targetElement.getBoundingClientRect === 'function') {
         elemY = Math.round(targetElement.getBoundingClientRect().top + currentScrollY);
       }
-      elementId = targetElement.id || '';
     }
+
+    const tabHashMap = {
+      'tabTravellerOverview': '#overview',
+      'tabTravellerTrips': '#my-trips',
+      'tabTravellerExplore': '#tour-packages',
+      'tabTravellerAnalytics': '#analytics',
+      'tabTravellerWishlist': '#wishlist'
+    };
+    const tabHash = (activeTabId && tabHashMap[activeTabId]) ? tabHashMap[activeTabId] : (window.location.hash || '');
+    const cleanUrl = window.location.origin + window.location.pathname + tabHash;
+
     const state = {
-      url: window.location.href,
+      url: cleanUrl,
       pathname: window.location.pathname,
-      hash: window.location.hash || '',
+      hash: tabHash,
+      activeTabId: activeTabId,
       scrollY: Math.round(currentScrollY),
       elemY: elemY,
       elementId: elementId,
@@ -1176,6 +1241,9 @@ function captureTravellerNavigationReturnState(targetElement) {
     };
     sessionStorage.setItem('stackly_nav_return_state', JSON.stringify(state));
     sessionStorage.setItem('stackly_should_restore_scroll', 'true');
+    if (activeTabId) {
+      sessionStorage.setItem('stackly_active_traveller_tab', activeTabId);
+    }
   } catch (err) {}
 }
 
@@ -1193,10 +1261,32 @@ window.addEventListener('beforeunload', function() {
   if (!window.location.pathname.includes('404.html')) {
     try {
       const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+      const activeEl = document.querySelector('.dashboard-tab-content.active');
+      const activeTabId = activeEl ? activeEl.id : '';
+      const tabHashMap = {
+        'tabTravellerOverview': '#overview',
+        'tabTravellerTrips': '#my-trips',
+        'tabTravellerExplore': '#tour-packages',
+        'tabTravellerAnalytics': '#analytics',
+        'tabTravellerWishlist': '#wishlist'
+      };
+      const tabHash = (activeTabId && tabHashMap[activeTabId]) ? tabHashMap[activeTabId] : (window.location.hash || '');
+      const cleanUrl = window.location.origin + window.location.pathname + tabHash;
+
+      // Don't overwrite if recent click on specific element
+      const existingRaw = sessionStorage.getItem('stackly_nav_return_state');
+      if (existingRaw) {
+        const existing = JSON.parse(existingRaw);
+        if (existing && existing.elementId && (Date.now() - existing.timestamp < 3500)) {
+          return;
+        }
+      }
+
       const state = {
-        url: window.location.href,
+        url: cleanUrl,
         pathname: window.location.pathname,
-        hash: window.location.hash || '',
+        hash: tabHash,
+        activeTabId: activeTabId,
         scrollY: Math.round(currentScrollY),
         elemY: Math.round(currentScrollY),
         timestamp: Date.now()
@@ -1208,7 +1298,6 @@ window.addEventListener('beforeunload', function() {
 
 function restoreTravellerPreviousScrollPosition() {
   try {
-    const shouldRestore = sessionStorage.getItem('stackly_should_restore_scroll');
     const raw = sessionStorage.getItem('stackly_nav_return_state');
     if (!raw) return;
 
@@ -1217,7 +1306,27 @@ function restoreTravellerPreviousScrollPosition() {
 
     const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
     const savedPath = (state.pathname || '').replace(/\/$/, '') || '/';
-    if (!currentPath.endsWith(savedPath) && !savedPath.endsWith(currentPath) && shouldRestore !== 'true') return;
+    if (!currentPath.endsWith(savedPath) && !savedPath.endsWith(currentPath) && sessionStorage.getItem('stackly_should_restore_scroll') !== 'true') return;
+
+    // 1. ACTIVATE CORRECT TAB IMMEDIATELY!
+    let targetTabId = state.activeTabId;
+    if (!targetTabId) {
+      const hash = state.hash || window.location.hash;
+      if (hash === '#tour-packages') targetTabId = 'tabTravellerExplore';
+      else if (hash === '#my-trips') targetTabId = 'tabTravellerTrips';
+      else if (hash === '#analytics') targetTabId = 'tabTravellerAnalytics';
+      else if (hash === '#wishlist' || hash === '#settings') targetTabId = 'tabTravellerWishlist';
+      else if (hash === '#overview' || hash === '#dashboard') targetTabId = 'tabTravellerOverview';
+    }
+    if (!targetTabId) {
+      try {
+        targetTabId = sessionStorage.getItem('stackly_active_traveller_tab');
+      } catch (e) {}
+    }
+
+    if (targetTabId && typeof window.switchToTab === 'function') {
+      window.switchToTab(targetTabId, { preserveScroll: true });
+    }
 
     // Dismiss preloader immediately on back navigation to prevent blocking view
     const preloader = document.getElementById('stacklyPreloader');
@@ -1259,13 +1368,14 @@ function restoreTravellerPreviousScrollPosition() {
     requestAnimationFrame(applyScroll);
     setTimeout(applyScroll, 20);
     setTimeout(applyScroll, 60);
-    setTimeout(applyScroll, 150);
-    setTimeout(applyScroll, 350);
-    setTimeout(applyScroll, 700);
+    setTimeout(applyScroll, 120);
+    setTimeout(applyScroll, 250);
+    setTimeout(applyScroll, 500);
+    setTimeout(applyScroll, 900);
     setTimeout(function() {
       applyScroll();
       sessionStorage.removeItem('stackly_should_restore_scroll');
-    }, 1200);
+    }, 1400);
   } catch (err) {
     console.error('Traveller scroll restore failed:', err);
   }

@@ -629,6 +629,24 @@ ul {
   visibility: visible;
 }
 
+@media (min-width: 992px) {
+  .mobile-drawer,
+  .mobile-drawer.open {
+    display: none !important;
+    visibility: hidden !important;
+    right: -100% !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+  }
+  .drawer-backdrop,
+  .drawer-backdrop.open {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
 .drawer-header {
   display: flex;
   align-items: center;
