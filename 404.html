@@ -74,7 +74,7 @@
       </p>
 
       <div class="error-404-actions">
-        <button type="button" onclick="handleGoBack()" class="btn btn-primary btn-lg" id="goBackBtn">
+        <button type="button" class="btn btn-primary btn-lg" id="goBackBtn">
           <i class="fas fa-arrow-left"></i> Go Back
         </button>
         <a href="index.html" class="btn btn-outline btn-lg" id="backToHomeBtn">
@@ -88,38 +88,36 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="js/main.js"></script>
   <script>
+    let isGoingBack = false;
     function handleGoBack() {
+      if (isGoingBack) return;
+      isGoingBack = true;
+
       if (typeof window.handleGoBack === 'function' && window.handleGoBack !== handleGoBack) {
         window.handleGoBack();
         return;
       }
-      var returnState = null;
+
+      let returnState = null;
       try {
-        var raw = sessionStorage.getItem('stackly_nav_return_state');
+        const raw = sessionStorage.getItem('stackly_nav_return_state');
         if (raw) returnState = JSON.parse(raw);
         sessionStorage.setItem('stackly_should_restore_scroll', 'true');
       } catch (e) {}
 
-      var targetUrl = '';
+      let targetUrl = '';
       if (returnState && returnState.url && !returnState.url.includes('404.html')) {
         targetUrl = returnState.url;
       } else if (document.referrer && !document.referrer.includes('404.html') && document.referrer.length > 5) {
         targetUrl = document.referrer;
       }
 
-      if (window.history.length > 1) {
+      if (targetUrl) {
+        window.location.replace(targetUrl);
+      } else if (window.history.length > 1) {
         window.history.back();
-        setTimeout(function() {
-          if (targetUrl) {
-            window.location.href = targetUrl;
-          } else {
-            window.location.href = 'index.html';
-          }
-        }, 250);
-      } else if (targetUrl) {
-        window.location.href = targetUrl;
       } else {
-        window.location.href = 'index.html';
+        window.location.replace('index.html');
       }
     }
 

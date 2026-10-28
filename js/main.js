@@ -468,6 +468,7 @@ function initContactForm() {
     }
 
     // Success - All required details valid: Navigate to 404 page as requested
+    captureNavigationReturnState(form);
     window.location.href = '404.html';
   });
 }
@@ -534,6 +535,7 @@ function initNewsletterForm() {
       if (errorMsg) {
         errorMsg.style.display = 'none';
       }
+      captureNavigationReturnState(form);
       window.location.href = '404.html';
       setTimeout(() => {
         window.location.assign('404.html');
@@ -1726,15 +1728,7 @@ function initGalleryEnlightenment() {
   galleryItems.forEach((item) => {
     // Clicking toggles / activates continuous black light illumination
     item.addEventListener('click', () => {
-      const isAlreadyActive = item.classList.contains('is-enlightened');
-      // If clicking already enlightened, allow toggling, or keep highlighted
       item.classList.toggle('is-enlightened');
-
-      // Subtle haptic ripple/feedback sound/cue if supported
-      if (!isAlreadyActive && typeof showNotificationToast === 'function') {
-        const title = item.getAttribute('aria-label') || 'Travel Moment';
-        showNotificationToast(`Enlightened: ${title}`, 'success');
-      }
     });
 
     // Keyboard support (Enter / Space)
@@ -2132,26 +2126,35 @@ function captureNavigationReturnState(targetElement) {
   try {
     const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
     let elemY = currentScrollY;
-    if (targetElement && typeof targetElement.getBoundingClientRect === 'function') {
-      elemY = Math.round(targetElement.getBoundingClientRect().top + currentScrollY);
+    let elementId = '';
+    if (targetElement) {
+      if (typeof targetElement.getBoundingClientRect === 'function') {
+        elemY = Math.round(targetElement.getBoundingClientRect().top + currentScrollY);
+      }
+      elementId = targetElement.id || '';
     }
     const state = {
       url: window.location.href,
       pathname: window.location.pathname,
+      hash: window.location.hash || '',
       scrollY: Math.round(currentScrollY),
       elemY: elemY,
+      elementId: elementId,
       timestamp: Date.now()
     };
     sessionStorage.setItem('stackly_nav_return_state', JSON.stringify(state));
+    sessionStorage.setItem('stackly_should_restore_scroll', 'true');
   } catch (err) {}
 }
+window.captureNavigationReturnState = captureNavigationReturnState;
 
 // 1. Capture navigation state on any link or button pointing to 404
 document.addEventListener('click', function(e) {
   const target = e.target.closest('a, button, [role="button"]');
   if (!target) return;
   const href = (target.getAttribute && target.getAttribute('href')) || '';
-  if (href.includes('404.html') || target.dataset.goto404) {
+  const onclick = (target.getAttribute && target.getAttribute('onclick')) || '';
+  if (href.includes('404.html') || onclick.includes('404.html') || target.dataset.goto404) {
     captureNavigationReturnState(target);
   }
 }, true);
@@ -2170,24 +2173,25 @@ window.addEventListener('beforeunload', function() {
   if (!window.location.pathname.includes('404.html')) {
     try {
       const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
-      const raw = sessionStorage.getItem('stackly_nav_return_state');
-      let state = raw ? JSON.parse(raw) : null;
-      if (!state || (Date.now() - (state.timestamp || 0) > 30000)) {
-        state = {
-          url: window.location.href,
-          pathname: window.location.pathname,
-          scrollY: Math.round(currentScrollY),
-          elemY: Math.round(currentScrollY),
-          timestamp: Date.now()
-        };
-        sessionStorage.setItem('stackly_nav_return_state', JSON.stringify(state));
-      }
+      const state = {
+        url: window.location.href,
+        pathname: window.location.pathname,
+        hash: window.location.hash || '',
+        scrollY: Math.round(currentScrollY),
+        elemY: Math.round(currentScrollY),
+        timestamp: Date.now()
+      };
+      sessionStorage.setItem('stackly_nav_return_state', JSON.stringify(state));
     } catch (e) {}
   }
 });
 
 // 2. Go Back Handler for 404 page
+let isNavigatingBack = false;
 window.handleGoBack = function() {
+  if (isNavigatingBack) return;
+  isNavigatingBack = true;
+
   let returnState = null;
   try {
     const raw = sessionStorage.getItem('stackly_nav_return_state');
@@ -2202,20 +2206,17 @@ window.handleGoBack = function() {
     targetUrl = document.referrer;
   }
 
+  if (targetUrl) {
+    window.location.replace(targetUrl);
+    return;
+  }
+
   if (window.history.length > 1) {
     window.history.back();
-    setTimeout(function() {
-      if (targetUrl) {
-        window.location.href = targetUrl;
-      } else {
-        window.location.href = 'index.html';
-      }
-    }, 250);
-  } else if (targetUrl) {
-    window.location.href = targetUrl;
-  } else {
-    window.location.href = 'index.html';
+    return;
   }
+
+  window.location.replace('index.html');
 };
 
 // 3. Exact Scroll Position Restoration on Return
@@ -2238,17 +2239,6 @@ function restorePreviousScrollPosition() {
 
     if (!pathMatches && shouldRestore !== 'true') return;
 
-    const targetY = typeof state.scrollY === 'number' && state.scrollY > 0
-      ? state.scrollY
-      : (typeof state.elemY === 'number' ? state.elemY : 0);
-
-    if (targetY <= 0) return;
-
-    // Manual scroll restoration prevents browser from popping to top (0,0)
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-
     // Dismiss preloader immediately on back navigation to prevent blocking scroll
     const preloader = document.getElementById('stacklyPreloader');
     if (preloader) {
@@ -2258,9 +2248,31 @@ function restorePreviousScrollPosition() {
       window.dispatchEvent(new CustomEvent('stacklyPreloaderDone'));
     }
 
+    // Determine target scroll position
+    let targetY = -1;
+    if (state.elementId) {
+      const el = document.getElementById(state.elementId);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        targetY = Math.round(rect.top + (window.pageYOffset || document.documentElement.scrollTop || 0) - (window.innerHeight * 0.35));
+      }
+    }
+    if (targetY < 0) {
+      targetY = typeof state.elemY === 'number' && state.elemY >= 0
+        ? state.elemY
+        : (typeof state.scrollY === 'number' ? state.scrollY : 0);
+    }
+
+    if (targetY <= 0) return;
+
+    // Manual scroll restoration prevents browser from popping to top (0,0)
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
     const applyScroll = function() {
       window.scrollTo({
-        top: targetY,
+        top: Math.max(0, targetY),
         left: 0,
         behavior: 'instant'
       });
@@ -2269,11 +2281,11 @@ function restorePreviousScrollPosition() {
     // Multi-cycle restoration across layout and rendering frames
     applyScroll();
     requestAnimationFrame(applyScroll);
-    setTimeout(applyScroll, 30);
-    setTimeout(applyScroll, 80);
-    setTimeout(applyScroll, 200);
-    setTimeout(applyScroll, 450);
-    setTimeout(applyScroll, 800);
+    setTimeout(applyScroll, 20);
+    setTimeout(applyScroll, 60);
+    setTimeout(applyScroll, 150);
+    setTimeout(applyScroll, 350);
+    setTimeout(applyScroll, 700);
     setTimeout(function() {
       applyScroll();
       sessionStorage.removeItem('stackly_should_restore_scroll');

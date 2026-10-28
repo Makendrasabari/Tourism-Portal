@@ -25,6 +25,7 @@ function initTravellerDashboard() {
   try { initProfileDropdown(); } catch (e) { console.error('Error initProfileDropdown:', e); }
   try { initProfileForm(); } catch (e) { console.error('Error initProfileForm:', e); }
   try { initSectionHeadingTextAnimation(); } catch (e) { console.error('Error initSectionHeadingTextAnimation:', e); }
+  try { restoreTravellerPreviousScrollPosition(); } catch (e) {}
   setTimeout(() => {
     const preloader = document.getElementById('stacklyPreloader');
     if (!preloader || preloader.style.display === 'none' || preloader.classList.contains('fade-out')) {
@@ -250,6 +251,7 @@ function initProfileForm() {
     }
 
     // All details entered -> navigate to 404 page
+    if (typeof captureTravellerNavigationReturnState === 'function') captureTravellerNavigationReturnState(form);
     window.location.href = '404.html';
   });
 }
@@ -621,6 +623,22 @@ function initTravellerSidebar() {
     closeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       sidebar.classList.remove('open');
+    });
+  }
+
+  const logoLink = sidebar ? sidebar.querySelector('.sidebar-header a') : null;
+  if (logoLink) {
+    logoLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (typeof window.switchToTab === 'function') {
+        window.switchToTab('tabTravellerOverview');
+      }
+      try {
+        history.pushState(null, '', 'dashboard-traveller.html');
+      } catch (err) {}
+      if (window.innerWidth <= 900 && sidebar) {
+        sidebar.classList.remove('open');
+      }
     });
   }
 
@@ -1066,10 +1084,12 @@ window.showDashboardToast = function(msg) {
 };
 
 window.downloadDemoReceipt = function(id) {
+  if (typeof captureTravellerNavigationReturnState === 'function') captureTravellerNavigationReturnState();
   window.location.href = '404.html';
 };
 
 window.travellerCancelBooking = function(id) {
+  if (typeof captureTravellerNavigationReturnState === 'function') captureTravellerNavigationReturnState();
   window.location.href = '404.html';
 };
 
@@ -1129,3 +1149,127 @@ function initPreloader() {
     setTimeout(closePreloader, 300);
   }
 }
+
+// ===================================================================
+// GLOBAL NAVIGATION & EXACT SCROLL POSITION RESTORATION (404 GO BACK)
+// ===================================================================
+
+function captureTravellerNavigationReturnState(targetElement) {
+  try {
+    const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+    let elemY = currentScrollY;
+    let elementId = '';
+    if (targetElement) {
+      if (typeof targetElement.getBoundingClientRect === 'function') {
+        elemY = Math.round(targetElement.getBoundingClientRect().top + currentScrollY);
+      }
+      elementId = targetElement.id || '';
+    }
+    const state = {
+      url: window.location.href,
+      pathname: window.location.pathname,
+      hash: window.location.hash || '',
+      scrollY: Math.round(currentScrollY),
+      elemY: elemY,
+      elementId: elementId,
+      timestamp: Date.now()
+    };
+    sessionStorage.setItem('stackly_nav_return_state', JSON.stringify(state));
+    sessionStorage.setItem('stackly_should_restore_scroll', 'true');
+  } catch (err) {}
+}
+
+document.addEventListener('click', function(e) {
+  const target = e.target.closest('a, button, [role="button"]');
+  if (!target) return;
+  const href = (target.getAttribute && target.getAttribute('href')) || '';
+  const onclick = (target.getAttribute && target.getAttribute('onclick')) || '';
+  if (href.includes('404.html') || onclick.includes('404.html') || target.dataset.goto404) {
+    captureTravellerNavigationReturnState(target);
+  }
+}, true);
+
+window.addEventListener('beforeunload', function() {
+  if (!window.location.pathname.includes('404.html')) {
+    try {
+      const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+      const state = {
+        url: window.location.href,
+        pathname: window.location.pathname,
+        hash: window.location.hash || '',
+        scrollY: Math.round(currentScrollY),
+        elemY: Math.round(currentScrollY),
+        timestamp: Date.now()
+      };
+      sessionStorage.setItem('stackly_nav_return_state', JSON.stringify(state));
+    } catch (e) {}
+  }
+});
+
+function restoreTravellerPreviousScrollPosition() {
+  try {
+    const shouldRestore = sessionStorage.getItem('stackly_should_restore_scroll');
+    const raw = sessionStorage.getItem('stackly_nav_return_state');
+    if (!raw) return;
+
+    const state = JSON.parse(raw);
+    if (!state) return;
+
+    const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+    const savedPath = (state.pathname || '').replace(/\/$/, '') || '/';
+    if (!currentPath.endsWith(savedPath) && !savedPath.endsWith(currentPath) && shouldRestore !== 'true') return;
+
+    // Dismiss preloader immediately on back navigation to prevent blocking view
+    const preloader = document.getElementById('stacklyPreloader');
+    if (preloader) {
+      preloader.style.display = 'none';
+      preloader.classList.add('fade-out');
+    }
+
+    // Determine target scroll position
+    let targetY = -1;
+    if (state.elementId) {
+      const el = document.getElementById(state.elementId);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        targetY = Math.round(rect.top + (window.pageYOffset || document.documentElement.scrollTop || 0) - (window.innerHeight * 0.35));
+      }
+    }
+    if (targetY < 0) {
+      targetY = typeof state.elemY === 'number' && state.elemY >= 0
+        ? state.elemY
+        : (typeof state.scrollY === 'number' ? state.scrollY : 0);
+    }
+
+    if (targetY <= 0) return;
+
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    const applyScroll = function() {
+      window.scrollTo({
+        top: Math.max(0, targetY),
+        left: 0,
+        behavior: 'instant'
+      });
+    };
+
+    applyScroll();
+    requestAnimationFrame(applyScroll);
+    setTimeout(applyScroll, 20);
+    setTimeout(applyScroll, 60);
+    setTimeout(applyScroll, 150);
+    setTimeout(applyScroll, 350);
+    setTimeout(applyScroll, 700);
+    setTimeout(function() {
+      applyScroll();
+      sessionStorage.removeItem('stackly_should_restore_scroll');
+    }, 1200);
+  } catch (err) {
+    console.error('Traveller scroll restore failed:', err);
+  }
+}
+
+window.addEventListener('pageshow', restoreTravellerPreviousScrollPosition);
+window.addEventListener('load', restoreTravellerPreviousScrollPosition);

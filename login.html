@@ -293,6 +293,22 @@
       if (forgotPasswordBtn) {
         forgotPasswordBtn.addEventListener('click', (e) => {
           e.preventDefault();
+          try {
+            const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+            const rect = forgotPasswordBtn.getBoundingClientRect();
+            const elemY = Math.round(rect.top + currentScrollY);
+            const state = {
+              url: window.location.href,
+              pathname: window.location.pathname,
+              hash: window.location.hash || '',
+              scrollY: Math.round(currentScrollY),
+              elemY: elemY,
+              elementId: 'forgotPasswordBtn',
+              timestamp: Date.now()
+            };
+            sessionStorage.setItem('stackly_nav_return_state', JSON.stringify(state));
+            sessionStorage.setItem('stackly_should_restore_scroll', 'true');
+          } catch (err) {}
           window.location.href = '404.html';
         });
       }

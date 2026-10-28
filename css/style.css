@@ -2136,25 +2136,10 @@ ul {
 }
 
 .gallery-shuffle-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 20px;
-  border-radius: var(--radius-full);
-  font-weight: 600;
-  font-size: 0.85rem;
-  transition: all 0.3s ease;
-  background: #ffffff;
-  border: 1.5px solid var(--primary-blue);
-  color: var(--primary-blue);
-  cursor: pointer;
-}
-
-.gallery-shuffle-btn:hover {
-  background: var(--primary-blue);
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(56, 35, 201, 0.25);
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* ===================================================================
