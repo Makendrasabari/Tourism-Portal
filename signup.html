@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — Stackly Tourism & Travel Portal</title>
+  <meta name="description" content="Join Stackly today. Register as an independent traveller or partner tour operator to unlock bespoke journeys and dashboard tools.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background:var(--bg-subtle-blue);">
+
+  <!-- STACKLY PRELOADER: BUILDING REVEAL + TRAVEL ANIMATION + LOGO REVEAL -->
+  <div id="stacklyPreloader" class="stackly-preloader" aria-label="Loading Stackly Travel Portal">
+    <div class="preloader-stage">
+      <svg class="flight-path-svg" viewBox="0 0 300 120">
+        <path class="flight-arc" d="M 20,100 Q 150,-10 280,100" />
+        <path id="preloaderPlane" class="plane-marker" d="M 0,-6 L 8,0 L 0,6 L 2,1 L -6,4 L -4,0 L -6,-4 L 2,-1 Z">
+          <animateMotion path="M 20,100 Q 150,-10 280,100" dur="2.2s" repeatCount="indefinite" rotate="auto" />
+        </path>
+      </svg>
+      <svg class="building-reveal-svg" viewBox="0 0 220 130">
+        <line x1="10" y1="125" x2="210" y2="125" class="arch-line" stroke-width="3" />
+        <rect x="25" y="60" width="28" height="65" class="arch-fill" />
+        <rect x="25" y="60" width="28" height="65" class="arch-line" />
+        <rect x="63" y="40" width="34" height="85" class="arch-fill" />
+        <rect x="63" y="40" width="34" height="85" class="arch-line" />
+        <rect x="107" y="20" width="45" height="105" class="arch-fill" />
+        <rect x="107" y="20" width="45" height="105" class="arch-line" />
+        <rect x="162" y="50" width="32" height="75" class="arch-fill" />
+        <rect x="162" y="50" width="32" height="75" class="arch-line" />
+        <path d="M 107,20 L 129.5,2 L 152,20 Z" class="arch-line" />
+        <path d="M 32,80 Q 39,70 46,80 L 46,125 L 32,125 Z" class="arch-line" />
+        <path d="M 72,60 Q 80,50 88,60 L 88,125 L 72,125 Z" class="arch-line" />
+        <path d="M 120,45 Q 129.5,35 139,45 L 139,125 L 120,125 Z" class="arch-line" />
+        <path d="M 170,70 Q 178,60 186,70 L 186,125 L 170,125 Z" class="arch-line" />
+      </svg>
+      <div id="preloaderLogoWrap" class="preloader-logo-wrap">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="preloader-logo">
+      </div>
+      <div id="preloaderBrandText" class="preloader-text">EXPLORE • DISCOVER • JOURNEY</div>
+      <div class="preloader-bar-wrap">
+        <div id="preloaderProgressBar" class="preloader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <main class="auth-split-wrapper">
+    <div class="auth-split-container" style="max-width:1120px;">
+      
+      <!-- LEFT SIDE: RELEVANT TRAVEL IMAGE (HIDDEN ON MOBILE) -->
+      <div class="auth-media-col">
+        <div class="auth-media-bg">
+          <img src="assets/images/destinations/maldives.webp" alt="Join Stackly Travel">
+        </div>
+        <div class="auth-media-overlay"></div>
+        <div class="auth-media-content">
+          <div class="auth-media-badge">
+            <i class="fas fa-gem"></i> Stackly Membership
+          </div>
+          <h2 class="auth-media-headline">Begin Your Global Adventure Today</h2>
+          <p class="auth-media-sub">
+            Create your account to unlock private access to handpicked worldwide expeditions, verified local guides, and real-time dashboard tracking.
+          </p>
+          <div class="auth-media-stats">
+            <div class="auth-stat-mini">
+              <strong>20+</strong>
+              <span>Global Regions</span>
+            </div>
+            <div class="auth-stat-mini">
+              <strong>10+</strong>
+              <span>Tour Themes</span>
+            </div>
+            <div class="auth-stat-mini">
+              <strong>100%</strong>
+              <span>Verified Partners</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: CONTENT & REGISTRATION FORM -->
+      <div class="auth-form-col">
+        <div class="auth-form-inner signup-inner">
+          <div class="auth-header">
+            <a href="index.html" aria-label="Return to Stackly Home">
+              <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="auth-logo">
+            </a>
+            <h1 class="auth-title">Create Account</h1>
+            <p class="auth-subtitle">Join thousands of world travellers and certified tour operators.</p>
+          </div>
+
+          <!-- Inline Success Banner (No popup alerts!) -->
+          <div id="signupSuccessBanner" class="auth-success-banner" style="display:none;" role="status">
+            <i class="fas fa-check-circle"></i>
+            <span>Account created successfully! Redirecting to login...</span>
+          </div>
+
+          <!-- Registration Form (Strictly No Browser Native Tooltips) -->
+          <form id="stacklySignupForm" novalidate>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="signupName">Full Name *</label>
+                <div class="form-control-wrap">
+                  <i class="fas fa-user form-control-icon"></i>
+                  <input type="text" id="signupName" class="form-input" placeholder="e.g. Liam Anderson">
+                </div>
+                <div id="signupNameError" class="field-error-text" style="display:none;"></div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="signupEmail">Gmail Address *</label>
+                <div class="form-control-wrap">
+                  <i class="fas fa-envelope form-control-icon"></i>
+                  <input type="email" id="signupEmail" class="form-input" placeholder="yourname@gmail.com">
+                </div>
+                <div id="signupEmailError" class="field-error-text" style="display:none;"></div>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="signupPassword">Create Password *</label>
+                <div class="form-control-wrap">
+                  <i class="fas fa-lock form-control-icon"></i>
+                  <input type="password" id="signupPassword" class="form-input" placeholder="At least 8 characters">
+                </div>
+                <div id="signupPasswordError" class="field-error-text" style="display:none;"></div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="signupConfirmPassword">Confirm Password *</label>
+                <div class="form-control-wrap">
+                  <i class="fas fa-shield-alt form-control-icon"></i>
+                  <input type="password" id="signupConfirmPassword" class="form-input" placeholder="Re-type password">
+                </div>
+                <div id="signupConfirmPasswordError" class="field-error-text" style="display:none;"></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-checkbox-label">
+                <input type="checkbox" id="signupTerms">
+                <span style="font-size:0.85rem;">I agree to Stackly's <a href="contact.html" class="form-link">Terms and Conditions</a> & <a href="contact.html" class="form-link">Privacy Policy</a></span>
+              </label>
+              <div id="signupTermsError" class="field-error-text" style="display:none;"></div>
+            </div>
+
+            <button type="submit" id="signupSubmitBtn" class="btn btn-primary auth-submit-btn">
+              <i class="fas fa-user-plus"></i> Create Account
+            </button>
+
+            <div class="auth-switch-text">
+              Already have an account? <a href="login.html" class="form-link">Login Here</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('stacklySignupForm');
+      const nameInput = document.getElementById('signupName');
+      const emailInput = document.getElementById('signupEmail');
+      const pass = document.getElementById('signupPassword');
+      const confirmPass = document.getElementById('signupConfirmPassword');
+      const termsCheck = document.getElementById('signupTerms');
+      const submitBtn = document.getElementById('signupSubmitBtn');
+      const successBanner = document.getElementById('signupSuccessBanner');
+
+      // Error containers
+      const nameError = document.getElementById('signupNameError');
+      const emailError = document.getElementById('signupEmailError');
+      const passError = document.getElementById('signupPasswordError');
+      const confirmPassError = document.getElementById('signupConfirmPasswordError');
+      const termsError = document.getElementById('signupTermsError');
+
+      function setFieldError(input, errorEl, msg) {
+        if (input) input.classList.add('is-invalid');
+        if (errorEl) {
+          errorEl.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${msg}`;
+          errorEl.style.display = 'flex';
+        }
+      }
+
+      function clearFieldError(input, errorEl) {
+        if (input) input.classList.remove('is-invalid');
+        if (errorEl) {
+          errorEl.style.display = 'none';
+          errorEl.innerHTML = '';
+        }
+      }
+
+      // Clear on input
+      nameInput.addEventListener('input', () => clearFieldError(nameInput, nameError));
+      emailInput.addEventListener('input', () => clearFieldError(emailInput, emailError));
+      pass.addEventListener('input', () => clearFieldError(pass, passError));
+      confirmPass.addEventListener('input', () => clearFieldError(confirmPass, confirmPassError));
+      termsCheck.addEventListener('change', () => clearFieldError(null, termsError));
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Clear previous errors
+        clearFieldError(nameInput, nameError);
+        clearFieldError(emailInput, emailError);
+        clearFieldError(pass, passError);
+        clearFieldError(confirmPass, confirmPassError);
+        clearFieldError(null, termsError);
+
+        let hasError = false;
+        let firstInvalid = null;
+
+        // 1. Name validation
+        if (!nameInput.value.trim()) {
+          setFieldError(nameInput, nameError, 'Please enter your full name');
+          hasError = true;
+          if (!firstInvalid) firstInvalid = nameInput;
+        }
+
+        // 2. Email validation (Empty & Gmail format)
+        const emailVal = emailInput.value.trim();
+        if (!emailVal) {
+          setFieldError(emailInput, emailError, 'Please enter the email');
+          hasError = true;
+          if (!firstInvalid) firstInvalid = emailInput;
+        } else {
+          const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
+          if (!gmailRegex.test(emailVal)) {
+            setFieldError(emailInput, emailError, 'Please enter a valid Gmail address (e.g. name@gmail.com)');
+            hasError = true;
+            if (!firstInvalid) firstInvalid = emailInput;
+          }
+        }
+
+        // 3. Password validation (Empty & min 8 characters)
+        const passVal = pass.value;
+        if (!passVal) {
+          setFieldError(pass, passError, 'Please enter the password');
+          hasError = true;
+          if (!firstInvalid) firstInvalid = pass;
+        } else if (passVal.length < 8) {
+          setFieldError(pass, passError, 'Password must contain at least 8 characters');
+          hasError = true;
+          if (!firstInvalid) firstInvalid = pass;
+        }
+
+        // 4. Confirm password
+        const confirmVal = confirmPass.value;
+        if (!confirmVal) {
+          setFieldError(confirmPass, confirmPassError, 'Please confirm your password');
+          hasError = true;
+          if (!firstInvalid) firstInvalid = confirmPass;
+        } else if (confirmVal !== passVal) {
+          setFieldError(confirmPass, confirmPassError, 'Passwords do not match');
+          hasError = true;
+          if (!firstInvalid) firstInvalid = confirmPass;
+        }
+
+        // 5. Terms validation
+        if (!termsCheck.checked) {
+          setFieldError(null, termsError, 'Please agree to the Terms and Conditions');
+          hasError = true;
+          if (!firstInvalid) firstInvalid = termsCheck;
+        }
+
+        if (hasError) {
+          if (firstInvalid) firstInvalid.focus();
+          return;
+        }
+
+        // Success - Show inline success banner
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+        successBanner.style.display = 'flex';
+
+        const nameVal = nameInput.value.trim();
+
+        // Persist user registration profile in localStorage
+        try {
+          localStorage.setItem('stackly_user', JSON.stringify({
+            name: nameVal,
+            email: emailVal,
+            role: 'traveller'
+          }));
+        } catch(err) {
+          console.warn('localStorage access error:', err);
+        }
+
+        setTimeout(() => {
+          window.location.href = 'login.html?registered=true';
+        }, 500);
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

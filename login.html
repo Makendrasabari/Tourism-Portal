@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Stackly Tourism & Travel Portal</title>
+  <meta name="description" content="Access your personalized Stackly account. Seamless login for Travellers and verified Tour Operators.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background:var(--bg-subtle-blue);">
+
+  <!-- STACKLY PRELOADER: BUILDING REVEAL + TRAVEL ANIMATION + LOGO REVEAL -->
+  <div id="stacklyPreloader" class="stackly-preloader" aria-label="Loading Stackly Travel Portal">
+    <div class="preloader-stage">
+      <svg class="flight-path-svg" viewBox="0 0 300 120">
+        <path class="flight-arc" d="M 20,100 Q 150,-10 280,100" />
+        <path id="preloaderPlane" class="plane-marker" d="M 0,-6 L 8,0 L 0,6 L 2,1 L -6,4 L -4,0 L -6,-4 L 2,-1 Z">
+          <animateMotion path="M 20,100 Q 150,-10 280,100" dur="2.2s" repeatCount="indefinite" rotate="auto" />
+        </path>
+      </svg>
+      <svg class="building-reveal-svg" viewBox="0 0 220 130">
+        <line x1="10" y1="125" x2="210" y2="125" class="arch-line" stroke-width="3" />
+        <rect x="25" y="60" width="28" height="65" class="arch-fill" />
+        <rect x="25" y="60" width="28" height="65" class="arch-line" />
+        <rect x="63" y="40" width="34" height="85" class="arch-fill" />
+        <rect x="63" y="40" width="34" height="85" class="arch-line" />
+        <rect x="107" y="20" width="45" height="105" class="arch-fill" />
+        <rect x="107" y="20" width="45" height="105" class="arch-line" />
+        <rect x="162" y="50" width="32" height="75" class="arch-fill" />
+        <rect x="162" y="50" width="32" height="75" class="arch-line" />
+        <path d="M 107,20 L 129.5,2 L 152,20 Z" class="arch-line" />
+        <path d="M 32,80 Q 39,70 46,80 L 46,125 L 32,125 Z" class="arch-line" />
+        <path d="M 72,60 Q 80,50 88,60 L 88,125 L 72,125 Z" class="arch-line" />
+        <path d="M 120,45 Q 129.5,35 139,45 L 139,125 L 120,125 Z" class="arch-line" />
+        <path d="M 170,70 Q 178,60 186,70 L 186,125 L 170,125 Z" class="arch-line" />
+      </svg>
+      <div id="preloaderLogoWrap" class="preloader-logo-wrap">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="preloader-logo">
+      </div>
+      <div id="preloaderBrandText" class="preloader-text">EXPLORE • DISCOVER • JOURNEY</div>
+      <div class="preloader-bar-wrap">
+        <div id="preloaderProgressBar" class="preloader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <main class="auth-split-wrapper">
+    <div class="auth-split-container">
+      
+      <!-- LEFT SIDE: RELEVANT TRAVEL IMAGE (HIDDEN ON MOBILE) -->
+      <div class="auth-media-col">
+        <div class="auth-media-bg">
+          <img src="assets/images/destinations/switzerland.webp" alt="Explore with Stackly">
+        </div>
+        <div class="auth-media-overlay"></div>
+        <div class="auth-media-content">
+          <div class="auth-media-badge">
+            <i class="fas fa-compass"></i> Stackly Expeditions
+          </div>
+          <h2 class="auth-media-headline">Journey Beyond Everyday Horizons</h2>
+          <p class="auth-media-sub">
+            Access curated itineraries, bespoke private journeys, and seamless booking records across 20+ world-class destinations.
+          </p>
+          <div class="auth-media-stats">
+            <div class="auth-stat-mini">
+              <strong>20+</strong>
+              <span>Global Regions</span>
+            </div>
+            <div class="auth-stat-mini">
+              <strong>99.4%</strong>
+              <span>Satisfaction</span>
+            </div>
+            <div class="auth-stat-mini">
+              <strong>24/7</strong>
+              <span>Concierge</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: CONTENT & AUTHENTICATION FORM -->
+      <div class="auth-form-col">
+        <div class="auth-form-inner">
+          <div class="auth-header">
+            <a href="index.html" aria-label="Return to Stackly Home">
+              <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="auth-logo">
+            </a>
+            <h1 class="auth-title">Welcome Back</h1>
+            <p class="auth-subtitle">Select your account role to access your dedicated portal.</p>
+          </div>
+
+          <!-- Role Selector: Exactly Two Roles -->
+          <div class="role-selector-group">
+            <button type="button" id="roleBtnTraveller" class="role-btn active" data-role="traveller">
+              <i class="fas fa-compass"></i> Traveller
+            </button>
+            <button type="button" id="roleBtnOperator" class="role-btn" data-role="operator">
+              <i class="fas fa-briefcase"></i> Tour Operator
+            </button>
+          </div>
+
+          <!-- Inline Notice Message (e.g. Password Reset) -->
+          <div id="loginNoticeMsg" class="auth-success-banner" style="display:none;" role="status">
+            <i class="fas fa-check-circle"></i>
+            <span id="loginNoticeText"></span>
+          </div>
+
+          <!-- Login Form (Strictly No Browser Native Popups) -->
+          <form id="stacklyLoginForm" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="loginFullName">Full Name *</label>
+              <div class="form-control-wrap">
+                <i class="fas fa-user form-control-icon"></i>
+                <input 
+                  type="text" 
+                  id="loginFullName" 
+                  class="form-input" 
+                  placeholder="Enter your full name" 
+                  autocomplete="name"
+                >
+              </div>
+              <div id="loginFullNameError" class="field-error-text" style="display:none;"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="loginEmail">Gmail Address *</label>
+              <div class="form-control-wrap">
+                <i class="fas fa-envelope form-control-icon"></i>
+                <input 
+                  type="email" 
+                  id="loginEmail" 
+                  class="form-input" 
+                  placeholder="Enter your Gmail address" 
+                  autocomplete="email"
+                >
+              </div>
+              <!-- INLINE RED ERROR BELOW INPUT BOX -->
+              <div id="loginEmailError" class="field-error-text" style="display:none;"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="loginPassword">Password *</label>
+              <div class="form-control-wrap">
+                <i class="fas fa-lock form-control-icon"></i>
+                <input 
+                  type="password" 
+                  id="loginPassword" 
+                  class="form-input" 
+                  placeholder="Enter your password" 
+                  autocomplete="current-password"
+                >
+              </div>
+              <!-- INLINE RED ERROR BELOW INPUT BOX -->
+              <div id="loginPasswordError" class="field-error-text" style="display:none;"></div>
+            </div>
+
+            <div class="form-extra-row">
+              <label class="form-checkbox-label">
+                <input type="checkbox" id="rememberMe">
+                <span>Remember Me</span>
+              </label>
+              <a href="404.html" id="forgotPasswordBtn" class="form-link">
+                Forgot Password?
+              </a>
+            </div>
+
+            <button type="submit" id="loginSubmitBtn" class="btn btn-primary auth-submit-btn">
+              <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+
+            <div class="auth-switch-text">
+              Don't have an account yet? <a href="signup.html" class="form-link">Sign Up Here</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let currentRole = 'traveller';
+      const roleBtnTraveller = document.getElementById('roleBtnTraveller');
+      const roleBtnOperator = document.getElementById('roleBtnOperator');
+      const loginFullName = document.getElementById('loginFullName');
+      const loginEmail = document.getElementById('loginEmail');
+      const loginPassword = document.getElementById('loginPassword');
+      const fullNameError = document.getElementById('loginFullNameError');
+      const emailError = document.getElementById('loginEmailError');
+      const passwordError = document.getElementById('loginPasswordError');
+      const submitBtn = document.getElementById('loginSubmitBtn');
+      const form = document.getElementById('stacklyLoginForm');
+      const noticeBox = document.getElementById('loginNoticeMsg');
+      const noticeText = document.getElementById('loginNoticeText');
+      const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+
+      // Check URL query params if redirected
+      const params = new URLSearchParams(window.location.search);
+      const urlRole = params.get('role');
+      if (urlRole === 'operator') {
+        selectRole('operator');
+      }
+      if (params.get('registered') === 'true') {
+        showNotice('Account created successfully! Please enter your password to log in.');
+        try {
+          const rawUser = localStorage.getItem('stackly_user');
+          if (rawUser) {
+            const u = JSON.parse(rawUser);
+            if (u.name && loginFullName) loginFullName.value = u.name;
+            if (u.email && loginEmail) loginEmail.value = u.email;
+            if (loginPassword) loginPassword.focus();
+          }
+        } catch (e) {}
+      }
+
+      function selectRole(role) {
+        currentRole = role;
+        clearFullNameError();
+        clearEmailError();
+        clearPasswordError();
+        if (role === 'operator') {
+          roleBtnOperator.classList.add('active');
+          roleBtnTraveller.classList.remove('active');
+        } else {
+          roleBtnTraveller.classList.add('active');
+          roleBtnOperator.classList.remove('active');
+        }
+        submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+      }
+
+      function showNotice(msg) {
+        noticeText.textContent = msg;
+        noticeBox.style.display = 'flex';
+      }
+
+      function setFullNameError(msg) {
+        if (loginFullName) loginFullName.classList.add('is-invalid');
+        if (fullNameError) {
+          fullNameError.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${msg}`;
+          fullNameError.style.display = 'flex';
+        }
+      }
+
+      function clearFullNameError() {
+        if (loginFullName) loginFullName.classList.remove('is-invalid');
+        if (fullNameError) {
+          fullNameError.style.display = 'none';
+          fullNameError.innerHTML = '';
+        }
+      }
+
+      function setEmailError(msg) {
+        loginEmail.classList.add('is-invalid');
+        emailError.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${msg}`;
+        emailError.style.display = 'flex';
+      }
+
+      function clearEmailError() {
+        loginEmail.classList.remove('is-invalid');
+        emailError.style.display = 'none';
+        emailError.innerHTML = '';
+      }
+
+      function setPasswordError(msg) {
+        loginPassword.classList.add('is-invalid');
+        passwordError.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${msg}`;
+        passwordError.style.display = 'flex';
+      }
+
+      function clearPasswordError() {
+        loginPassword.classList.remove('is-invalid');
+        passwordError.style.display = 'none';
+        passwordError.innerHTML = '';
+      }
+
+      roleBtnTraveller.addEventListener('click', () => selectRole('traveller'));
+      roleBtnOperator.addEventListener('click', () => selectRole('operator'));
+
+      if (loginFullName) {
+        loginFullName.addEventListener('input', () => {
+          if (loginFullName.value.trim()) clearFullNameError();
+        });
+      }
+      loginEmail.addEventListener('input', () => {
+        if (loginEmail.value.trim()) clearEmailError();
+      });
+      loginPassword.addEventListener('input', () => {
+        if (loginPassword.value) clearPasswordError();
+      });
+
+      if (forgotPasswordBtn) {
+        forgotPasswordBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.location.href = '404.html';
+        });
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        clearFullNameError();
+        clearEmailError();
+        clearPasswordError();
+
+        let hasError = false;
+        const nameVal = loginFullName ? loginFullName.value.trim() : '';
+        const emailVal = loginEmail.value.trim();
+        const passVal = loginPassword.value;
+
+        // 1. Validate Full Name
+        if (!nameVal) {
+          setFullNameError('Please enter your full name');
+          hasError = true;
+        }
+
+        // 2. Validate Email (Empty & Gmail format)
+        if (!emailVal) {
+          setEmailError('Please enter the email');
+          hasError = true;
+        } else {
+          const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
+          if (!gmailRegex.test(emailVal)) {
+            setEmailError('Please enter a valid Gmail address (e.g. name@gmail.com)');
+            hasError = true;
+          }
+        }
+
+        // 3. Validate Password (Empty & min 8 characters)
+        if (!passVal) {
+          setPasswordError('Please enter the password');
+          hasError = true;
+        } else if (passVal.length < 8) {
+          setPasswordError('Password must contain at least 8 characters');
+          hasError = true;
+        }
+
+        if (hasError) {
+          if (loginFullName && loginFullName.classList.contains('is-invalid')) {
+            loginFullName.focus();
+          } else if (loginEmail.classList.contains('is-invalid')) {
+            loginEmail.focus();
+          } else if (loginPassword.classList.contains('is-invalid')) {
+            loginPassword.focus();
+          }
+          return;
+        }
+
+        // Validated successfully
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+
+        const userData = {
+          name: nameVal,
+          email: emailVal,
+          role: currentRole
+        };
+
+        try {
+          localStorage.setItem('stackly_user', JSON.stringify(userData));
+          localStorage.setItem('stackly_logged_in', 'true');
+        } catch(err) {
+          console.warn('localStorage access error:', err);
+        }
+
+        try {
+          sessionStorage.setItem('stackly_user', JSON.stringify(userData));
+          sessionStorage.setItem('stackly_logged_in', 'true');
+        } catch(err) {
+          console.warn('sessionStorage access error:', err);
+        }
+
+        const targetDashboard = (currentRole === 'operator') ? 'dashboard-operator.html' : 'dashboard-traveller.html';
+
+        // Fast & reliable redirect
+        setTimeout(() => {
+          window.location.href = targetDashboard;
+        }, 180);
+
+        // Immediate fallback in case location.href does not trigger in certain webview/sandbox contexts
+        setTimeout(() => {
+          window.location.assign(targetDashboard);
+        }, 450);
+
+        // Re-enable button failsafe if navigation was somehow blocked
+        setTimeout(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+        }, 3500);
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

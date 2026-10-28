@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services & Curated Tour Packages — Stackly Tourism & Travel Portal</title>
+  <meta name="description" content="Explore Stackly's comprehensive travel services and 10 categories of guided tour packages with instant online price calculation and booking.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- STACKLY PRELOADER: BUILDING REVEAL + TRAVEL ANIMATION + LOGO REVEAL -->
+  <div id="stacklyPreloader" class="stackly-preloader" aria-label="Loading Stackly Travel Portal">
+    <div class="preloader-stage">
+      <svg class="flight-path-svg" viewBox="0 0 300 120">
+        <path class="flight-arc" d="M 20,100 Q 150,-10 280,100" />
+        <path id="preloaderPlane" class="plane-marker" d="M 0,-6 L 8,0 L 0,6 L 2,1 L -6,4 L -4,0 L -6,-4 L 2,-1 Z">
+          <animateMotion path="M 20,100 Q 150,-10 280,100" dur="2.2s" repeatCount="indefinite" rotate="auto" />
+        </path>
+      </svg>
+      <svg class="building-reveal-svg" viewBox="0 0 220 130">
+        <line x1="10" y1="125" x2="210" y2="125" class="arch-line" stroke-width="3" />
+        <rect x="25" y="60" width="28" height="65" class="arch-fill" />
+        <rect x="25" y="60" width="28" height="65" class="arch-line" />
+        <rect x="63" y="40" width="34" height="85" class="arch-fill" />
+        <rect x="63" y="40" width="34" height="85" class="arch-line" />
+        <rect x="107" y="20" width="45" height="105" class="arch-fill" />
+        <rect x="107" y="20" width="45" height="105" class="arch-line" />
+        <rect x="162" y="50" width="32" height="75" class="arch-fill" />
+        <rect x="162" y="50" width="32" height="75" class="arch-line" />
+        <path d="M 107,20 L 129.5,2 L 152,20 Z" class="arch-line" />
+        <path d="M 32,80 Q 39,70 46,80 L 46,125 L 32,125 Z" class="arch-line" />
+        <path d="M 72,60 Q 80,50 88,60 L 88,125 L 72,125 Z" class="arch-line" />
+        <path d="M 120,45 Q 129.5,35 139,45 L 139,125 L 120,125 Z" class="arch-line" />
+        <path d="M 170,70 Q 178,60 186,70 L 186,125 L 170,125 Z" class="arch-line" />
+      </svg>
+      <div id="preloaderLogoWrap" class="preloader-logo-wrap">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="preloader-logo">
+      </div>
+      <div id="preloaderBrandText" class="preloader-text">EXPLORE • DISCOVER • JOURNEY</div>
+      <div class="preloader-bar-wrap">
+        <div id="preloaderProgressBar" class="preloader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITE HEADER (5 CORE PAGES) -->
+  <header class="site-header">
+    <div class="container-wide header-inner">
+      <a href="index.html" class="brand-logo-link" aria-label="Stackly Home">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="brand-logo-img">
+      </a>
+      <nav class="main-navigation" aria-label="Primary Navigation">
+        <ul class="nav-menu-list">
+          <li class="nav-menu-item"><a href="index.html" class="nav-menu-link">Home</a></li>
+          <li class="nav-menu-item"><a href="about.html" class="nav-menu-link">About Us</a></li>
+          <li class="nav-menu-item"><a href="services.html" class="nav-menu-link active">Services</a></li>
+          <li class="nav-menu-item"><a href="blog.html" class="nav-menu-link">Blog</a></li>
+          <li class="nav-menu-item"><a href="contact.html" class="nav-menu-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-primary btn-sm"><i class="fas fa-user-circle"></i> Login</a>
+        <button id="mobileNavToggle" class="mobile-nav-toggle" aria-label="Open Navigation"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER (NAVIGATION + AUTH) -->
+  <div id="drawerBackdrop" class="drawer-backdrop"></div>
+  <aside id="mobileDrawer" class="mobile-drawer" aria-label="Mobile Navigation">
+    <div class="drawer-header">
+      <img src="assets/images/ui/logo.webp" alt="Stackly" class="drawer-logo-img">
+      <button id="drawerCloseBtn" class="drawer-close-btn" aria-label="Close Menu">&times;</button>
+    </div>
+    <ul class="drawer-nav-list">
+      <li><a href="index.html" class="drawer-nav-link"><i class="fas fa-home"></i> <span>Home</span></a></li>
+      <li><a href="about.html" class="drawer-nav-link"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+      <li><a href="services.html" class="drawer-nav-link active"><i class="fas fa-concierge-bell"></i> <span>Services &amp; Tours</span></a></li>
+      <li><a href="blog.html" class="drawer-nav-link"><i class="fas fa-newspaper"></i> <span>Blog</span></a></li>
+      <li><a href="contact.html" class="drawer-nav-link"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
+    </ul>
+    <div class="drawer-footer">
+      <a href="login.html" class="btn btn-primary" style="width:100%; justify-content:center;">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </a>
+      <a href="signup.html" class="btn btn-outline" style="width:100%; justify-content:center;">
+        <i class="fas fa-user-plus"></i> Create Account
+      </a>
+    </div>
+  </aside>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-bg">
+      <img src="assets/images/hero/services-hero.webp" alt="Stackly Services">
+    </div>
+    <div class="container page-hero-content">
+      <div class="breadcrumb-nav">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Services &amp; Tour Packages</span>
+      </div>
+      <h1 class="page-hero-title">Comprehensive Services &amp; Tour Packages</h1>
+      <p class="page-hero-desc">Discover our 12 end-to-end travel capabilities and browse 10 distinct categories of curated, bookable tour packages.</p>
+    </div>
+  </section>
+
+  <!-- 12 SERVICES GRID -->
+  <section class="section-padding bg-white">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tagline">End-to-End Solutions</span>
+        <h2 class="section-title">What We Offer Our Travellers</h2>
+        <p class="section-description">Our suite of 12 specialized travel services designed for total comfort, safety, and luxury.</p>
+      </div>
+
+      <div class="services-reveal-grid">
+        <!-- Card 1: Left Entrance -->
+        <div class="service-reveal-card service-from-left">
+          <div class="service-reveal-bg" style="background-image: url('assets/images/destinations/paris.webp');"></div>
+          <div class="service-reveal-content">
+            <div class="feature-icon-wrap" style="margin:0 0 20px;"><i class="fas fa-map-marked-alt"></i></div>
+            <h3 class="service-reveal-title">Customised Tour Planning</h3>
+            <p class="service-reveal-desc">Tailor every day, route, hotel grade, and activity to your schedule with personal travel designers.</p>
+          </div>
+        </div>
+
+        <!-- Card 2: Left Entrance -->
+        <div class="service-reveal-card service-from-left">
+          <div class="service-reveal-bg" style="background-image: url('assets/images/destinations/bali.webp');"></div>
+          <div class="service-reveal-content">
+            <div class="feature-icon-wrap" style="margin:0 0 20px;"><i class="fas fa-umbrella-beach"></i></div>
+            <h3 class="service-reveal-title">Curated Holiday Packages</h3>
+            <p class="service-reveal-desc">All-inclusive domestic and international vacations with transparent pricing and pre-booked activities.</p>
+          </div>
+        </div>
+
+        <!-- Card 3: Left Entrance -->
+        <div class="service-reveal-card service-from-left">
+          <div class="service-reveal-bg" style="background-image: url('assets/images/destinations/switzerland.webp');"></div>
+          <div class="service-reveal-content">
+            <div class="feature-icon-wrap" style="margin:0 0 20px;"><i class="fas fa-hiking"></i></div>
+            <h3 class="service-reveal-title">Adventure &amp; Expeditions</h3>
+            <p class="service-reveal-desc">High-altitude alpine treks, paragliding, river descents, and deep-sea scuba safaris with international certifications.</p>
+          </div>
+        </div>
+
+        <!-- Card 4: Down Entrance -->
+        <div class="service-reveal-card service-from-down">
+          <div class="service-reveal-bg" style="background-image: url('assets/images/destinations/maldives.webp');"></div>
+          <div class="service-reveal-content">
+            <div class="feature-icon-wrap" style="margin:0 0 20px;"><i class="fas fa-hotel"></i></div>
+            <h3 class="service-reveal-title">Luxury Hotel Reservations</h3>
+            <p class="service-reveal-desc">Exclusive preferred partnerships with 5-star resort collections, overwater villas, and historic châteaux.</p>
+          </div>
+        </div>
+
+        <!-- Card 5: Down Entrance -->
+        <div class="service-reveal-card service-from-down">
+          <div class="service-reveal-bg" style="background-image: url('assets/images/destinations/dubai.webp');"></div>
+          <div class="service-reveal-content">
+            <div class="feature-icon-wrap" style="margin:0 0 20px;"><i class="fas fa-car-side"></i></div>
+            <h3 class="service-reveal-title">Transportation Arrangements</h3>
+            <p class="service-reveal-desc">Chauffeured luxury AC vehicles, high-speed rail passes, speedboats, and inter-island catamaran transfers.</p>
+          </div>
+        </div>
+
+        <!-- Card 6: Down Entrance -->
+        <div class="service-reveal-card service-from-down">
+          <div class="service-reveal-bg" style="background-image: url('assets/images/destinations/japan.webp');"></div>
+          <div class="service-reveal-content">
+            <div class="feature-icon-wrap" style="margin:0 0 20px;"><i class="fas fa-plane-departure"></i></div>
+            <h3 class="service-reveal-title">Flight &amp; Route Assistance</h3>
+            <p class="service-reveal-desc">Domestic connection coordination, seat selection, extra baggage waivers, and dedicated flight rebooking support.</p>
+          </div>
+        </div>
+
+        <!-- Card 7: Right Entrance -->
+        <div class="service-reveal-card service-from-right">
+          <div class="service-reveal-bg" style="background-image: url('assets/images/destinations/kashmir.webp');"></div>
+          <div class="service-reveal-content">
+            <div class="feature-icon-wrap" style="margin:0 0 20px;"><i class="fas fa-user-tie"></i></div>
+            <h3 class="service-reveal-title">Licensed Tour Guides</h3>
+            <p class="service-reveal-desc">Certified bilingual storytellers, historical scholars, and wildlife trackers who bring cultural sites vibrantly to life.</p>
+          </div>
+        </div>
+
+        <!-- Card 8: Right Entrance -->
+        <div class="service-reveal-card service-from-right">
+          <div class="service-reveal-bg" style="background-image: url('assets/images/destinations/manali.webp');"></div>
+          <div class="service-reveal-content">
+            <div class="feature-icon-wrap" style="margin:0 0 20px;"><i class="fas fa-child"></i></div>
+            <h3 class="service-reveal-title">Family Holiday Packages</h3>
+            <p class="service-reveal-desc">Thoughtfully paced itineraries with kid-friendly activities, child discounts, adjoining resort suites, and educational fun.</p>
+          </div>
+        </div>
+
+        <!-- Card 9: Right Entrance -->
+        <div class="service-reveal-card service-from-right">
+          <div class="service-reveal-bg" style="background-image: url('assets/images/destinations/ooty.webp');"></div>
+          <div class="service-reveal-content">
+            <div class="feature-icon-wrap" style="margin:0 0 20px;"><i class="fas fa-heart"></i></div>
+            <h3 class="service-reveal-title">Romantic Honeymoon Trips</h3>
+            <p class="service-reveal-desc">Private candlelight dinners under coastal stars, couple spa indulgences, champagne welcomes, and secluded retreats.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4-STEP WORKFLOW (CONNECTING DASHED LINE & NUMBER ENLIGHTENMENT) -->
+  <section class="section-padding-sm bg-subtle" style="border-top:1px solid var(--border-light); border-bottom:1px solid var(--border-light);">
+    <div class="container">
+      <div class="section-header" style="margin-bottom:36px;">
+        <span class="section-tagline">How It Works</span>
+        <h2 class="section-title">Your Journey in 4 Simple Steps</h2>
+      </div>
+
+      <div class="step-workflow-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <h4 style="font-size:1.05rem; margin-bottom:6px;">Select Package</h4>
+          <p style="font-size:0.86rem; color:var(--text-muted); margin:0;">Choose from our handpicked tour packages across 10 categories.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <h4 style="font-size:1.05rem; margin-bottom:6px;">Customise &amp; Calculate</h4>
+          <p style="font-size:0.86rem; color:var(--text-muted); margin:0;">Select dates, adult &amp; child counts, and add-ons with live instant pricing.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <h4 style="font-size:1.05rem; margin-bottom:6px;">Instant Confirmation</h4>
+          <p style="font-size:0.86rem; color:var(--text-muted); margin:0;">Get your unique voucher code and automatic sync to Traveller &amp; Operator portals.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <h4 style="font-size:1.05rem; margin-bottom:6px;">Experience Magic</h4>
+          <p style="font-size:0.86rem; color:var(--text-muted); margin:0;">Enjoy chauffeured transfers, 5-star villas, and certified native guides.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTEGRATED TOUR PACKAGES CATALOG & DIRECT BOOKING -->
+  <section id="tourPackagesSection" class="section-padding bg-white">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tagline">Curated Tour Packages</span>
+        <h2 class="section-title">Explore &amp; Book Our Signature Tours</h2>
+        <p class="section-description">Filter across 10 travel categories with real-time price calculation and instant online reservation.</p>
+      </div>
+
+      <!-- Sort Controls with Custom Dropdown (Keyword Search Removed) -->
+      <div class="tour-sort-bar">
+        <label style="font-size:0.88rem; font-weight:700; color:var(--text-dark-navy);">Sort By:</label>
+        <div class="custom-select-wrapper" id="customTourSort" style="min-width:210px;">
+          <input type="hidden" id="tourSortSelect" value="featured">
+          <div class="custom-select-trigger" tabindex="0">
+            <span class="custom-select-placeholder">Featured Packages</span>
+            <i class="fas fa-chevron-down custom-select-arrow"></i>
+          </div>
+          <div class="custom-select-options">
+            <div class="custom-select-option selected" data-value="featured">Featured Packages</div>
+            <div class="custom-select-option" data-value="price-low">Price: Low to High</div>
+            <div class="custom-select-option" data-value="price-high">Price: High to Low</div>
+            <div class="custom-select-option" data-value="rating">Top Rated</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10 Category Tabs -->
+      <div class="filter-tabs-bar services-category-tabs">
+        <button class="filter-tab-btn tour-category-btn active" data-category="all">All Packages</button>
+        <button class="filter-tab-btn tour-category-btn" data-category="adventure">Adventure Tours</button>
+        <button class="filter-tab-btn tour-category-btn" data-category="family">Family Holidays</button>
+        <button class="filter-tab-btn tour-category-btn" data-category="honeymoon">Honeymoon Packages</button>
+        <button class="filter-tab-btn tour-category-btn" data-category="weekend">Weekend Getaways</button>
+        <button class="filter-tab-btn tour-category-btn" data-category="international">International Trips</button>
+        <button class="filter-tab-btn tour-category-btn" data-category="beach">Beach Holidays</button>
+        <button class="filter-tab-btn tour-category-btn" data-category="mountain">Mountain Tours</button>
+        <button class="filter-tab-btn tour-category-btn" data-category="wildlife">Wildlife Tours</button>
+        <button class="filter-tab-btn tour-category-btn" data-category="cultural">Cultural Tours</button>
+        <button class="filter-tab-btn tour-category-btn" data-category="luxury">Luxury Travel</button>
+      </div>
+
+      <!-- 6 Signature Tours Grid (Directional Arrival) -->
+      <div class="tours-grid three-card-grid">
+
+        <!-- 1. Bali Package (From Left) -->
+        <div class="tour-card tour-card-left" data-category="beach honeymoon adventure international luxury" data-price="1250" data-rating="4.9">
+          <div class="tour-card-media">
+            <img src="assets/images/tours/tour-bali.webp" alt="Bali Paradise Tour" class="tour-card-img" loading="lazy">
+            <span class="tour-badge">Best Seller</span>
+            <span class="tour-duration-badge"><i class="far fa-clock"></i> 7 Days / 6 Nights</span>
+          </div>
+          <div class="tour-card-body">
+            <div class="tour-meta-row">
+              <span class="tour-location"><i class="fas fa-map-marker-alt"></i> Bali, Indonesia</span>
+              <span class="tour-rating"><i class="fas fa-star"></i> 4.9 (128)</span>
+            </div>
+            <h3 class="tour-title"><a href="404.html">Bali Tropical Paradise &amp; Nusa Penida Island</a></h3>
+            <p class="tour-desc">Ubud jungle swings, sunrise trekking at Mt. Batur, private villa stays, and crystal coral snorkeling at Kelingking Bay.</p>
+            <div class="tour-card-footer">
+              <div class="tour-price-group">
+                <span class="price-label">Price per adult</span>
+                <span class="tour-price-amount">$1,250</span>
+              </div>
+              <div class="tour-card-actions">
+                <a href="404.html" class="btn btn-outline btn-sm"><i class="fas fa-route"></i> Itinerary</a>
+                <a href="404.html" class="btn btn-primary btn-sm">
+                  <i class="fas fa-calendar-check"></i> Book Now
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Swiss Alps Package (From Left) -->
+        <div class="tour-card tour-card-left" data-category="mountain luxury international adventure" data-price="2199" data-rating="5.0">
+          <div class="tour-card-media">
+            <img src="assets/images/tours/tour-switzerland.webp" alt="Swiss Alps Tour" class="tour-card-img" loading="lazy">
+            <span class="tour-badge">Iconic Alpine</span>
+            <span class="tour-duration-badge"><i class="far fa-clock"></i> 8 Days / 7 Nights</span>
+          </div>
+          <div class="tour-card-body">
+            <div class="tour-meta-row">
+              <span class="tour-location"><i class="fas fa-map-marker-alt"></i> Zermatt, Switzerland</span>
+              <span class="tour-rating"><i class="fas fa-star"></i> 5.0 (94)</span>
+            </div>
+            <h3 class="tour-title"><a href="404.html">Swiss Alps Glacier Express &amp; Peaks Odyssey</a></h3>
+            <p class="tour-desc">Ride the panoramic Glacier Express, ascend Matterhorn summit cable cars, and stay in boutique lakeside chalets in Lucerne.</p>
+            <div class="tour-card-footer">
+              <div class="tour-price-group">
+                <span class="price-label">Price per adult</span>
+                <span class="tour-price-amount">$2,199</span>
+              </div>
+              <div class="tour-card-actions">
+                <a href="404.html" class="btn btn-outline btn-sm"><i class="fas fa-route"></i> Itinerary</a>
+                <a href="404.html" class="btn btn-primary btn-sm">
+                  <i class="fas fa-calendar-check"></i> Book Now
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Maldives Package (From Down) -->
+        <div class="tour-card tour-card-down" data-category="beach luxury honeymoon international" data-price="2899" data-rating="4.95">
+          <div class="tour-card-media">
+            <img src="assets/images/tours/tour-maldives.webp" alt="Maldives Tour" class="tour-card-img" loading="lazy">
+            <span class="tour-badge">Ultra-Luxury</span>
+            <span class="tour-duration-badge"><i class="far fa-clock"></i> 6 Days / 5 Nights</span>
+          </div>
+          <div class="tour-card-body">
+            <div class="tour-meta-row">
+              <span class="tour-location"><i class="fas fa-map-marker-alt"></i> Male, Maldives</span>
+              <span class="tour-rating"><i class="fas fa-star"></i> 4.95 (82)</span>
+            </div>
+            <h3 class="tour-title"><a href="404.html">Maldives Overwater Luxury Villa Retreat</a></h3>
+            <p class="tour-desc">Stay in an iconic overwater villa with private plunge pool, daily dolphin cruises, and gourmet all-inclusive dining above the waves.</p>
+            <div class="tour-card-footer">
+              <div class="tour-price-group">
+                <span class="price-label">Price per adult</span>
+                <span class="tour-price-amount">$2,899</span>
+              </div>
+              <div class="tour-card-actions">
+                <a href="404.html" class="btn btn-outline btn-sm"><i class="fas fa-route"></i> Itinerary</a>
+                <a href="404.html" class="btn btn-primary btn-sm">
+                  <i class="fas fa-calendar-check"></i> Book Now
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Kashmir Package (From Down) -->
+        <div class="tour-card tour-card-down" data-category="mountain family honeymoon cultural" data-price="650" data-rating="4.92">
+          <div class="tour-card-media">
+            <img src="assets/images/tours/tour-kashmir.webp" alt="Kashmir Dal Lake Tour" class="tour-card-img" loading="lazy">
+            <span class="tour-badge">Paradise Valley</span>
+            <span class="tour-duration-badge"><i class="far fa-clock"></i> 6 Days / 5 Nights</span>
+          </div>
+          <div class="tour-card-body">
+            <div class="tour-meta-row">
+              <span class="tour-location"><i class="fas fa-map-marker-alt"></i> Srinagar, Kashmir</span>
+              <span class="tour-rating"><i class="fas fa-star"></i> 4.92 (115)</span>
+            </div>
+            <h3 class="tour-title"><a href="404.html">Kashmir Paradise Valley &amp; Dal Lake Houseboat</a></h3>
+            <p class="tour-desc">Traditional carved cedarwood houseboat living on Dal Lake, Gulmarg Gondola Phase 2, and Pahalgam Betab Valley exploration.</p>
+            <div class="tour-card-footer">
+              <div class="tour-price-group">
+                <span class="price-label">Price per adult</span>
+                <span class="tour-price-amount">$650</span>
+              </div>
+              <div class="tour-card-actions">
+                <a href="404.html" class="btn btn-outline btn-sm"><i class="fas fa-route"></i> Itinerary</a>
+                <a href="404.html" class="btn btn-primary btn-sm">
+                  <i class="fas fa-calendar-check"></i> Book Now
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Dubai Safari Package (From Right) -->
+        <div class="tour-card tour-card-right" data-category="international luxury family weekend" data-price="1450" data-rating="4.88">
+          <div class="tour-card-media">
+            <img src="assets/images/tours/tour-dubai.webp" alt="Dubai Safari Tour" class="tour-card-img" loading="lazy">
+            <span class="tour-badge">City &amp; Desert</span>
+            <span class="tour-duration-badge"><i class="far fa-clock"></i> 5 Days / 4 Nights</span>
+          </div>
+          <div class="tour-card-body">
+            <div class="tour-meta-row">
+              <span class="tour-location"><i class="fas fa-map-marker-alt"></i> Dubai, UAE</span>
+              <span class="tour-rating"><i class="fas fa-star"></i> 4.88 (76)</span>
+            </div>
+            <h3 class="tour-title"><a href="404.html">Dubai Red Dune Safari &amp; Marina Yacht Charter</a></h3>
+            <p class="tour-desc">VIP desert camp with barbecue dinner, Burj Khalifa At The Top tickets, private sunset yacht cruise, and Dubai Frame tour.</p>
+            <div class="tour-card-footer">
+              <div class="tour-price-group">
+                <span class="price-label">Price per adult</span>
+                <span class="tour-price-amount">$1,450</span>
+              </div>
+              <div class="tour-card-actions">
+                <a href="404.html" class="btn btn-outline btn-sm"><i class="fas fa-route"></i> Itinerary</a>
+                <a href="404.html" class="btn btn-primary btn-sm">
+                  <i class="fas fa-calendar-check"></i> Book Now
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Manali Package (From Right) -->
+        <div class="tour-card tour-card-right" data-category="mountain adventure family weekend" data-price="480" data-rating="4.85">
+          <div class="tour-card-media">
+            <img src="assets/images/tours/tour-manali.webp" alt="Manali Adventure Tour" class="tour-card-img" loading="lazy">
+            <span class="tour-badge">Thrill Seeker</span>
+            <span class="tour-duration-badge"><i class="far fa-clock"></i> 5 Days / 4 Nights</span>
+          </div>
+          <div class="tour-card-body">
+            <div class="tour-meta-row">
+              <span class="tour-location"><i class="fas fa-map-marker-alt"></i> Manali, India</span>
+              <span class="tour-rating"><i class="fas fa-star"></i> 4.85 (89)</span>
+            </div>
+            <h3 class="tour-title"><a href="404.html">Manali &amp; Solang Valley Adventure Expedition</a></h3>
+            <p class="tour-desc">Paragliding over Solang Valley, Rohtang Pass snow point, Beas River white water rafting, and Old Manali riverside cafes.</p>
+            <div class="tour-card-footer">
+              <div class="tour-price-group">
+                <span class="price-label">Price per adult</span>
+                <span class="tour-price-amount">$480</span>
+              </div>
+              <div class="tour-card-actions">
+                <a href="404.html" class="btn btn-outline btn-sm"><i class="fas fa-route"></i> Itinerary</a>
+                <a href="404.html" class="btn btn-primary btn-sm">
+                  <i class="fas fa-calendar-check"></i> Book Now
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- INQUIRY CTA (DOWNSIDE ENTRANCE ANIMATION) -->
+  <section class="section-padding bg-subtle">
+    <div class="container">
+      <div class="cta-banner cta-banner-enter-down">
+        <h2 class="cta-title">Need a Custom Tailored Itinerary?</h2>
+        <p class="cta-subtitle">Our destination specialists are ready to craft private luxury flights, villa bookings, or multi-country routes.</p>
+        <a href="404.html" class="btn btn-white btn-lg">
+          <i class="fas fa-paper-plane"></i> Request Custom Itinerary
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (5 CORE PAGES) -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <a href="index.html">
+            <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="footer-logo-img">
+          </a>
+          <p class="footer-brand-desc">Discover new destinations, experience unforgettable journeys, and explore the world with Stackly.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="services.html" class="footer-link">Services &amp; Tours</a></li>
+            <li><a href="blog.html" class="footer-link">Travel Journal</a></li>
+            <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Explore World</h4>
+          <ul class="footer-links-list">
+            <li><a href="tour-details.html" class="footer-link">Bali Paradise Escape</a></li>
+            <li><a href="#tourPackagesSection" class="footer-link">Swiss Alps Odyssey</a></li>
+            <li><a href="#tourPackagesSection" class="footer-link">Maldives Overwater Villa</a></li>
+            <li><a href="#tourPackagesSection" class="footer-link">Kashmir Dal Lake</a></li>
+            <li><a href="#tourPackagesSection" class="footer-link">Dubai Desert Safari</a></li>
+            <li><a href="#tourPackagesSection" class="footer-link">Tokyo Cultural Journey</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact Stackly</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone-alt footer-contact-icon"></i>
+            <div><strong>+1 (800) 782-2559</strong><div style="font-size:0.8rem; color:#94a3b8;">Mon - Sat, 9:00 AM - 7:00 PM EST</div></div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope footer-contact-icon"></i>
+            <div><strong>support@stacklytravel.com</strong></div>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Stackly+MMR+Complex+Chinna+Thirupathi+Salem+Tamil+Nadu+636008" target="_blank" rel="noopener" class="footer-contact-item footer-address-link" title="Open Stackly Salem on Google Maps">
+            <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+            <div>
+              <strong style="color:var(--text-dark-navy);">Stackly Salem HQ</strong>
+              <div style="font-size:0.82rem; color:var(--text-muted); line-height:1.4;">MMR Complex, Chinna Thirupathi, Salem, Tamil Nadu &ndash; 636008</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Stackly. All Rights Reserved.</div>
+        <div class="footer-legal-links">
+          <a href="contact.html">Privacy Policy</a>
+          <a href="contact.html">Terms and Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

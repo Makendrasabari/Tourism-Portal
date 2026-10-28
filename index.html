@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stackly Tourism & Travel Portal — Discover The World. Experience Every Journey.</title>
+  <meta name="description"
+    content="Explore breathtaking destinations, discover unforgettable tour packages, and plan your next adventure with Stackly. Premium blue & white travel portal.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- STACKLY PRELOADER: BUILDING REVEAL + TRAVEL ANIMATION + LOGO REVEAL -->
+  <div id="stacklyPreloader" class="stackly-preloader" aria-label="Loading Stackly Travel Portal">
+    <div class="preloader-stage">
+      <!-- Flight Path & Moving Plane -->
+      <svg class="flight-path-svg" viewBox="0 0 300 120">
+        <path class="flight-arc" d="M 20,100 Q 150,-10 280,100" />
+        <path id="preloaderPlane" class="plane-marker" d="M 0,-6 L 8,0 L 0,6 L 2,1 L -6,4 L -4,0 L -6,-4 L 2,-1 Z">
+          <animateMotion path="M 20,100 Q 150,-10 280,100" dur="2.2s" repeatCount="indefinite" rotate="auto" />
+        </path>
+      </svg>
+
+      <!-- Building Reveal Architectural Structure -->
+      <svg class="building-reveal-svg" viewBox="0 0 220 130">
+        <line x1="10" y1="125" x2="210" y2="125" class="arch-line" stroke-width="3" />
+        <rect x="25" y="60" width="28" height="65" class="arch-fill" />
+        <rect x="25" y="60" width="28" height="65" class="arch-line" />
+        <rect x="63" y="40" width="34" height="85" class="arch-fill" />
+        <rect x="63" y="40" width="34" height="85" class="arch-line" />
+        <rect x="107" y="20" width="45" height="105" class="arch-fill" />
+        <rect x="107" y="20" width="45" height="105" class="arch-line" />
+        <rect x="162" y="50" width="32" height="75" class="arch-fill" />
+        <rect x="162" y="50" width="32" height="75" class="arch-line" />
+        <path d="M 107,20 L 129.5,2 L 152,20 Z" class="arch-line" />
+        <path d="M 32,80 Q 39,70 46,80 L 46,125 L 32,125 Z" class="arch-line" />
+        <path d="M 72,60 Q 80,50 88,60 L 88,125 L 72,125 Z" class="arch-line" />
+        <path d="M 120,45 Q 129.5,35 139,45 L 139,125 L 120,125 Z" class="arch-line" />
+        <path d="M 170,70 Q 178,60 186,70 L 186,125 L 170,125 Z" class="arch-line" />
+      </svg>
+
+      <!-- Center Stackly Logo Reveal -->
+      <div id="preloaderLogoWrap" class="preloader-logo-wrap">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="preloader-logo">
+      </div>
+
+      <div id="preloaderBrandText" class="preloader-text">EXPLORE • DISCOVER • JOURNEY</div>
+      <div class="preloader-bar-wrap">
+        <div id="preloaderProgressBar" class="preloader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITE HEADER & NAVIGATION (5 MAIN PAGES) -->
+  <header class="site-header">
+    <div class="container-wide header-inner">
+      <a href="index.html" class="brand-logo-link" aria-label="Stackly Home">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="brand-logo-img">
+      </a>
+
+      <nav class="main-navigation" aria-label="Primary Navigation">
+        <ul class="nav-menu-list">
+          <li class="nav-menu-item"><a href="index.html" class="nav-menu-link active">Home</a></li>
+          <li class="nav-menu-item"><a href="about.html" class="nav-menu-link">About Us</a></li>
+          <li class="nav-menu-item"><a href="services.html" class="nav-menu-link">Services</a></li>
+          <li class="nav-menu-item"><a href="blog.html" class="nav-menu-link">Blog</a></li>
+          <li class="nav-menu-item"><a href="contact.html" class="nav-menu-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-primary btn-sm">
+          <i class="fas fa-user-circle"></i> Login
+        </a>
+        <button id="mobileNavToggle" class="mobile-nav-toggle" aria-label="Open Navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER (NAVIGATION + AUTH) -->
+  <div id="drawerBackdrop" class="drawer-backdrop"></div>
+  <aside id="mobileDrawer" class="mobile-drawer" aria-label="Mobile Navigation">
+    <div class="drawer-header">
+      <img src="assets/images/ui/logo.webp" alt="Stackly" class="drawer-logo-img">
+      <button id="drawerCloseBtn" class="drawer-close-btn" aria-label="Close Menu">&times;</button>
+    </div>
+    <ul class="drawer-nav-list">
+      <li><a href="index.html" class="drawer-nav-link active"><i class="fas fa-home"></i> <span>Home</span></a></li>
+      <li><a href="about.html" class="drawer-nav-link"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+      <li><a href="services.html" class="drawer-nav-link"><i class="fas fa-concierge-bell"></i> <span>Services &amp; Tours</span></a></li>
+      <li><a href="blog.html" class="drawer-nav-link"><i class="fas fa-newspaper"></i> <span>Blog</span></a></li>
+      <li><a href="contact.html" class="drawer-nav-link"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
+    </ul>
+    <div class="drawer-footer">
+      <a href="login.html" class="btn btn-primary" style="width:100%; justify-content:center;">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </a>
+      <a href="signup.html" class="btn btn-outline" style="width:100%; justify-content:center;">
+        <i class="fas fa-user-plus"></i> Create Account
+      </a>
+    </div>
+  </aside>
+
+  <!-- HERO SECTION WITH 5-IMAGE CONTINUOUS SLIDESHOW -->
+  <section class="hero-wrapper" id="homeHeroSection">
+    <!-- 5 Slides running continuously with smooth crossfade -->
+    <div class="hero-slider-track" id="heroSliderTrack">
+      <div class="hero-slide active">
+        <img src="assets/images/hero/hero-travel.webp" alt="World Travel Vista" class="hero-bg-img">
+      </div>
+      <div class="hero-slide">
+        <img src="assets/images/destinations/switzerland.webp" alt="Swiss Alps Glacier Express" class="hero-bg-img">
+      </div>
+      <div class="hero-slide">
+        <img src="assets/images/destinations/bali.webp" alt="Bali Tropical Paradise" class="hero-bg-img">
+      </div>
+      <div class="hero-slide">
+        <img src="assets/images/destinations/maldives.webp" alt="Maldives Overwater Sanctuary" class="hero-bg-img">
+      </div>
+      <div class="hero-slide">
+        <img src="assets/images/destinations/kashmir.webp" alt="Kashmir Alpine Haven" class="hero-bg-img">
+      </div>
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+      <span class="hero-badge">
+        <i class="fas fa-compass"></i> Curated Luxury Journeys & Global Expeditions
+      </span>
+      <h1 class="hero-title">Discover The World. Experience Every Journey.</h1>
+      <p class="hero-description">
+        <span class="hero-desc-line">Explore breathtaking destinations, discover unforgettable experiences,</span>
+        <span class="hero-desc-line">and plan your next adventure with Stackly.</span>
+      </p>
+      <div class="hero-actions" style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+        <a href="404.html" class="btn btn-primary btn-lg">
+          <i class="fas fa-search-location"></i> Explore Packages
+        </a>
+        <a href="404.html" class="btn btn-white btn-lg">
+          <i class="fas fa-globe-americas"></i> Popular Destinations
+        </a>
+      </div>
+
+      <!-- Slide Pagination Dots -->
+      <div class="hero-slide-indicators" id="heroSlideIndicators">
+        <button class="slide-indicator-dot active" aria-label="Slide 1" data-slide="0"></button>
+        <button class="slide-indicator-dot" aria-label="Slide 2" data-slide="1"></button>
+        <button class="slide-indicator-dot" aria-label="Slide 3" data-slide="2"></button>
+        <button class="slide-indicator-dot" aria-label="Slide 4" data-slide="3"></button>
+        <button class="slide-indicator-dot" aria-label="Slide 5" data-slide="4"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAVEL STATISTICS -->
+  <section class="stats-strip">
+    <div class="container" style="text-align:center;">
+      <div class="stats-live-badge">
+        <span class="stat-live-dot"></span> Live Real-Time Platform Activity
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number" data-target="24500" data-suffix="+">24,500+</div>
+          <div class="stat-label">Happy Travellers Guided</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="150" data-suffix="+">0+</div>
+          <div class="stat-label">Curated Global Destinations</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="99" data-suffix="%">0%</div>
+          <div class="stat-label">Customer Satisfaction Rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="12" data-suffix="+">0+</div>
+          <div class="stat-label">Years of Travel Excellence</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT STACKLY INTRODUCTION -->
+  <section class="section-padding bg-subtle">
+    <div class="container">
+      <div class="about-split-grid">
+        <div class="split-content-animated">
+          <span class="section-tagline">About Stackly</span>
+          <h2 class="section-title">Redefining Experiential Travel Across The Globe</h2>
+          <p class="section-description" style="margin-bottom:20px;">
+            At Stackly, we believe every journey should be transformative. Founded with a vision to craft seamless,
+            exhilarating, and authentic travel adventures, we bridge the gap between world wonders and discerning
+            explorers.
+          </p>
+          <p class="section-description" style="margin-bottom:30px;">
+            Whether you seek serenity on the pristine atolls of the Maldives, an alpine conquest in Switzerland, or
+            cultural immersion in Japan, our concierge travel specialists tailor every itinerary with precision, safety,
+            and luxury.
+          </p>
+          <div class="about-actions-group" style="display:flex; gap:16px; flex-wrap:wrap;">
+            <a href="404.html" class="btn btn-primary">
+              <i class="fas fa-book-open"></i> Our Full Story <i class="fas fa-arrow-right"></i>
+            </a>
+            <a href="404.html" class="btn btn-outline">
+              <i class="fas fa-compass"></i> Our Services &amp; Tours
+            </a>
+          </div>
+        </div>
+
+        <div class="split-puzzle-wrapper">
+          <div class="split-puzzle-backdrop"></div>
+          <div class="split-puzzle-grid" aria-label="Interactive 4-piece Stackly Travel Showcase">
+            <div class="puzzle-piece piece-tl">
+              <img src="assets/images/hero/about-hero.webp" alt="Stackly Travelers" class="puzzle-img">
+            </div>
+            <div class="puzzle-piece piece-tr">
+              <img src="assets/images/hero/about-hero.webp" alt="Stackly Travelers" class="puzzle-img">
+            </div>
+            <div class="puzzle-piece piece-bl">
+              <img src="assets/images/hero/about-hero.webp" alt="Stackly Travelers" class="puzzle-img">
+            </div>
+            <div class="puzzle-piece piece-br">
+              <img src="assets/images/hero/about-hero.webp" alt="Stackly Travelers" class="puzzle-img">
+            </div>
+          </div>
+          <div class="split-award-badge">
+            <div
+              style="width:52px; height:52px; border-radius:50%; background:var(--primary-blue); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0;">
+              <i class="fas fa-award"></i>
+            </div>
+            <div>
+              <div style="font-weight:800; font-size:1.1rem; color:var(--text-dark-navy);">World Travel Award</div>
+              <div style="font-size:0.8rem; color:var(--text-muted);">Best Curated Tour Portal 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPULAR DESTINATIONS SHOWCASE -->
+  <section id="popularDestinations" class="section-padding bg-white">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tagline">Iconic Horizons</span>
+        <h2 class="section-title">Popular Travel Destinations</h2>
+        <p class="section-description">Handpicked destinations featuring breathtaking natural vistas, rich heritage, and
+          world-class luxury resorts.</p>
+        <div style="margin-top:16px;">
+          <button type="button" id="reArrangeDestinationsBtn" class="gallery-shuffle-btn"
+            aria-label="Arrange Destinations">
+            <i class="fas fa-layer-group"></i> Arrange Destinations
+          </button>
+        </div>
+      </div>
+
+      <div class="filter-tabs-bar">
+        <button class="filter-tab-btn dest-filter-btn active" data-filter="all">All Destinations</button>
+        <button class="filter-tab-btn dest-filter-btn" data-filter="india">Incredible India</button>
+        <button class="filter-tab-btn dest-filter-btn" data-filter="international">International</button>
+        <button class="filter-tab-btn dest-filter-btn" data-filter="beach">Beaches & Islands</button>
+        <button class="filter-tab-btn dest-filter-btn" data-filter="mountain">Mountain Escapes</button>
+      </div>
+
+      <div class="destinations-grid six-card-grid" id="popularDestinationsGrid">
+        <!-- Bali -->
+        <div class="destination-card" data-category="international beach" data-region="Indonesia">
+          <div class="destination-media">
+            <img src="assets/images/destinations/bali.webp" alt="Bali, Indonesia" class="destination-img"
+              loading="lazy">
+            <span class="destination-tag">Top Pick</span>
+          </div>
+          <div class="destination-body">
+            <span class="destination-region"><i class="fas fa-map-pin"></i> Indonesia</span>
+            <h3 class="destination-name">Bali Island</h3>
+            <p class="destination-desc">Lush tropical terraces, sacred cliffside temples, and vibrant coastal beach
+              clubs.</p>
+            <div class="destination-footer">
+              <div class="destination-price-box">
+                <span class="price-label">Starting From</span>
+                <span class="price-amount">$1,250</span>
+              </div>
+              <a href="404.html" class="btn btn-outline btn-sm">
+                <i class="fas fa-calendar-check"></i> Book Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Switzerland -->
+        <div class="destination-card" data-category="international mountain" data-region="Switzerland">
+          <div class="destination-media">
+            <img src="assets/images/destinations/switzerland.webp" alt="Swiss Alps, Switzerland" class="destination-img"
+              loading="lazy">
+            <span class="destination-tag">Popular</span>
+          </div>
+          <div class="destination-body">
+            <span class="destination-region"><i class="fas fa-map-pin"></i> Switzerland</span>
+            <h3 class="destination-name">Swiss Alps</h3>
+            <p class="destination-desc">Snow-capped Alpine summits, panoramic Glacier Express trains, and crystal lakes.
+            </p>
+            <div class="destination-footer">
+              <div class="destination-price-box">
+                <span class="price-label">Starting From</span>
+                <span class="price-amount">$2,199</span>
+              </div>
+              <a href="404.html" class="btn btn-outline btn-sm">
+                <i class="fas fa-calendar-check"></i> Book Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Maldives -->
+        <div class="destination-card" data-category="international beach" data-region="Maldives">
+          <div class="destination-media">
+            <img src="assets/images/destinations/maldives.webp" alt="Maldives Overwater Atoll" class="destination-img"
+              loading="lazy">
+            <span class="destination-tag">Luxury</span>
+          </div>
+          <div class="destination-body">
+            <span class="destination-region"><i class="fas fa-map-pin"></i> Maldives</span>
+            <h3 class="destination-name">Maldives Atolls</h3>
+            <p class="destination-desc">Turquoise lagoons, private overwater villas, and vibrant coral reef marine
+              sanctuaries.</p>
+            <div class="destination-footer">
+              <div class="destination-price-box">
+                <span class="price-label">Starting From</span>
+                <span class="price-amount">$2,899</span>
+              </div>
+              <a href="404.html" class="btn btn-outline btn-sm">
+                <i class="fas fa-calendar-check"></i> Book Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kashmir -->
+        <div class="destination-card" data-category="india mountain" data-region="India">
+          <div class="destination-media">
+            <img src="assets/images/destinations/kashmir.webp" alt="Kashmir Dal Lake" class="destination-img"
+              loading="lazy">
+            <span class="destination-tag">Heaven on Earth</span>
+          </div>
+          <div class="destination-body">
+            <span class="destination-region"><i class="fas fa-map-pin"></i> India</span>
+            <h3 class="destination-name">Kashmir Valley</h3>
+            <p class="destination-desc">Shikara rides on Dal Lake, Gulmarg gondola excursions, and majestic Himalayan
+              meadows.</p>
+            <div class="destination-footer">
+              <div class="destination-price-box">
+                <span class="price-label">Starting From</span>
+                <span class="price-amount">$650</span>
+              </div>
+              <a href="404.html" class="btn btn-outline btn-sm">
+                <i class="fas fa-calendar-check"></i> Book Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dubai -->
+        <div class="destination-card" data-category="international" data-region="UAE">
+          <div class="destination-media">
+            <img src="assets/images/destinations/dubai.webp" alt="Dubai Cityscape" class="destination-img"
+              loading="lazy">
+            <span class="destination-tag">Metropolis</span>
+          </div>
+          <div class="destination-body">
+            <span class="destination-region"><i class="fas fa-map-pin"></i> UAE</span>
+            <h3 class="destination-name">Dubai Horizon</h3>
+            <p class="destination-desc">Ultra-modern skyscrapers, red dune desert safaris, and luxury yacht charters.
+            </p>
+            <div class="destination-footer">
+              <div class="destination-price-box">
+                <span class="price-label">Starting From</span>
+                <span class="price-amount">$1,450</span>
+              </div>
+              <a href="404.html" class="btn btn-outline btn-sm">
+                <i class="fas fa-calendar-check"></i> Book Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manali -->
+        <div class="destination-card" data-category="india mountain" data-region="India">
+          <div class="destination-media">
+            <img src="assets/images/destinations/manali.webp" alt="Manali Valley" class="destination-img"
+              loading="lazy">
+            <span class="destination-tag">Adventure</span>
+          </div>
+          <div class="destination-body">
+            <span class="destination-region"><i class="fas fa-map-pin"></i> India</span>
+            <h3 class="destination-name">Manali & Solang</h3>
+            <p class="destination-desc">High altitude mountain passes, apple orchards, river rafting, and Rohtang Pass
+              thrills.</p>
+            <div class="destination-footer">
+              <div class="destination-price-box">
+                <span class="price-label">Starting From</span>
+                <span class="price-amount">$480</span>
+              </div>
+              <a href="404.html" class="btn btn-outline btn-sm">
+                <i class="fas fa-calendar-check"></i> Book Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-center-action" style="text-align:center; margin-top:40px; padding:0 12px;">
+        <a href="404.html" class="btn btn-outline btn-lg">
+          <i class="fas fa-globe-americas"></i> Explore All Destinations in Detail
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED TOUR PACKAGES SECTION -->
+  <section id="featuredTours" class="section-padding bg-subtle">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tagline">Signature Journeys</span>
+        <h2 class="section-title">Featured Tour Packages</h2>
+        <p class="section-description">Immersive guided travel packages meticulously designed for unforgettable
+          memories.</p>
+        <div style="margin-top:16px;">
+          <button type="button" id="reShuffleToursBtn" class="gallery-shuffle-btn" aria-label="Shuffle tour packages">
+            <i class="fas fa-random"></i> Shuffle Tours
+          </button>
+        </div>
+      </div>
+
+      <div class="tours-grid three-card-grid featured-tours-shuffle-grid" id="featuredToursGrid">
+        <!-- Tour 1: Bali -->
+        <div class="tour-card" data-category="beach honeymoon adventure" data-price="1250" data-rating="4.9">
+          <div class="tour-card-media">
+            <img src="assets/images/tours/tour-bali.webp" alt="Bali Paradise Tour" class="tour-card-img" loading="lazy">
+            <span class="tour-badge">Best Seller</span>
+            <span class="tour-duration-badge"><i class="far fa-clock"></i> 7 Days / 6 Nights</span>
+          </div>
+          <div class="tour-card-body">
+            <div class="tour-meta-row">
+              <span class="tour-location"><i class="fas fa-map-marker-alt"></i> Bali, Indonesia</span>
+              <span class="tour-rating"><i class="fas fa-star"></i> 4.9 (128 reviews)</span>
+            </div>
+            <h3 class="tour-title"><a href="404.html">Bali Tropical Paradise & Nusa Penida Island</a></h3>
+            <p class="tour-desc">Experience Ubud jungle swings, sunrise trekking at Mt. Batur, sacred water temples, and
+              crystal Nusa Penida snorkel safari.</p>
+            <div class="tour-card-footer">
+              <div class="tour-price-group">
+                <span class="price-label">Price per person</span>
+                <span class="tour-price-amount">$1,250</span>
+              </div>
+              <div class="tour-card-actions">
+                <a href="404.html" class="btn btn-outline btn-sm"><i class="fas fa-info-circle"></i> Details</a>
+                <a href="404.html" class="btn btn-primary btn-sm"><i class="fas fa-ticket-alt"></i> Book Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tour 2: Swiss -->
+        <div class="tour-card" data-category="mountain luxury international" data-price="2199" data-rating="5.0">
+          <div class="tour-card-media">
+            <img src="assets/images/tours/tour-switzerland.webp" alt="Swiss Alps Tour" class="tour-card-img"
+              loading="lazy">
+            <span class="tour-badge">Premium</span>
+            <span class="tour-duration-badge"><i class="far fa-clock"></i> 8 Days / 7 Nights</span>
+          </div>
+          <div class="tour-card-body">
+            <div class="tour-meta-row">
+              <span class="tour-location"><i class="fas fa-map-marker-alt"></i> Zermatt, Switzerland</span>
+              <span class="tour-rating"><i class="fas fa-star"></i> 5.0 (94 reviews)</span>
+            </div>
+            <h3 class="tour-title"><a href="404.html">Swiss Alps Glacier Express & Peaks Odyssey</a></h3>
+            <p class="tour-desc">Ride the legendary panoramic trains, ride cable cars to the Matterhorn summit, and
+              enjoy boutique lakeside chalets in Lucerne.</p>
+            <div class="tour-card-footer">
+              <div class="tour-price-group">
+                <span class="price-label">Price per person</span>
+                <span class="tour-price-amount">$2,199</span>
+              </div>
+              <div class="tour-card-actions">
+                <a href="404.html" class="btn btn-outline btn-sm"><i class="fas fa-info-circle"></i> Details</a>
+                <a href="404.html" class="btn btn-primary btn-sm"><i class="fas fa-ticket-alt"></i> Book Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tour 3: Maldives -->
+        <div class="tour-card" data-category="beach luxury honeymoon" data-price="2899" data-rating="4.95">
+          <div class="tour-card-media">
+            <img src="assets/images/tours/tour-maldives.webp" alt="Maldives Tour" class="tour-card-img" loading="lazy">
+            <span class="tour-badge">Ultra-Luxury</span>
+            <span class="tour-duration-badge"><i class="far fa-clock"></i> 6 Days / 5 Nights</span>
+          </div>
+          <div class="tour-card-body">
+            <div class="tour-meta-row">
+              <span class="tour-location"><i class="fas fa-map-marker-alt"></i> Male, Maldives</span>
+              <span class="tour-rating"><i class="fas fa-star"></i> 4.95 (82 reviews)</span>
+            </div>
+            <h3 class="tour-title"><a href="404.html">Maldives Overwater Luxury Villa Retreat</a></h3>
+            <p class="tour-desc">Stay in an iconic overwater villa with private plunge pool, daily dolphin cruises, and
+              gourmet all-inclusive dining above the waves.</p>
+            <div class="tour-card-footer">
+              <div class="tour-price-group">
+                <span class="price-label">Price per person</span>
+                <span class="tour-price-amount">$2,899</span>
+              </div>
+              <div class="tour-card-actions">
+                <a href="404.html" class="btn btn-outline btn-sm"><i class="fas fa-info-circle"></i> Details</a>
+                <a href="404.html" class="btn btn-primary btn-sm"><i class="fas fa-ticket-alt"></i> Book Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-center-action" style="text-align:center; margin-top:40px; padding:0 12px;">
+        <a href="404.html" class="btn btn-primary btn-lg">
+          <i class="fas fa-th-large"></i> Browse All 10+ Tour Packages
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADVENTURE EXPERIENCES -->
+  <section class="section-padding bg-white" id="adventureExpeditionsSection">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tagline">Thrilling Journeys</span>
+        <h2 class="section-title">Adventure & Outdoor Expeditions</h2>
+        <p class="section-description">Push your boundaries with certified safety gear, local expedition experts, and
+          stunning terrains.</p>
+        <div style="margin-top:16px;">
+          <button type="button" id="reShuffleAdventureBtn" class="gallery-shuffle-btn" aria-label="Shuffle adventures">
+            <i class="fas fa-random"></i> Shuffle Adventures
+          </button>
+        </div>
+      </div>
+
+      <div class="adventure-grid" id="adventureExpeditionsGrid">
+        <div class="adventure-card">
+          <img src="assets/images/adventure/trekking.webp" alt="Alpine Trekking" class="adventure-img" loading="lazy">
+          <div class="adventure-overlay">
+            <h3 class="adventure-title"><a href="services.html#tourPackagesSection"
+                style="color:inherit; text-decoration:none;">Alpine Trekking</a></h3>
+            <p class="adventure-desc">Conquer dramatic mountain ridges and glacial trails with veteran guides.</p>
+            <a href="services.html#tourPackagesSection" class="adventure-link">View Treks</a>
+          </div>
+        </div>
+
+        <div class="adventure-card">
+          <img src="assets/images/adventure/scuba.webp" alt="Scuba Diving" class="adventure-img" loading="lazy">
+          <div class="adventure-overlay">
+            <h3 class="adventure-title"><a href="services.html#tourPackagesSection"
+                style="color:inherit; text-decoration:none;">Deep Sea Scuba</a></h3>
+            <p class="adventure-desc">Dive into crystal coral sanctuaries alongside manta rays and turtles.</p>
+            <a href="services.html#tourPackagesSection" class="adventure-link">View Dives</a>
+          </div>
+        </div>
+
+        <div class="adventure-card">
+          <img src="assets/images/adventure/paragliding.webp" alt="Paragliding" class="adventure-img" loading="lazy">
+          <div class="adventure-overlay">
+            <h3 class="adventure-title"><a href="services.html#tourPackagesSection"
+                style="color:inherit; text-decoration:none;">Sky Paragliding</a></h3>
+            <p class="adventure-desc">Soar above rolling valleys and alpine lakes with tandem master pilots.</p>
+            <a href="services.html#tourPackagesSection" class="adventure-link">View Flights</a>
+          </div>
+        </div>
+
+        <div class="adventure-card">
+          <img src="assets/images/adventure/camping.webp" alt="Wilderness Camping" class="adventure-img" loading="lazy">
+          <div class="adventure-overlay">
+            <h3 class="adventure-title"><a href="services.html#tourPackagesSection"
+                style="color:inherit; text-decoration:none;">Starlit Camping</a></h3>
+            <p class="adventure-desc">Camp under galaxies of stars with gourmet fireside dining and warmth.</p>
+            <a href="services.html#tourPackagesSection" class="adventure-link">View Camps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE STACKLY -->
+  <section class="section-padding bg-subtle" id="whyChooseSection">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tagline">The Stackly Standard</span>
+        <h2 class="section-title">Why Travel With Stackly?</h2>
+        <p class="section-description">We combine passion, technology, and local expertise to deliver seamless travel
+          experiences.</p>
+        <div style="margin-top:16px;">
+          <button type="button" id="reArrangeWhyChooseBtn" class="gallery-shuffle-btn" aria-label="Arrange reasons">
+            <i class="fas fa-layer-group"></i> Arrange Cards
+          </button>
+        </div>
+      </div>
+
+      <div class="why-choose-grid four-card-grid" id="whyChooseGrid">
+        <div class="feature-box">
+          <div class="feature-icon-wrap"><i class="fas fa-shield-alt"></i></div>
+          <h3 class="feature-title">Best Price & Value</h3>
+          <p class="feature-desc">Guaranteed transparent pricing with zero hidden fees and exclusive negotiated partner
+            rates.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrap"><i class="fas fa-user-tie"></i></div>
+          <h3 class="feature-title">Certified Local Guides</h3>
+          <p class="feature-desc">Passionate native storytellers and licensed guides who unlock authentic hidden
+            treasures.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrap"><i class="fas fa-headset"></i></div>
+          <h3 class="feature-title">24/7 Global Concierge</h3>
+          <p class="feature-desc">Round-the-clock dedicated travel support before, during, and after your epic journey.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrap"><i class="fas fa-sync-alt"></i></div>
+          <h3 class="feature-title">Flexible Booking</h3>
+          <p class="feature-desc">Worry-free rescheduling and seamless cancellation terms designed for modern peace of
+            mind.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUSTOMER TESTIMONIALS (LIVE CONTINUOUS HORIZONTAL RUN) -->
+  <section class="section-padding bg-subtle" style="overflow:hidden;">
+    <div class="container">
+      <div class="section-header" style="margin-bottom:20px;">
+        <span class="section-tagline">Traveller Voices</span>
+        <h2 class="section-title">What Our Explorers Say</h2>
+        <p class="section-description">Real reviews and heartwarming stories from adventurous souls who journeyed with
+          Stackly.</p>
+      </div>
+
+      <div style="text-align:center; margin-bottom:28px;">
+        <span class="live-stream-badge">
+          <span class="live-dot"></span> Live Explorer Feedback &bull; Continuous Feed
+        </span>
+      </div>
+    </div>
+
+    <!-- Edge-to-edge Live Marquee Track (Infinite Seamless Loop) -->
+    <div class="testimonials-marquee-wrapper" id="testimonialsMarqueeWrapper"
+      aria-label="Continuous traveller testimonials feed">
+      <div class="testimonials-marquee-track" id="testimonialsMarqueeTrack">
+
+        <!-- CARD 1: Elena Vance -->
+        <div class="testimonial-card">
+          <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="testimonial-text">
+            "Our Bali tour was simply beyond words! From the moment we landed to our private villa in Ubud and boat
+            excursion to Nusa Penida, Stackly handled every detail flawlessly."
+          </p>
+          <div class="testimonial-author-row">
+            <img src="assets/images/testimonials/avatar-1.webp" alt="Elena Vance" class="author-avatar" loading="lazy">
+            <div>
+              <div class="author-name">Elena Vance</div>
+              <div class="author-title">Explorer, California</div>
+            </div>
+            <div class="author-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: David & Sarah -->
+        <div class="testimonial-card">
+          <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="testimonial-text">
+            "The Swiss Alps expedition was the bucket-list trip of a lifetime. The Glacier Express views and alpine
+            guides recommended by Stackly made our honeymoon unforgettable."
+          </p>
+          <div class="testimonial-author-row">
+            <img src="assets/images/testimonials/avatar-2.webp" alt="David Sterling" class="author-avatar"
+              loading="lazy">
+            <div>
+              <div class="author-name">David &amp; Sarah</div>
+              <div class="author-title">Honeymooners, London</div>
+            </div>
+            <div class="author-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: Rajesh Kumar -->
+        <div class="testimonial-card">
+          <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="testimonial-text">
+            "Stackly's Tour Operator Portal and client management tools are phenomenal. As a local expedition partner,
+            our bookings surged by 40% with zero logistical hiccups."
+          </p>
+          <div class="testimonial-author-row">
+            <img src="assets/images/testimonials/avatar-3.webp" alt="Rajesh Kumar" class="author-avatar" loading="lazy">
+            <div>
+              <div class="author-name">Rajesh Kumar</div>
+              <div class="author-title">Tour Operator, Kashmir Expeditions</div>
+            </div>
+            <div class="author-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: Sophia Dubois -->
+        <div class="testimonial-card">
+          <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="testimonial-text">
+            "Traveling solo across Japan was made completely effortless with Stackly's 24/7 verified concierge. My tea
+            ceremony in Kyoto and ryokan stay were deeply transformative."
+          </p>
+          <div class="testimonial-author-row">
+            <img src="assets/images/testimonials/avatar-4.webp" alt="Sophia Dubois" class="author-avatar"
+              loading="lazy">
+            <div>
+              <div class="author-name">Sophia Dubois</div>
+              <div class="author-title">Cultural Voyager, Paris</div>
+            </div>
+            <div class="author-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5: Marcus & Chloe -->
+        <div class="testimonial-card">
+          <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="testimonial-text">
+            "The Maldives Overwater Sanctuary and private manta ray reef excursion blew our minds. The sunset catamaran
+            cruises and bespoke villa dining were pure magic."
+          </p>
+          <div class="testimonial-author-row">
+            <img src="assets/images/testimonials/avatar-2.webp" alt="Marcus & Chloe" class="author-avatar"
+              loading="lazy">
+            <div>
+              <div class="author-name">Marcus &amp; Chloe</div>
+              <div class="author-title">Adventure Seekers, Sydney</div>
+            </div>
+            <div class="author-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==============================================================
+             DUPLICATE SET (CLONES FOR SEAMLESS 100% INFINITE CONTINUOUS LOOP)
+             ============================================================== -->
+
+        <!-- CARD 1 CLONE -->
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="testimonial-text">
+            "Our Bali tour was simply beyond words! From the moment we landed to our private villa in Ubud and boat
+            excursion to Nusa Penida, Stackly handled every detail flawlessly."
+          </p>
+          <div class="testimonial-author-row">
+            <img src="assets/images/testimonials/avatar-1.webp" alt="Elena Vance" class="author-avatar" loading="lazy">
+            <div>
+              <div class="author-name">Elena Vance</div>
+              <div class="author-title">Explorer, California</div>
+            </div>
+            <div class="author-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2 CLONE -->
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="testimonial-text">
+            "The Swiss Alps expedition was the bucket-list trip of a lifetime. The Glacier Express views and alpine
+            guides recommended by Stackly made our honeymoon unforgettable."
+          </p>
+          <div class="testimonial-author-row">
+            <img src="assets/images/testimonials/avatar-2.webp" alt="David Sterling" class="author-avatar"
+              loading="lazy">
+            <div>
+              <div class="author-name">David &amp; Sarah</div>
+              <div class="author-title">Honeymooners, London</div>
+            </div>
+            <div class="author-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3 CLONE -->
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="testimonial-text">
+            "Stackly's Tour Operator Portal and client management tools are phenomenal. As a local expedition partner,
+            our bookings surged by 40% with zero logistical hiccups."
+          </p>
+          <div class="testimonial-author-row">
+            <img src="assets/images/testimonials/avatar-3.webp" alt="Rajesh Kumar" class="author-avatar" loading="lazy">
+            <div>
+              <div class="author-name">Rajesh Kumar</div>
+              <div class="author-title">Tour Operator, Kashmir Expeditions</div>
+            </div>
+            <div class="author-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4 CLONE -->
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="testimonial-text">
+            "Traveling solo across Japan was made completely effortless with Stackly's 24/7 verified concierge. My tea
+            ceremony in Kyoto and ryokan stay were deeply transformative."
+          </p>
+          <div class="testimonial-author-row">
+            <img src="assets/images/testimonials/avatar-4.webp" alt="Sophia Dubois" class="author-avatar"
+              loading="lazy">
+            <div>
+              <div class="author-name">Sophia Dubois</div>
+              <div class="author-title">Cultural Voyager, Paris</div>
+            </div>
+            <div class="author-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5 CLONE -->
+        <div class="testimonial-card" aria-hidden="true">
+          <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="testimonial-text">
+            "The Maldives Overwater Sanctuary and private manta ray reef excursion blew our minds. The sunset catamaran
+            cruises and bespoke villa dining were pure magic."
+          </p>
+          <div class="testimonial-author-row">
+            <img src="assets/images/testimonials/avatar-2.webp" alt="Marcus & Chloe" class="author-avatar"
+              loading="lazy">
+            <div>
+              <div class="author-name">Marcus &amp; Chloe</div>
+              <div class="author-title">Adventure Seekers, Sydney</div>
+            </div>
+            <div class="author-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER & FINAL BOOKING CTA BANNER -->
+  <section class="section-padding bg-subtle" style="overflow:hidden;">
+    <div class="container">
+      <div class="cta-banner cta-banner-enter-right" id="homeNewsletterCta">
+        <h2 class="cta-title">Ready To Plan Your Next Epic Adventure?</h2>
+        <p class="cta-subtitle">
+          Subscribe to our weekly travel dispatch for private flash sales, insider travel hacks, and bespoke itineraries
+          curated by Stackly experts.
+        </p>
+        <div class="newsletter-form-wrapper"
+          style="max-width:520px; margin:0 auto; display:flex; flex-direction:column; align-items:center;">
+          <form class="newsletter-form-row" id="homeNewsletterForm" action="404.html" method="GET" novalidate
+            style="width:100%;">
+            <input type="email" class="newsletter-input" id="newsletterEmailInput"
+              placeholder="Enter your email address..." aria-label="Email Address">
+            <button type="submit" class="newsletter-btn" id="newsletterSubmitBtn">Subscribe Now</button>
+          </form>
+          <div class="newsletter-error-msg" id="newsletterErrorMsg" style="display:none;" role="alert">
+            <i class="fas fa-exclamation-circle" style="color:#ef4444;"></i>
+            <span>Please enter the email</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (5 CORE PAGES) -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <a href="index.html">
+            <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="footer-logo-img">
+          </a>
+          <p class="footer-brand-desc">
+            Discover new destinations, experience unforgettable journeys, and explore the world with Stackly.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="services.html" class="footer-link">Services &amp; Tours</a></li>
+            <li><a href="blog.html" class="footer-link">Travel Journal</a></li>
+            <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Explore World</h4>
+          <ul class="footer-links-list">
+            <li><a href="tour-details.html" class="footer-link">Bali Paradise Escape</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Swiss Alps Odyssey</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Maldives Overwater Villa</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Kashmir Dal Lake</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Dubai Desert Safari</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Tokyo Cultural Journey</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Contact Stackly</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone-alt footer-contact-icon"></i>
+            <div>
+              <strong>+1 (800) 782-2559</strong>
+              <div style="font-size:0.8rem; color:#94a3b8;">Mon - Sat, 9:00 AM - 7:00 PM EST</div>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope footer-contact-icon"></i>
+            <div>
+              <strong>support@stacklytravel.com</strong>
+              <div style="font-size:0.8rem; color:#94a3b8;">Concierge: concierge@stacklytravel.com</div>
+            </div>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Stackly+MMR+Complex+Chinna+Thirupathi+Salem+Tamil+Nadu+636008"
+            target="_blank" rel="noopener" class="footer-contact-item footer-address-link"
+            title="Open Stackly Salem on Google Maps">
+            <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+            <div>
+              <strong style="color:var(--text-dark-navy);">Stackly Salem HQ</strong>
+              <div style="font-size:0.82rem; color:var(--text-muted); line-height:1.4;">MMR Complex, Chinna Thirupathi,
+                Salem, Tamil Nadu &ndash; 636008</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Stackly. All Rights Reserved.</div>
+        <div class="footer-legal-links">
+          <a href="contact.html">Privacy Policy</a>
+          <a href="contact.html">Terms and Conditions</a>
+          <a href="login.html">Partner Login</a>
+          <a href="dashboard-traveller.html">Traveller Portal</a>
+          <a href="dashboard-operator.html">Operator Portal</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

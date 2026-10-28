@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Journal & Destination Spotlights — Stackly Tourism & Travel Portal</title>
+  <meta name="description" content="Discover inspiring travel stories, expert packing tips, destination spotlights, and cultural secrets curated by Stackly explorers.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- STACKLY PRELOADER: BUILDING REVEAL + TRAVEL ANIMATION + LOGO REVEAL -->
+  <div id="stacklyPreloader" class="stackly-preloader" aria-label="Loading Stackly Travel Portal">
+    <div class="preloader-stage">
+      <svg class="flight-path-svg" viewBox="0 0 300 120">
+        <path class="flight-arc" d="M 20,100 Q 150,-10 280,100" />
+        <path id="preloaderPlane" class="plane-marker" d="M 0,-6 L 8,0 L 0,6 L 2,1 L -6,4 L -4,0 L -6,-4 L 2,-1 Z">
+          <animateMotion path="M 20,100 Q 150,-10 280,100" dur="2.2s" repeatCount="indefinite" rotate="auto" />
+        </path>
+      </svg>
+      <svg class="building-reveal-svg" viewBox="0 0 220 130">
+        <line x1="10" y1="125" x2="210" y2="125" class="arch-line" stroke-width="3" />
+        <rect x="25" y="60" width="28" height="65" class="arch-fill" />
+        <rect x="25" y="60" width="28" height="65" class="arch-line" />
+        <rect x="63" y="40" width="34" height="85" class="arch-fill" />
+        <rect x="63" y="40" width="34" height="85" class="arch-line" />
+        <rect x="107" y="20" width="45" height="105" class="arch-fill" />
+        <rect x="107" y="20" width="45" height="105" class="arch-line" />
+        <rect x="162" y="50" width="32" height="75" class="arch-fill" />
+        <rect x="162" y="50" width="32" height="75" class="arch-line" />
+        <path d="M 107,20 L 129.5,2 L 152,20 Z" class="arch-line" />
+        <path d="M 32,80 Q 39,70 46,80 L 46,125 L 32,125 Z" class="arch-line" />
+        <path d="M 72,60 Q 80,50 88,60 L 88,125 L 72,125 Z" class="arch-line" />
+        <path d="M 120,45 Q 129.5,35 139,45 L 139,125 L 120,125 Z" class="arch-line" />
+        <path d="M 170,70 Q 178,60 186,70 L 186,125 L 170,125 Z" class="arch-line" />
+      </svg>
+      <div id="preloaderLogoWrap" class="preloader-logo-wrap">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="preloader-logo">
+      </div>
+      <div id="preloaderBrandText" class="preloader-text">EXPLORE • DISCOVER • JOURNEY</div>
+      <div class="preloader-bar-wrap">
+        <div id="preloaderProgressBar" class="preloader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITE HEADER (5 CORE PAGES) -->
+  <header class="site-header">
+    <div class="container-wide header-inner">
+      <a href="index.html" class="brand-logo-link" aria-label="Stackly Home">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="brand-logo-img">
+      </a>
+      <nav class="main-navigation" aria-label="Primary Navigation">
+        <ul class="nav-menu-list">
+          <li class="nav-menu-item"><a href="index.html" class="nav-menu-link">Home</a></li>
+          <li class="nav-menu-item"><a href="about.html" class="nav-menu-link">About Us</a></li>
+          <li class="nav-menu-item"><a href="services.html" class="nav-menu-link">Services</a></li>
+          <li class="nav-menu-item"><a href="blog.html" class="nav-menu-link active">Blog</a></li>
+          <li class="nav-menu-item"><a href="contact.html" class="nav-menu-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-primary btn-sm"><i class="fas fa-user-circle"></i> Login</a>
+        <button id="mobileNavToggle" class="mobile-nav-toggle" aria-label="Open Navigation"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER (NAVIGATION + AUTH) -->
+  <div id="drawerBackdrop" class="drawer-backdrop"></div>
+  <aside id="mobileDrawer" class="mobile-drawer" aria-label="Mobile Navigation">
+    <div class="drawer-header">
+      <img src="assets/images/ui/logo.webp" alt="Stackly" class="drawer-logo-img">
+      <button id="drawerCloseBtn" class="drawer-close-btn" aria-label="Close Menu">&times;</button>
+    </div>
+    <ul class="drawer-nav-list">
+      <li><a href="index.html" class="drawer-nav-link"><i class="fas fa-home"></i> <span>Home</span></a></li>
+      <li><a href="about.html" class="drawer-nav-link"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+      <li><a href="services.html" class="drawer-nav-link"><i class="fas fa-concierge-bell"></i> <span>Services &amp; Tours</span></a></li>
+      <li><a href="blog.html" class="drawer-nav-link active"><i class="fas fa-newspaper"></i> <span>Blog</span></a></li>
+      <li><a href="contact.html" class="drawer-nav-link"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
+    </ul>
+    <div class="drawer-footer">
+      <a href="login.html" class="btn btn-primary" style="width:100%; justify-content:center;">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </a>
+      <a href="signup.html" class="btn btn-outline" style="width:100%; justify-content:center;">
+        <i class="fas fa-user-plus"></i> Create Account
+      </a>
+    </div>
+  </aside>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-bg">
+      <img src="assets/images/hero/blog-hero.webp" alt="Travel Blog">
+    </div>
+    <div class="container page-hero-content">
+      <div class="breadcrumb-nav">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Travel Journal</span>
+      </div>
+      <h1 class="page-hero-title">The Stackly Travel Journal</h1>
+      <p class="page-hero-desc">Stories of epic discovery, expert travel tips, and in-depth cultural field notes from our global expeditions.</p>
+    </div>
+  </section>
+
+  <!-- FEATURED POST & BLOG GRID -->
+  <section class="section-padding bg-white">
+    <div class="container">
+
+      <!-- Featured Headline Post Banner (Split Left/Right Entrance) -->
+      <div class="blog-featured-banner">
+        <div class="featured-img-left">
+          <img src="assets/images/blog/blog-1.webp" alt="Featured Article" class="featured-article-img">
+        </div>
+        <div class="featured-content-right">
+          <div class="featured-meta-row">
+            <span class="featured-badge">
+              Featured Guide
+            </span>
+            <span class="featured-read-time"><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2 class="featured-article-title">
+            <a href="404.html">The Ultimate Guide to Island Hopping in Bali &amp; Nusa Penida: Secret Spots and Cultural Gems</a>
+          </h2>
+          <p class="featured-article-excerpt">
+            From secret swimming coves at Diamond Beach to climbing sacred sunrise summits at Mount Batur, discover how to see the authentic soul of Bali away from the crowded hotspots.
+          </p>
+          <div class="featured-author-row">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <img src="assets/images/testimonials/avatar-1.webp" alt="Elena Vance" style="width:44px; height:44px; border-radius:50%; object-fit:cover;">
+              <div>
+                <strong style="display:block; font-size:0.9rem;">Elena Vance</strong>
+                <span style="font-size:0.78rem; color:var(--text-muted);">Published Oct 24, 2026</span>
+              </div>
+            </div>
+            <a href="404.html" class="btn btn-primary btn-sm">
+              <i class="fas fa-book-reader"></i> Read Article
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- LATEST FROM STACKLY JOURNAL (3 CARDS CONVERGENT & DIRECTIONAL) -->
+      <div id="latestJournalSection" style="margin-bottom:70px;">
+        <div class="section-header" style="text-align:center; margin-bottom:40px;">
+          <span class="section-tagline">Travel Inspirations</span>
+          <h2 class="section-title">Latest From Stackly Journal</h2>
+          <p class="section-description">Insightful travel guides, insider tips, packing checklists, and cultural discoveries.</p>
+        </div>
+
+        <div class="blog-grid three-card-grid journal-reverse-grid" id="latestJournalGrid">
+          <!-- Card 1 (Left Card - Bali): Arrives 3rd in reverse sequence -->
+          <div class="blog-card journal-card-rev journal-card-rev-1">
+            <div class="blog-media">
+              <a href="404.html" aria-label="Read Bali Island Hopping Guide">
+                <img src="assets/images/blog/blog-1.webp" alt="Bali Island Hopping Guide" class="blog-img" loading="lazy">
+              </a>
+              <span class="blog-category-tag">Destination Guides</span>
+            </div>
+            <div class="blog-body">
+              <div class="blog-meta">
+                <span><i class="far fa-calendar-alt"></i> Oct 24, 2026</span>
+                <span><i class="far fa-clock"></i> 6 min read</span>
+              </div>
+              <h3 class="blog-title"><a href="404.html">The Ultimate Guide to Island Hopping in Bali &amp; Nusa Penida</a></h3>
+              <p class="blog-excerpt">Uncover secret snorkeling reefs, cliffside viewpoints, and tranquil sunset spots away from the bustling crowds.</p>
+              <a href="404.html" class="blog-read-more btn btn-outline btn-sm" style="margin-top:auto; align-self:flex-start;"><i class="fas fa-book-open"></i> Read Full Story</a>
+            </div>
+          </div>
+
+          <!-- Card 2 (Center Card - Swiss Alps): Arrives 2nd in reverse sequence -->
+          <div class="blog-card journal-card-rev journal-card-rev-2">
+            <div class="blog-media">
+              <a href="404.html" aria-label="Read Swiss Alps Hiking Guide">
+                <img src="assets/images/blog/blog-2.webp" alt="Swiss Alps Hiking" class="blog-img" loading="lazy">
+              </a>
+              <span class="blog-category-tag">Adventure Experiences</span>
+            </div>
+            <div class="blog-body">
+              <div class="blog-meta">
+                <span><i class="far fa-calendar-alt"></i> Oct 18, 2026</span>
+                <span><i class="far fa-clock"></i> 8 min read</span>
+              </div>
+              <h3 class="blog-title"><a href="404.html">Trekking the Swiss Alps: Essential Gear and Panoramic Routes</a></h3>
+              <p class="blog-excerpt">A comprehensive breakdown of must-haves for high-altitude day hikes, mountain huts, and train passes.</p>
+              <a href="404.html" class="blog-read-more btn btn-outline btn-sm" style="margin-top:auto; align-self:flex-start;"><i class="fas fa-book-open"></i> Read Full Story</a>
+            </div>
+          </div>
+
+          <!-- Card 3 (Right Card - Maldives): Arrives 1st (first) in reverse sequence -->
+          <div class="blog-card journal-card-rev journal-card-rev-3">
+            <div class="blog-media">
+              <a href="404.html" aria-label="Read Maldives Overwater Retreat Guide">
+                <img src="assets/images/blog/blog-3.webp" alt="Maldives Overwater Retreat" class="blog-img" loading="lazy">
+              </a>
+              <span class="blog-category-tag">Luxury Travel</span>
+            </div>
+            <div class="blog-body">
+              <div class="blog-meta">
+                <span><i class="far fa-calendar-alt"></i> Oct 12, 2026</span>
+                <span><i class="far fa-clock"></i> 5 min read</span>
+              </div>
+              <h3 class="blog-title"><a href="404.html">Why The Maldives Remains The World's Premier Romantic Sanctuary</a></h3>
+              <p class="blog-excerpt">From secluded sandbank dining to private reef bioluminescence swims, here is why paradise never fades.</p>
+              <a href="404.html" class="blog-read-more btn btn-outline btn-sm" style="margin-top:auto; align-self:flex-start;"><i class="fas fa-book-open"></i> Read Full Story</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STACKLY TRAVEL GALLERY SECTION (6 CARDS WITH DIRECTIONAL CONVERGENCE & CONTINUOUS BLACK LIGHT ENLIGHTENMENT) -->
+      <div id="stacklyTravelGallerySection" style="margin-bottom:70px;">
+        <div class="section-header" style="text-align:center; margin-bottom:36px;">
+          <span class="section-tagline">Visual Stories</span>
+          <h2 class="section-title">Stackly Travel Gallery</h2>
+          <p class="section-description">Moments of awe, wonder, and discovery captured by our travellers across the seven continents.</p>
+        </div>
+
+        <div class="gallery-grid" id="stacklyGalleryGrid">
+          <!-- Card 1: Lake Braies, Dolomites -->
+          <div class="gallery-item" tabindex="0" role="button" aria-label="Lake Braies, Dolomites, Italy">
+            <img src="assets/images/gallery/gallery-1.webp" alt="Lake Braies, Dolomites" loading="lazy">
+            <div class="gallery-hover-overlay">
+              <div class="gallery-place-info">
+                <span class="gallery-place-badge"><i class="fas fa-map-marker-alt"></i> Dolomites, Italy</span>
+                <h3 class="gallery-place-name">Lake Braies</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Sunset Beach, Maldives -->
+          <div class="gallery-item" tabindex="0" role="button" aria-label="Sunset Beach, Maldives">
+            <img src="assets/images/gallery/gallery-2.webp" alt="Tropical Sunset Beach, Maldives" loading="lazy">
+            <div class="gallery-hover-overlay">
+              <div class="gallery-place-info">
+                <span class="gallery-place-badge"><i class="fas fa-map-marker-alt"></i> Maldives Atoll</span>
+                <h3 class="gallery-place-name">Sunset Beach</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Yasaka Pagoda, Kyoto -->
+          <div class="gallery-item" tabindex="0" role="button" aria-label="Yasaka Pagoda, Kyoto, Japan">
+            <img src="assets/images/gallery/gallery-3.webp" alt="Yasaka Pagoda, Kyoto, Japan" loading="lazy">
+            <div class="gallery-hover-overlay">
+              <div class="gallery-place-info">
+                <span class="gallery-place-badge"><i class="fas fa-map-marker-alt"></i> Kyoto, Japan</span>
+                <h3 class="gallery-place-name">Yasaka Pagoda</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Downtown Skyline, Dubai -->
+          <div class="gallery-item" tabindex="0" role="button" aria-label="Downtown Skyline, Dubai, UAE">
+            <img src="assets/images/gallery/gallery-4.webp" alt="Dubai Downtown Skyline" loading="lazy">
+            <div class="gallery-hover-overlay">
+              <div class="gallery-place-info">
+                <span class="gallery-place-badge"><i class="fas fa-map-marker-alt"></i> Dubai, UAE</span>
+                <h3 class="gallery-place-name">Downtown Skyline</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: Lauterbrunnen Valley, Switzerland -->
+          <div class="gallery-item" tabindex="0" role="button" aria-label="Lauterbrunnen Valley, Swiss Alps, Switzerland">
+            <img src="assets/images/gallery/gallery-5.webp" alt="Lauterbrunnen Valley, Swiss Alps" loading="lazy">
+            <div class="gallery-hover-overlay">
+              <div class="gallery-place-info">
+                <span class="gallery-place-badge"><i class="fas fa-map-marker-alt"></i> Swiss Alps</span>
+                <h3 class="gallery-place-name">Lauterbrunnen Valley</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6: Ulun Danu Beratan, Bali -->
+          <div class="gallery-item" tabindex="0" role="button" aria-label="Ulun Danu Beratan Temple, Bali, Indonesia">
+            <img src="assets/images/gallery/gallery-6.webp" alt="Ulun Danu Beratan Temple, Bali" loading="lazy">
+            <div class="gallery-hover-overlay">
+              <div class="gallery-place-info">
+                <span class="gallery-place-badge"><i class="fas fa-map-marker-alt"></i> Bali, Indonesia</span>
+                <h3 class="gallery-place-name">Ulun Danu Beratan</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- INTEGRATED DESTINATION SPOTLIGHTS SECTION (1-BY-1 SEQUENTIAL ARRIVAL) -->
+      <div class="story-spotlight-wrapper">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:24px;">
+          <div>
+            <span class="section-tagline" style="display:block; text-align:left; margin-bottom:6px;">Journal Destinations</span>
+            <h3 style="font-size:1.6rem; margin:0;">Destinations Featured In Our Stories</h3>
+          </div>
+          <a href="404.html" class="btn btn-outline btn-sm"><i class="fas fa-th-large"></i> View All Tour Packages</a>
+        </div>
+
+        <div class="story-dest-grid">
+          <!-- Bali Spotlight -->
+          <div class="story-dest-card">
+            <img src="assets/images/destinations/bali.webp" alt="Bali" class="story-dest-img">
+            <div class="story-dest-info">
+              <strong class="story-dest-name">Bali &amp; Nusa Penida</strong>
+              <span class="story-dest-price">From $1,250</span>
+              <a href="404.html" class="btn btn-primary btn-sm story-dest-btn"><i class="fas fa-ticket-alt"></i> Book Now</a>
+            </div>
+          </div>
+
+          <!-- Swiss Alps Spotlight -->
+          <div class="story-dest-card">
+            <img src="assets/images/destinations/switzerland.webp" alt="Swiss Alps" class="story-dest-img">
+            <div class="story-dest-info">
+              <strong class="story-dest-name">Swiss Alps Express</strong>
+              <span class="story-dest-price">From $2,199</span>
+              <a href="404.html" class="btn btn-primary btn-sm story-dest-btn"><i class="fas fa-ticket-alt"></i> Book Now</a>
+            </div>
+          </div>
+
+          <!-- Maldives Spotlight -->
+          <div class="story-dest-card">
+            <img src="assets/images/destinations/maldives.webp" alt="Maldives" class="story-dest-img">
+            <div class="story-dest-info">
+              <strong class="story-dest-name">Maldives Villa Retreat</strong>
+              <span class="story-dest-price">From $2,899</span>
+              <a href="404.html" class="btn btn-primary btn-sm story-dest-btn"><i class="fas fa-ticket-alt"></i> Book Now</a>
+            </div>
+          </div>
+
+          <!-- Kashmir Spotlight -->
+          <div class="story-dest-card">
+            <img src="assets/images/destinations/kashmir.webp" alt="Kashmir" class="story-dest-img">
+            <div class="story-dest-info">
+              <strong class="story-dest-name">Kashmir Paradise</strong>
+              <span class="story-dest-price">From $650</span>
+              <a href="404.html" class="btn btn-primary btn-sm story-dest-btn"><i class="fas fa-ticket-alt"></i> Book Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER (5 CORE PAGES) -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <a href="index.html">
+            <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="footer-logo-img">
+          </a>
+          <p class="footer-brand-desc">Discover new destinations, experience unforgettable journeys, and explore the world with Stackly.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="services.html" class="footer-link">Services &amp; Tours</a></li>
+            <li><a href="blog.html" class="footer-link">Travel Journal</a></li>
+            <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Explore World</h4>
+          <ul class="footer-links-list">
+            <li><a href="tour-details.html" class="footer-link">Bali Paradise Escape</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Swiss Alps Odyssey</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Maldives Overwater Villa</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Kashmir Dal Lake</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Dubai Desert Safari</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Tokyo Cultural Journey</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact Stackly</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone-alt footer-contact-icon"></i>
+            <div><strong>+1 (800) 782-2559</strong><div style="font-size:0.8rem; color:#94a3b8;">Mon - Sat, 9:00 AM - 7:00 PM EST</div></div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope footer-contact-icon"></i>
+            <div><strong>support@stacklytravel.com</strong></div>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Stackly+MMR+Complex+Chinna+Thirupathi+Salem+Tamil+Nadu+636008" target="_blank" rel="noopener" class="footer-contact-item footer-address-link" title="Open Stackly Salem on Google Maps">
+            <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+            <div>
+              <strong style="color:var(--text-dark-navy);">Stackly Salem HQ</strong>
+              <div style="font-size:0.82rem; color:var(--text-muted); line-height:1.4;">MMR Complex, Chinna Thirupathi, Salem, Tamil Nadu &ndash; 636008</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Stackly. All Rights Reserved.</div>
+        <div class="footer-legal-links">
+          <a href="contact.html">Privacy Policy</a>
+          <a href="contact.html">Terms and Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

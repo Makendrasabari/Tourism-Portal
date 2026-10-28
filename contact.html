@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us & Custom Itineraries — Stackly Tourism & Travel Portal</title>
+  <meta name="description" content="Get in touch with Stackly travel concierges. Plan your custom vacation across 20+ destinations, inquire about group packages, or get 24/7 travel assistance.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- STACKLY PRELOADER: BUILDING REVEAL + TRAVEL ANIMATION + LOGO REVEAL -->
+  <div id="stacklyPreloader" class="stackly-preloader" aria-label="Loading Stackly Travel Portal">
+    <div class="preloader-stage">
+      <svg class="flight-path-svg" viewBox="0 0 300 120">
+        <path class="flight-arc" d="M 20,100 Q 150,-10 280,100" />
+        <path id="preloaderPlane" class="plane-marker" d="M 0,-6 L 8,0 L 0,6 L 2,1 L -6,4 L -4,0 L -6,-4 L 2,-1 Z">
+          <animateMotion path="M 20,100 Q 150,-10 280,100" dur="2.2s" repeatCount="indefinite" rotate="auto" />
+        </path>
+      </svg>
+      <svg class="building-reveal-svg" viewBox="0 0 220 130">
+        <line x1="10" y1="125" x2="210" y2="125" class="arch-line" stroke-width="3" />
+        <rect x="25" y="60" width="28" height="65" class="arch-fill" />
+        <rect x="25" y="60" width="28" height="65" class="arch-line" />
+        <rect x="63" y="40" width="34" height="85" class="arch-fill" />
+        <rect x="63" y="40" width="34" height="85" class="arch-line" />
+        <rect x="107" y="20" width="45" height="105" class="arch-fill" />
+        <rect x="107" y="20" width="45" height="105" class="arch-line" />
+        <rect x="162" y="50" width="32" height="75" class="arch-fill" />
+        <rect x="162" y="50" width="32" height="75" class="arch-line" />
+        <path d="M 107,20 L 129.5,2 L 152,20 Z" class="arch-line" />
+        <path d="M 32,80 Q 39,70 46,80 L 46,125 L 32,125 Z" class="arch-line" />
+        <path d="M 72,60 Q 80,50 88,60 L 88,125 L 72,125 Z" class="arch-line" />
+        <path d="M 120,45 Q 129.5,35 139,45 L 139,125 L 120,125 Z" class="arch-line" />
+        <path d="M 170,70 Q 178,60 186,70 L 186,125 L 170,125 Z" class="arch-line" />
+      </svg>
+      <div id="preloaderLogoWrap" class="preloader-logo-wrap">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="preloader-logo">
+      </div>
+      <div id="preloaderBrandText" class="preloader-text">EXPLORE • DISCOVER • JOURNEY</div>
+      <div class="preloader-bar-wrap">
+        <div id="preloaderProgressBar" class="preloader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITE HEADER (5 CORE PAGES) -->
+  <header class="site-header">
+    <div class="container-wide header-inner">
+      <a href="index.html" class="brand-logo-link" aria-label="Stackly Home">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="brand-logo-img">
+      </a>
+      <nav class="main-navigation" aria-label="Primary Navigation">
+        <ul class="nav-menu-list">
+          <li class="nav-menu-item"><a href="index.html" class="nav-menu-link">Home</a></li>
+          <li class="nav-menu-item"><a href="about.html" class="nav-menu-link">About Us</a></li>
+          <li class="nav-menu-item"><a href="services.html" class="nav-menu-link">Services</a></li>
+          <li class="nav-menu-item"><a href="blog.html" class="nav-menu-link">Blog</a></li>
+          <li class="nav-menu-item"><a href="contact.html" class="nav-menu-link active">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-primary btn-sm"><i class="fas fa-user-circle"></i> Login</a>
+        <button id="mobileNavToggle" class="mobile-nav-toggle" aria-label="Open Navigation"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER (NAVIGATION + AUTH) -->
+  <div id="drawerBackdrop" class="drawer-backdrop"></div>
+  <aside id="mobileDrawer" class="mobile-drawer" aria-label="Mobile Navigation">
+    <div class="drawer-header">
+      <img src="assets/images/ui/logo.webp" alt="Stackly" class="drawer-logo-img">
+      <button id="drawerCloseBtn" class="drawer-close-btn" aria-label="Close Menu">&times;</button>
+    </div>
+    <ul class="drawer-nav-list">
+      <li><a href="index.html" class="drawer-nav-link"><i class="fas fa-home"></i> <span>Home</span></a></li>
+      <li><a href="about.html" class="drawer-nav-link"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+      <li><a href="services.html" class="drawer-nav-link"><i class="fas fa-concierge-bell"></i> <span>Services &amp; Tours</span></a></li>
+      <li><a href="blog.html" class="drawer-nav-link"><i class="fas fa-newspaper"></i> <span>Blog</span></a></li>
+      <li><a href="contact.html" class="drawer-nav-link active"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
+    </ul>
+    <div class="drawer-footer">
+      <a href="login.html" class="btn btn-primary" style="width:100%; justify-content:center;">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </a>
+      <a href="signup.html" class="btn btn-outline" style="width:100%; justify-content:center;">
+        <i class="fas fa-user-plus"></i> Create Account
+      </a>
+    </div>
+  </aside>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-bg">
+      <img src="assets/images/hero/contact-hero.webp" alt="Contact Stackly">
+    </div>
+    <div class="container page-hero-content">
+      <div class="breadcrumb-nav">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Contact Us</span>
+      </div>
+      <h1 class="page-hero-title">We Are Here To Assist Your Journey</h1>
+      <p class="page-hero-desc">Have a question about a destination, private villa booking, or custom tour package? Reach out to our 24/7 concierge team.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM & INFO SECTION -->
+  <section class="section-padding bg-white">
+    <div class="container">
+      <div class="contact-split-grid">
+
+        <!-- Left Column: Contact Information Cards -->
+        <div class="contact-left-channels in-view">
+          <span class="section-tagline" style="display:block; text-align:left;">Get In Touch</span>
+          <h2 class="section-title" style="text-align:left; margin-bottom:20px;">Direct Communication Channels</h2>
+          <p class="section-description" style="text-align:left; margin-bottom:32px;">
+            Whether you are an individual explorer planning your bucket-list trip or a certified tour operator looking to list packages, we are always available.
+          </p>
+
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <!-- Phone -->
+            <div class="contact-channel-item in-view">
+              <div class="contact-channel-icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div class="contact-channel-details">
+                <h4 class="contact-channel-title">Phone Hotline</h4>
+                <div class="contact-channel-main">+1 (800) 782-2559</div>
+                <div class="contact-channel-sub">Monday &ndash; Saturday, 9:00 AM &ndash; 7:00 PM EST</div>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="contact-channel-item in-view">
+              <div class="contact-channel-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-channel-details">
+                <h4 class="contact-channel-title">Official Email Desks</h4>
+                <div class="contact-channel-main">support@stacklytravel.com</div>
+                <div class="contact-channel-sub">VIP Inquiries: concierge@stacklytravel.com</div>
+              </div>
+            </div>
+
+            <!-- Stackly Salem Headquarters Office -->
+            <a href="https://maps.google.com/?q=MMR+Complex,+Chinna+Thirupathi,+Salem,+Tamil+Nadu+636008" target="_blank" rel="noopener" class="footer-address-link contact-channel-item in-view">
+              <div class="contact-channel-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="contact-channel-details">
+                <div class="contact-channel-header-row">
+                  <h4 class="contact-channel-title">Stackly Headquarters &bull; Salem</h4>
+                  <span class="footer-map-chip"><i class="fas fa-directions"></i> Google Maps</span>
+                </div>
+                <div class="contact-channel-main">MMR Complex, Chinna Thirupathi, Salem, Tamil Nadu &ndash; 636008</div>
+                <div class="contact-channel-sub">Near Chinna Muniyappan Kovil &bull; Click to open in Google Maps</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Form with Destination & Package Quick-Selector -->
+        <div class="contact-right-form in-view">
+          <h3 style="font-size:1.6rem; margin-bottom:6px;">Custom Itinerary &amp; Trip Inquiry</h3>
+          <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;">
+            Select a destination or tour below to automatically populate your inquiry:
+          </p>
+
+          <!-- Interactive Quick-Picker Chips -->
+          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px;">
+            <button type="button" class="btn btn-outline btn-sm quick-inquiry-chip" data-dest="Bali" data-sub="Bali Island Hopping Package">
+              <i class="fas fa-umbrella-beach"></i> Bali &amp; Nusa Penida
+            </button>
+            <button type="button" class="btn btn-outline btn-sm quick-inquiry-chip" data-dest="Swiss Alps" data-sub="Swiss Alps Glacier Express Package">
+              <i class="fas fa-mountain"></i> Swiss Alps
+            </button>
+            <button type="button" class="btn btn-outline btn-sm quick-inquiry-chip" data-dest="Maldives" data-sub="Maldives Overwater Luxury Package">
+              <i class="fas fa-water"></i> Maldives Villas
+            </button>
+            <button type="button" class="btn btn-outline btn-sm quick-inquiry-chip" data-dest="Kashmir" data-sub="Kashmir Paradise Valley Package">
+              <i class="fas fa-ship"></i> Kashmir Dal Lake
+            </button>
+            <button type="button" class="btn btn-outline btn-sm quick-inquiry-chip" data-dest="Manali" data-sub="Manali Solang Valley Adventure">
+              <i class="fas fa-hiking"></i> Manali Adventure
+            </button>
+            <button type="button" class="btn btn-outline btn-sm quick-inquiry-chip" data-dest="Dubai" data-sub="Dubai Desert Safari &amp; Marina Yacht">
+              <i class="fas fa-city"></i> Dubai Safari
+            </button>
+          </div>
+
+          <div id="contactSuccessMsg" class="auth-success-banner" style="display:none;" role="status">
+            <i class="fas fa-check-circle"></i>
+            <span id="contactSuccessText">Thank you! Your travel inquiry has been received. A Stackly specialist will reach out within 4 business hours.</span>
+          </div>
+
+          <form id="contactUsForm" action="404.html" novalidate>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="contactName">Your Full Name *</label>
+                <div class="form-control-wrap">
+                  <i class="fas fa-user form-control-icon"></i>
+                  <input type="text" id="contactName" class="form-input" placeholder="e.g. Elena Vance">
+                </div>
+                <div id="contactNameError" class="field-error-text" style="display:none;"></div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contactEmail">Email Address *</label>
+                <div class="form-control-wrap">
+                  <i class="fas fa-envelope form-control-icon"></i>
+                  <input type="email" id="contactEmail" class="form-input" placeholder="e.g. yourname@gmail.com">
+                </div>
+                <div id="contactEmailError" class="field-error-text" style="display:none;"></div>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="contactPhone">Phone Number</label>
+                <div class="form-control-wrap">
+                  <i class="fas fa-phone form-control-icon"></i>
+                  <input type="tel" id="contactPhone" class="form-input" placeholder="+1 (555) 000-0000">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Destination of Interest</label>
+                <div class="custom-select-wrapper" id="customDestSelect">
+                  <input type="hidden" id="contactDest" name="destination" value="">
+                  <div class="custom-select-trigger" tabindex="0">
+                    <span class="custom-select-placeholder">Select Destination</span>
+                    <i class="fas fa-chevron-down custom-select-arrow"></i>
+                  </div>
+                  <div class="custom-select-options">
+                    <div class="custom-select-option" data-value="Bali">Bali, Indonesia</div>
+                    <div class="custom-select-option" data-value="Swiss Alps">Swiss Alps, Switzerland</div>
+                    <div class="custom-select-option" data-value="Maldives">Maldives Islands</div>
+                    <div class="custom-select-option" data-value="Kashmir">Kashmir, India</div>
+                    <div class="custom-select-option" data-value="Dubai">Dubai, UAE</div>
+                    <div class="custom-select-option" data-value="Paris">Paris, France</div>
+                    <div class="custom-select-option" data-value="Manali">Manali &amp; Solang, India</div>
+                    <div class="custom-select-option" data-value="Ooty">Ooty, India</div>
+                    <div class="custom-select-option" data-value="Kerala">Kerala Backwaters, India</div>
+                    <div class="custom-select-option" data-value="Goa">Goa, India</div>
+                    <div class="custom-select-option" data-value="Japan">Tokyo &amp; Kyoto, Japan</div>
+                    <div class="custom-select-option" data-value="Other">Other / Custom Multi-Country</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactSubject">Subject *</label>
+              <div class="form-control-wrap">
+                <i class="fas fa-tag form-control-icon"></i>
+                <input type="text" id="contactSubject" class="form-input" placeholder="e.g. Custom 2-Week Family Itinerary">
+              </div>
+              <div id="contactSubjectError" class="field-error-text" style="display:none;"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactMessage">Message / Specific Requests *</label>
+              <textarea id="contactMessage" class="form-input" rows="4" placeholder="Share your estimated dates, guest count, accommodation tier, or special dietary requirements..." style="padding-left:16px;"></textarea>
+              <div id="contactMessageError" class="field-error-text" style="display:none;"></div>
+            </div>
+
+            <button type="submit" id="contactSubmitBtn" class="btn btn-primary btn-lg" style="width:100%; font-size:1.05rem;">
+              <i class="fas fa-paper-plane"></i> Send Travel Inquiry
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STACKLY SALEM INTERACTIVE GOOGLE MAP SECTION (SWAPPED: COMES BEFORE FAQ) -->
+  <section class="section-padding bg-white" id="mapSection">
+    <div class="container">
+      <div style="background:#fff; border:1px solid var(--border-light); border-radius:var(--radius-xl); overflow:hidden; box-shadow:var(--shadow-card); position:relative;">
+        <div style="padding:22px 28px; background:linear-gradient(135deg, #eff6ff 0%, #ffffff 100%); border-bottom:1px solid var(--border-light); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <div style="width:46px; height:46px; border-radius:50%; background:var(--primary-blue); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.25rem; box-shadow:0 6px 18px rgba(56,35,201,0.25);">
+              <i class="fas fa-map-marked-alt"></i>
+            </div>
+            <div>
+              <h3 style="font-size:1.22rem; margin-bottom:3px; color:var(--text-dark-navy);">Stackly Headquarters &bull; Salem, Tamil Nadu</h3>
+              <p style="color:var(--text-muted); font-size:0.86rem; margin:0;">
+                MMR Complex, Chinna Thirupathi (near Chinna Muniyappan Kovil), Salem, Tamil Nadu &ndash; 636008
+              </p>
+            </div>
+          </div>
+          <a href="https://maps.google.com/?q=MMR+Complex,+Chinna+Thirupathi,+Salem,+Tamil+Nadu+636008" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+            <i class="fas fa-map-marked-alt"></i> Open in Google Maps
+          </a>
+        </div>
+        <div class="map-interactive-wrapper" id="interactiveMapContainer" onclick="window.open('https://maps.google.com/?q=MMR+Complex,+Chinna+Thirupathi,+Salem,+Tamil+Nadu+636008', '_blank')" title="Click anywhere to open interactive Google Maps">
+          <iframe 
+            src="https://maps.google.com/maps?q=MMR+Complex,+Chinna+Thirupathi,+Salem,+Tamil+Nadu+636008&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+            width="100%" 
+            height="100%" 
+            style="border:0; display:block; pointer-events:none;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Stackly Salem Headquarters Google Map">
+          </iframe>
+          <div class="map-interactive-overlay">
+            <div class="map-overlay-badge">
+              <i class="fas fa-external-link-alt"></i> Click map to open live location on Google Maps
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ ACCORDION SECTION (SWAPPED: COMES BEFORE FOOTER, 3 DIRECTIONAL CARDS) -->
+  <section class="section-padding bg-subtle" id="faqSection">
+    <div class="container" style="max-width:860px;">
+      <div class="section-header">
+        <span class="section-tagline">Common Inquiries</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-description">Quick answers to common questions about booking, cancellations, visas, and private travel.</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <!-- Card 1: From Right -->
+        <div class="faq-accordion-item faq-from-right">
+          <button type="button" class="faq-question-btn" aria-expanded="false">
+            <span>What is Stackly's booking cancellation &amp; direct refund policy?</span>
+            <span class="faq-chevron"><i class="fas fa-chevron-down"></i></span>
+          </button>
+          <div class="faq-answer">
+            <p style="margin:0;">We offer 100% full refund up to 14 days before your scheduled departure date on all standard tour packages. For cancellations within 7–13 days, we provide a 75% credit voucher valid for any global journey within 24 months, with hassle-free instant processing.</p>
+          </div>
+        </div>
+
+        <!-- Card 2: From Left -->
+        <div class="faq-accordion-item faq-from-left">
+          <button type="button" class="faq-question-btn" aria-expanded="false">
+            <span>Do you offer custom itineraries not listed on the website?</span>
+            <span class="faq-chevron"><i class="fas fa-chevron-down"></i></span>
+          </button>
+          <div class="faq-answer">
+            <p style="margin:0;">Absolutely! More than 40% of our clients request bespoke multi-city itineraries. Simply use the inquiry form above with your dream destinations, dates, and budget, and our private travel curators will design a personalized proposal.</p>
+          </div>
+        </div>
+
+        <!-- Card 3: From Right -->
+        <div class="faq-accordion-item faq-from-right">
+          <button type="button" class="faq-question-btn" aria-expanded="false">
+            <span>How do digital travel vouchers sync with the Traveller Dashboard?</span>
+            <span class="faq-chevron"><i class="fas fa-chevron-down"></i></span>
+          </button>
+          <div class="faq-answer">
+            <p style="margin:0;">Whenever you book any tour package on Stackly, a unique voucher is created and saved into your account. You can log into your <a href="dashboard-traveller.html" class="form-link">Traveller Dashboard</a> anytime to view trip dates, driver contact details, and download official invoices.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (5 CORE PAGES) -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <a href="index.html">
+            <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="footer-logo-img">
+          </a>
+          <p class="footer-brand-desc">Discover new destinations, experience unforgettable journeys, and explore the world with Stackly.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="services.html" class="footer-link">Services &amp; Tours</a></li>
+            <li><a href="blog.html" class="footer-link">Travel Journal</a></li>
+            <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Explore World</h4>
+          <ul class="footer-links-list">
+            <li><a href="tour-details.html" class="footer-link">Bali Paradise Escape</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Swiss Alps Odyssey</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Maldives Overwater Villa</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Kashmir Dal Lake</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Dubai Desert Safari</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Tokyo Cultural Journey</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact Stackly</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone-alt footer-contact-icon"></i>
+            <div><strong>+1 (800) 782-2559</strong><div style="font-size:0.8rem; color:#94a3b8;">Mon - Sat, 9:00 AM - 7:00 PM EST</div></div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope footer-contact-icon"></i>
+            <div><strong>support@stacklytravel.com</strong></div>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Stackly+MMR+Complex+Chinna+Thirupathi+Salem+Tamil+Nadu+636008" target="_blank" rel="noopener" class="footer-contact-item footer-address-link" title="Open Stackly Salem on Google Maps">
+            <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+            <div>
+              <strong style="color:var(--text-dark-navy);">Stackly Salem HQ</strong>
+              <div style="font-size:0.82rem; color:var(--text-muted); line-height:1.4;">MMR Complex, Chinna Thirupathi, Salem, Tamil Nadu &ndash; 636008</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Stackly. All Rights Reserved.</div>
+        <div class="footer-legal-links">
+          <a href="contact.html">Privacy Policy</a>
+          <a href="contact.html">Terms and Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Quick-inquiry chips interaction
+    document.querySelectorAll('.quick-inquiry-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dest = btn.dataset.dest;
+        const sub = btn.dataset.sub;
+        const destSelect = document.getElementById('contactDest');
+        const subInput = document.getElementById('contactSubject');
+        if (destSelect && dest) {
+          destSelect.value = dest;
+          const wrapper = document.getElementById('customDestSelect');
+          if (wrapper) {
+            const placeholder = wrapper.querySelector('.custom-select-placeholder');
+            const matchedOpt = wrapper.querySelector(`.custom-select-option[data-value="${dest}"]`);
+            if (placeholder && matchedOpt) {
+              placeholder.textContent = matchedOpt.textContent.trim();
+              wrapper.querySelectorAll('.custom-select-option').forEach(o => o.classList.remove('selected'));
+              matchedOpt.classList.add('selected');
+            }
+          }
+        }
+        if (subInput && sub) subInput.value = `Inquiry regarding ${sub}`;
+        if (subInput) subInput.focus();
+      });
+    });
+  </script>
+</body>
+</html>

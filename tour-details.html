@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bali Tropical Paradise & Nusa Penida — Tour Details — Stackly</title>
+  <meta name="description" content="Discover Bali's iconic jungle swings, Mount Batur sunrise hike, sacred cliffside temples, and crystal Nusa Penida snorkel safari. Book with Stackly.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- STACKLY PRELOADER: BUILDING REVEAL + TRAVEL ANIMATION + LOGO REVEAL -->
+  <div id="stacklyPreloader" class="stackly-preloader" aria-label="Loading Stackly Travel Portal">
+    <div class="preloader-stage">
+      <svg class="flight-path-svg" viewBox="0 0 300 120">
+        <path class="flight-arc" d="M 20,100 Q 150,-10 280,100" />
+        <path id="preloaderPlane" class="plane-marker" d="M 0,-6 L 8,0 L 0,6 L 2,1 L -6,4 L -4,0 L -6,-4 L 2,-1 Z">
+          <animateMotion path="M 20,100 Q 150,-10 280,100" dur="2.2s" repeatCount="indefinite" rotate="auto" />
+        </path>
+      </svg>
+      <svg class="building-reveal-svg" viewBox="0 0 220 130">
+        <line x1="10" y1="125" x2="210" y2="125" class="arch-line" stroke-width="3" />
+        <rect x="25" y="60" width="28" height="65" class="arch-fill" />
+        <rect x="25" y="60" width="28" height="65" class="arch-line" />
+        <rect x="63" y="40" width="34" height="85" class="arch-fill" />
+        <rect x="63" y="40" width="34" height="85" class="arch-line" />
+        <rect x="107" y="20" width="45" height="105" class="arch-fill" />
+        <rect x="107" y="20" width="45" height="105" class="arch-line" />
+        <rect x="162" y="50" width="32" height="75" class="arch-fill" />
+        <rect x="162" y="50" width="32" height="75" class="arch-line" />
+        <path d="M 107,20 L 129.5,2 L 152,20 Z" class="arch-line" />
+        <path d="M 32,80 Q 39,70 46,80 L 46,125 L 32,125 Z" class="arch-line" />
+        <path d="M 72,60 Q 80,50 88,60 L 88,125 L 72,125 Z" class="arch-line" />
+        <path d="M 120,45 Q 129.5,35 139,45 L 139,125 L 120,125 Z" class="arch-line" />
+        <path d="M 170,70 Q 178,60 186,70 L 186,125 L 170,125 Z" class="arch-line" />
+      </svg>
+      <div id="preloaderLogoWrap" class="preloader-logo-wrap">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="preloader-logo">
+      </div>
+      <div id="preloaderBrandText" class="preloader-text">EXPLORE • DISCOVER • JOURNEY</div>
+      <div class="preloader-bar-wrap">
+        <div id="preloaderProgressBar" class="preloader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITE HEADER -->
+  <header class="site-header">
+    <div class="container-wide header-inner">
+      <a href="index.html" class="brand-logo-link" aria-label="Stackly Home">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="brand-logo-img">
+      </a>
+      <nav class="main-navigation" aria-label="Primary Navigation">
+        <ul class="nav-menu-list">
+          <li class="nav-menu-item"><a href="index.html" class="nav-menu-link">Home</a></li>
+          <li class="nav-menu-item"><a href="about.html" class="nav-menu-link">About Us</a></li>
+          <li class="nav-menu-item"><a href="services.html" class="nav-menu-link active">Services &amp; Tours</a></li>
+          <li class="nav-menu-item"><a href="blog.html" class="nav-menu-link">Blog</a></li>
+          <li class="nav-menu-item"><a href="contact.html" class="nav-menu-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-primary btn-sm"><i class="fas fa-user-circle"></i> Login</a>
+        <button id="mobileNavToggle" class="mobile-nav-toggle" aria-label="Open Navigation"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER (NAVIGATION + AUTH) -->
+  <div id="drawerBackdrop" class="drawer-backdrop"></div>
+  <aside id="mobileDrawer" class="mobile-drawer" aria-label="Mobile Navigation">
+    <div class="drawer-header">
+      <img src="assets/images/ui/logo.webp" alt="Stackly" class="drawer-logo-img">
+      <button id="drawerCloseBtn" class="drawer-close-btn" aria-label="Close Menu">&times;</button>
+    </div>
+    <ul class="drawer-nav-list">
+      <li><a href="index.html" class="drawer-nav-link"><i class="fas fa-home"></i> <span>Home</span></a></li>
+      <li><a href="about.html" class="drawer-nav-link"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+      <li><a href="services.html" class="drawer-nav-link active"><i class="fas fa-concierge-bell"></i> <span>Services &amp; Tours</span></a></li>
+      <li><a href="blog.html" class="drawer-nav-link"><i class="fas fa-newspaper"></i> <span>Blog</span></a></li>
+      <li><a href="contact.html" class="drawer-nav-link"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
+    </ul>
+    <div class="drawer-footer">
+      <a href="login.html" class="btn btn-primary" style="width:100%; justify-content:center;">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </a>
+      <a href="signup.html" class="btn btn-outline" style="width:100%; justify-content:center;">
+        <i class="fas fa-user-plus"></i> Create Account
+      </a>
+    </div>
+  </aside>
+
+  <!-- TOUR DETAIL HERO -->
+  <section class="page-hero" style="padding-bottom:50px;">
+    <div class="page-hero-bg">
+      <img src="assets/images/destinations/bali.webp" alt="Bali Tropical Paradise">
+    </div>
+    <div class="container" style="position:relative; z-index:2; color:#fff;">
+      <div class="breadcrumb-nav" style="justify-content:flex-start;">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="services.html#tourPackagesSection">Tour Packages</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Bali Tropical Paradise</span>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:20px;">
+        <div>
+          <span style="background:var(--primary-blue); color:#fff; padding:6px 14px; border-radius:var(--radius-full); font-size:0.8rem; font-weight:700; text-transform:uppercase;">
+            Featured Bestseller
+          </span>
+          <h1 id="tourDetailsTitle" style="font-size:2.8rem; color:#fff; margin:14px 0 10px; text-shadow:0 4px 18px rgba(0,0,0,0.4);">Bali Tropical Paradise & Nusa Penida Island</h1>
+          <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap; font-size:0.95rem; color:rgba(255,255,255,0.9);">
+            <span id="tourDetailsLocation" style="color:#a5b4fc; font-weight:600;"><i class="fas fa-map-marker-alt"></i> Bali, Indonesia</span>
+            <span><i class="far fa-clock"></i> 7 Days / 6 Nights</span>
+            <span style="color:#fff; font-weight:700;"><i class="fas fa-star" style="color:var(--accent-gold);"></i> 4.9 (128 Verified Reviews)</span>
+          </div>
+        </div>
+
+        <div style="text-align:right;">
+          <span style="font-size:0.85rem; color:rgba(255,255,255,0.8); display:block;">Starting from</span>
+          <div id="basePriceValue" data-price="1250" style="font-family:var(--font-heading); font-size:2.4rem; font-weight:800; color:#ffffff; line-height:1; text-shadow:0 2px 10px rgba(0,0,0,0.3);">
+            $1,250 <span style="font-size:1rem; font-weight:500; color:rgba(255,255,255,0.8);">/ person</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN TOUR CONTENT & BOOKING PANEL -->
+  <section class="section-padding bg-white" style="padding-top:40px;">
+    <div class="container">
+      <div class="tour-details-layout">
+
+        <!-- LEFT COLUMN: TOUR OVERVIEW, GALLERY, HIGHLIGHTS, ITINERARY, INCLUSIONS -->
+        <div>
+
+          <!-- Image Gallery Strip -->
+          <div class="tour-gallery-strip">
+            <div class="tour-gallery-main">
+              <img src="assets/images/tours/tour-bali.webp" alt="Bali Tour Main Image" style="border-radius:var(--radius-md);">
+            </div>
+            <div class="tour-gallery-thumbs">
+              <img src="assets/images/destinations/bali.webp" alt="Nusa Penida View">
+              <img src="assets/images/hotels/resort-1.webp" alt="Luxury Ubud Villa">
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div style="margin-bottom:40px;">
+            <h2 style="font-size:1.8rem; margin-bottom:16px;">Journey Overview</h2>
+            <p style="color:var(--text-charcoal); line-height:1.7; margin-bottom:16px; font-size:1.02rem;">
+              Immerse yourself in the hypnotic charm of Bali, the Island of the Gods. This bespoke 7-day expedition carefully balances adrenaline-charged adventure, tranquil wellness, and deep cultural immersion. You will stay in handcrafted luxury boutique villas in Ubud overlooking verdant rainforest valleys, before transferring to beachfront resorts in Seminyak.
+            </p>
+            <p style="color:var(--text-charcoal); line-height:1.7; font-size:1.02rem;">
+              From ascending the volcanic ridges of Mount Batur under the morning starlight to boarding private speedboats across the Badung Strait to the dramatic limestone arches of Nusa Penida, every day is orchestrated by native certified English-speaking guides.
+            </p>
+          </div>
+
+          <!-- Tour Highlights -->
+          <div style="margin-bottom:40px; background:var(--bg-subtle-blue); border:1px solid var(--border-light); border-radius:var(--radius-lg); padding:32px;">
+            <h3 style="font-size:1.4rem; margin-bottom:20px; color:var(--primary-blue);"><i class="fas fa-gem"></i> Curated Tour Highlights</h3>
+            <div class="two-col-grid" style="gap:16px;">
+              <div style="display:flex; align-items:flex-start; gap:10px;">
+                <i class="fas fa-check-circle" style="color:var(--accent-green); margin-top:4px;"></i>
+                <span>Private sunrise trek at Mount Batur with breakfast cooked over volcanic steam.</span>
+              </div>
+              <div style="display:flex; align-items:flex-start; gap:10px;">
+                <i class="fas fa-check-circle" style="color:var(--accent-green); margin-top:4px;"></i>
+                <span>High-speed catamaran cruise to Nusa Penida & Kelingking T-Rex cliff exploration.</span>
+              </div>
+              <div style="display:flex; align-items:flex-start; gap:10px;">
+                <i class="fas fa-check-circle" style="color:var(--accent-green); margin-top:4px;"></i>
+                <span>Sacred water purification ritual at Tirta Empul Temple with a village elder.</span>
+              </div>
+              <div style="display:flex; align-items:flex-start; gap:10px;">
+                <i class="fas fa-check-circle" style="color:var(--accent-green); margin-top:4px;"></i>
+                <span>Manta Ray snorkeling safari in Crystal Bay and Gamat Bay marine reserves.</span>
+              </div>
+              <div style="display:flex; align-items:flex-start; gap:10px;">
+                <i class="fas fa-check-circle" style="color:var(--accent-green); margin-top:4px;"></i>
+                <span>VIP infinity pool day-pass at Uluwatu Cliff Club & traditional Kecak Fire Dance.</span>
+              </div>
+              <div style="display:flex; align-items:flex-start; gap:10px;">
+                <i class="fas fa-check-circle" style="color:var(--accent-green); margin-top:4px;"></i>
+                <span>6 nights in 5-star verified villas with daily floating breakfast and spa sessions.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Day-Wise Detailed Itinerary -->
+          <div style="margin-bottom:48px;">
+            <h2 style="font-size:1.8rem; margin-bottom:24px;">Day-by-Day Itinerary</h2>
+
+            <!-- Day 1 -->
+            <div class="itinerary-step">
+              <div class="itinerary-dot">1</div>
+              <h4 style="font-size:1.2rem; margin-bottom:6px;">Day 1: Arrival in Denpasar & Ubud Rainforest Check-in</h4>
+              <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6;">
+                Touch down at Ngurah Rai International Airport where your personal chauffeur greets you with cold towels and refreshments. Scenic transfer through terraced hills to your private luxury villa in Ubud. Welcome Balinese floral blessing and evening orientation dinner.
+              </p>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="itinerary-step">
+              <div class="itinerary-dot">2</div>
+              <h4 style="font-size:1.2rem; margin-bottom:6px;">Day 2: Sacred Monkey Forest & Campuhan Ridge Trail</h4>
+              <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6;">
+                Morning stroll through the lush canopy of Ubud Sacred Monkey Forest. Savor organic artisan lunch along Campuhan Ridge followed by a visit to traditional art workshops and coffee plantations tasting Luwak beans.
+              </p>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="itinerary-step">
+              <div class="itinerary-dot">3</div>
+              <h4 style="font-size:1.2rem; margin-bottom:6px;">Day 3: Mount Batur Sunrise Hike & Toya Devasya Hot Springs</h4>
+              <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6;">
+                Early 3:00 AM departure to base camp. Ascend Mount Batur with headlamps and expert mountain guides. Witness dawn breaking over Lake Batur and Mount Rinjani. Soak tired muscles in natural geothermal hot springs overlooking the caldera.
+              </p>
+            </div>
+
+            <!-- Day 4 -->
+            <div class="itinerary-step">
+              <div class="itinerary-dot">4</div>
+              <h4 style="font-size:1.2rem; margin-bottom:6px;">Day 4: Nusa Penida Island Speedboat Day Expedition</h4>
+              <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6;">
+                Board a fast boat to Nusa Penida. Photograph the world-famous Kelingking Beach cliff viewpoint, swim in Broken Beach and Angel's Billabong, and snorkel with majestic manta rays in Crystal Bay.
+              </p>
+            </div>
+
+            <!-- Day 5 -->
+            <div class="itinerary-step">
+              <div class="itinerary-dot">5</div>
+              <h4 style="font-size:1.2rem; margin-bottom:6px;">Day 5: Seminyak Coastal Transfer & Sunset Beach Club</h4>
+              <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6;">
+                Check out from Ubud and head to coastal Seminyak. Check in to beachfront resort suite. Afternoon free for surfing lessons, boutique shopping, or beachside massage. Sunset cocktails reserved at Ku De Ta.
+              </p>
+            </div>
+
+            <!-- Day 6 -->
+            <div class="itinerary-step">
+              <div class="itinerary-dot">6</div>
+              <h4 style="font-size:1.2rem; margin-bottom:6px;">Day 6: Uluwatu Clifftop Temple & Kecak Fire Dance</h4>
+              <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6;">
+                Afternoon excursion to Uluwatu Temple perched 70 meters above crashing Indian Ocean waves. Watch the dramatic sunset Kecak fire performance followed by a candlelit seafood barbecue banquet on Jimbaran Beach.
+              </p>
+            </div>
+
+            <!-- Day 7 -->
+            <div class="itinerary-step">
+              <div class="itinerary-dot">7</div>
+              <h4 style="font-size:1.2rem; margin-bottom:6px;">Day 7: Balinese Souvenirs & Airport Departure</h4>
+              <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6;">
+                Leisurely floating breakfast and final dip in the plunge pool. Transfer to Denpasar airport with lasting memories and an album of professional photos provided by your Stackly escort.
+              </p>
+            </div>
+          </div>
+
+          <!-- What's Included and Excluded -->
+          <div class="two-col-grid" style="gap:28px; margin-bottom:40px;">
+            <div style="background:#f8fafc; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:24px;">
+              <h4 style="color:var(--accent-green); font-size:1.15rem; margin-bottom:16px;">
+                <i class="fas fa-check-circle"></i> What's Included
+              </h4>
+              <ul style="display:flex; flex-direction:column; gap:10px; font-size:0.9rem; color:var(--text-charcoal);">
+                <li><i class="fas fa-check" style="color:var(--accent-green);"></i> 6 Nights in 5-star private pool luxury villas</li>
+                <li><i class="fas fa-check" style="color:var(--accent-green);"></i> Daily gourmet buffet & floating breakfast</li>
+                <li><i class="fas fa-check" style="color:var(--accent-green);"></i> All private AC vehicle road transfers</li>
+                <li><i class="fas fa-check" style="color:var(--accent-green);"></i> Round-trip Nusa Penida speedboat tickets</li>
+                <li><i class="fas fa-check" style="color:var(--accent-green);"></i> Certified English-speaking private guide</li>
+                <li><i class="fas fa-check" style="color:var(--accent-green);"></i> All national park and temple entrance passes</li>
+              </ul>
+            </div>
+
+            <div style="background:#f8fafc; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:24px;">
+              <h4 style="color:var(--accent-red); font-size:1.15rem; margin-bottom:16px;">
+                <i class="fas fa-times-circle"></i> What's Excluded
+              </h4>
+              <ul style="display:flex; flex-direction:column; gap:10px; font-size:0.9rem; color:var(--text-muted);">
+                <li><i class="fas fa-times" style="color:var(--accent-red);"></i> International flight airfares</li>
+                <li><i class="fas fa-times" style="color:var(--accent-red);"></i> Personal laundry and telephone charges</li>
+                <li><i class="fas fa-times" style="color:var(--accent-red);"></i> Alcoholic beverages outside scheduled banquets</li>
+                <li><i class="fas fa-times" style="color:var(--accent-red);"></i> Optional tipping for tour drivers</li>
+                <li><i class="fas fa-times" style="color:var(--accent-red);"></i> Travel insurance (available as add-on)</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Accommodation & Transportation Details -->
+          <div style="margin-bottom:40px;">
+            <h3 style="font-size:1.4rem; margin-bottom:16px;">Accommodation & Logistics</h3>
+            <div class="two-col-grid" style="gap:20px;">
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:20px; display:flex; gap:16px;">
+                <img src="assets/images/hotels/resort-2.webp" alt="Resort" style="width:90px; height:90px; border-radius:var(--radius-sm); object-fit:cover;">
+                <div>
+                  <h4 style="font-size:1.05rem; margin-bottom:4px;">Ubud Sanctuary Villa</h4>
+                  <p style="font-size:0.82rem; color:var(--text-muted);">Valley View Private Pool Villa &bull; 5-Star Luxury Rating</p>
+                </div>
+              </div>
+
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:20px; display:flex; gap:16px;">
+                <img src="assets/images/hotels/resort-3.webp" alt="Resort" style="width:90px; height:90px; border-radius:var(--radius-sm); object-fit:cover;">
+                <div>
+                  <h4 style="font-size:1.05rem; margin-bottom:4px;">Seminyak Ocean Suites</h4>
+                  <p style="font-size:0.82rem; color:var(--text-muted);">Beachfront Ocean Suite &bull; Walking distance to beach clubs</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Customer Reviews Section -->
+          <div>
+            <h3 style="font-size:1.4rem; margin-bottom:20px;">Traveller Reviews (128)</h3>
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="testimonial-card">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                  <strong style="color:var(--text-dark-navy);">Elena Vance</strong>
+                  <span style="color:var(--accent-gold);"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                </div>
+                <p style="font-size:0.92rem; color:var(--text-muted);">
+                  "The Mount Batur sunrise hike was breathtaking! Our guide made sure we were safe and gave us the best vantage point before the crowds arrived."
+                </p>
+              </div>
+
+              <div class="testimonial-card">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                  <strong style="color:var(--text-dark-navy);">Liam Hemsworth</strong>
+                  <span style="color:var(--accent-gold);"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                </div>
+                <p style="font-size:0.92rem; color:var(--text-muted);">
+                  "Nusa Penida boat trip was executed like clockwork. The villas in Ubud felt like a private haven in heaven."
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: STICKY INTERACTIVE BOOKING PANEL -->
+        <aside>
+          <div class="booking-panel-card">
+            <div class="booking-price-header">
+              <div>
+                <span style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase;">Price per person</span>
+                <div style="font-family:var(--font-heading); font-size:2rem; font-weight:800; color:var(--primary-blue); line-height:1;">
+                  $1,250
+                </div>
+              </div>
+              <span style="background:rgba(16,185,129,0.1); color:var(--accent-green); padding:4px 10px; border-radius:var(--radius-full); font-size:0.75rem; font-weight:700;">
+                <i class="fas fa-shield-alt"></i> Best Rate Guaranteed
+              </span>
+            </div>
+
+            <form id="tourBookingForm" novalidate>
+              <!-- Date Selection -->
+              <div class="form-group">
+                <label class="form-label" for="calcDate">Select Departure Date</label>
+                <div class="form-control-wrap">
+                  <i class="fas fa-calendar-alt form-control-icon"></i>
+                  <input type="date" id="calcDate" class="form-input" value="2026-11-15" required>
+                </div>
+              </div>
+
+              <!-- Adults Counter -->
+              <div class="form-group">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <label class="form-label" style="margin-bottom:2px;">Adults (Age 12+)</label>
+                    <span style="font-size:0.75rem; color:var(--text-muted);">$1,250 each</span>
+                  </div>
+                  <div class="counter-control">
+                    <button type="button" class="counter-btn" data-counter-target="calcAdults" data-action="minus">-</button>
+                    <input type="number" id="calcAdults" value="2" min="1" max="20" class="counter-value" readonly>
+                    <button type="button" class="counter-btn" data-counter-target="calcAdults" data-action="plus">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Children Counter -->
+              <div class="form-group">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <label class="form-label" style="margin-bottom:2px;">Children (Age 3-11)</label>
+                    <span style="font-size:0.75rem; color:var(--text-muted);">50% discount ($625)</span>
+                  </div>
+                  <div class="counter-control">
+                    <button type="button" class="counter-btn" data-counter-target="calcChildren" data-action="minus">-</button>
+                    <input type="number" id="calcChildren" value="0" min="0" max="10" class="counter-value" readonly>
+                    <button type="button" class="counter-btn" data-counter-target="calcChildren" data-action="plus">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Optional Add-ons -->
+              <div style="border-top:1px solid var(--border-light); padding-top:16px; margin-bottom:16px;">
+                <label class="form-label" style="margin-bottom:10px;">Optional Enhancements</label>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                  <label class="form-checkbox-label">
+                    <input type="checkbox" id="addonInsurance" checked>
+                    <span>Comprehensive Travel Insurance (+$45/guest)</span>
+                  </label>
+                  <label class="form-checkbox-label">
+                    <input type="checkbox" id="addonTransfer" checked>
+                    <span>Private VIP Airport Transfer (+$60 total)</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Live Calculation Breakdown -->
+              <div style="background:var(--bg-subtle-blue); border-radius:var(--radius-sm); padding:16px; margin-bottom:20px;">
+                <div class="booking-calc-row">
+                  <span>Package Base & Add-ons:</span>
+                  <strong id="calcSubtotal" style="color:var(--text-dark-navy);">$2,650</strong>
+                </div>
+                <div class="booking-calc-row">
+                  <span>Estimated Taxes & Service Fee (5%):</span>
+                  <span id="calcTaxes">$133</span>
+                </div>
+                <div class="booking-calc-row total">
+                  <span>Total Calculated Price:</span>
+                  <span id="calcTotal">$2,783</span>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg" style="width:100%; font-size:1.1rem;">
+                <i class="fas fa-check-circle"></i> Book This Journey Now
+              </button>
+
+              <div style="text-align:center; margin-top:14px; font-size:0.78rem; color:var(--text-muted);">
+                <i class="fas fa-lock" style="color:var(--primary-blue);"></i> Instant Demo Reservation &bull; Syncs with Dashboards
+              </div>
+            </form>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <a href="index.html">
+            <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="footer-logo-img">
+          </a>
+          <p class="footer-brand-desc">Discover new destinations, experience unforgettable journeys, and explore the world with Stackly.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="services.html" class="footer-link">Services &amp; Tours</a></li>
+            <li><a href="blog.html" class="footer-link">Travel Journal</a></li>
+            <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Explore World</h4>
+          <ul class="footer-links-list">
+            <li><a href="tour-details.html" class="footer-link">Bali Paradise Escape</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Swiss Alps Odyssey</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Maldives Overwater Villa</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Kashmir Dal Lake</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Dubai Desert Safari</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Tokyo Cultural Journey</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact Stackly</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone-alt footer-contact-icon"></i>
+            <div><strong>+1 (800) 782-2559</strong><div style="font-size:0.8rem; color:#94a3b8;">Mon - Sat, 9:00 AM - 7:00 PM EST</div></div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope footer-contact-icon"></i>
+            <div><strong>support@stacklytravel.com</strong></div>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Stackly+MMR+Complex+Chinna+Thirupathi+Salem+Tamil+Nadu+636008" target="_blank" rel="noopener" class="footer-contact-item footer-address-link" title="Open Stackly Salem on Google Maps">
+            <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+            <div>
+              <strong style="color:var(--text-dark-navy);">Stackly Salem HQ</strong>
+              <div style="font-size:0.82rem; color:var(--text-muted); line-height:1.4;">MMR Complex, Chinna Thirupathi, Salem, Tamil Nadu &ndash; 636008</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Stackly. All Rights Reserved.</div>
+        <div class="footer-legal-links">
+          <a href="contact.html">Privacy Policy</a>
+          <a href="contact.html">Terms and Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

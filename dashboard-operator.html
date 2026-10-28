@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tour Operator Portal — Stackly Tourism & Travel Portal</title>
+  <meta name="description" content="Tour Operator command center. Manage tours, inspect bookings, monitor revenue and traveller growth analytics with Stackly.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dashboard-body">
+
+  <!-- STACKLY PRELOADER: BUILDING REVEAL + TRAVEL ANIMATION + LOGO REVEAL -->
+  <div id="stacklyPreloader" class="stackly-preloader" aria-label="Loading Stackly Travel Portal">
+    <div class="preloader-stage">
+      <svg class="flight-path-svg" viewBox="0 0 300 120">
+        <path class="flight-arc" d="M 20,100 Q 150,-10 280,100" />
+        <path id="preloaderPlane" class="plane-marker" d="M 0,-6 L 8,0 L 0,6 L 2,1 L -6,4 L -4,0 L -6,-4 L 2,-1 Z">
+          <animateMotion path="M 20,100 Q 150,-10 280,100" dur="2.2s" repeatCount="indefinite" rotate="auto" />
+        </path>
+      </svg>
+      <svg class="building-reveal-svg" viewBox="0 0 220 130">
+        <line x1="10" y1="125" x2="210" y2="125" class="arch-line" stroke-width="3" />
+        <rect x="25" y="60" width="28" height="65" class="arch-fill" />
+        <rect x="25" y="60" width="28" height="65" class="arch-line" />
+        <rect x="63" y="40" width="34" height="85" class="arch-fill" />
+        <rect x="63" y="40" width="34" height="85" class="arch-line" />
+        <rect x="107" y="20" width="45" height="105" class="arch-fill" />
+        <rect x="107" y="20" width="45" height="105" class="arch-line" />
+        <rect x="162" y="50" width="32" height="75" class="arch-fill" />
+        <rect x="162" y="50" width="32" height="75" class="arch-line" />
+        <path d="M 107,20 L 129.5,2 L 152,20 Z" class="arch-line" />
+        <path d="M 32,80 Q 39,70 46,80 L 46,125 L 32,125 Z" class="arch-line" />
+        <path d="M 72,60 Q 80,50 88,60 L 88,125 L 72,125 Z" class="arch-line" />
+        <path d="M 120,45 Q 129.5,35 139,45 L 139,125 L 120,125 Z" class="arch-line" />
+        <path d="M 170,70 Q 178,60 186,70 L 186,125 L 170,125 Z" class="arch-line" />
+      </svg>
+      <div id="preloaderLogoWrap" class="preloader-logo-wrap">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="preloader-logo">
+      </div>
+      <div id="preloaderBrandText" class="preloader-text">EXPLORE • DISCOVER • JOURNEY</div>
+      <div class="preloader-bar-wrap">
+        <div id="preloaderProgressBar" class="preloader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Bulletproof failsafe: Ensure preloader NEVER blocks dashboard even if CDN/scripts lag
+    setTimeout(function() {
+      var p = document.getElementById('stacklyPreloader');
+      if (p && p.style.display !== 'none') {
+        p.classList.add('fade-out');
+        p.style.opacity = '0';
+        p.style.pointerEvents = 'none';
+        setTimeout(function() { p.style.display = 'none'; }, 300);
+      }
+    }, 700);
+  </script>
+
+  <!-- SIDEBAR: EXACTLY 5 CLEAN MAIN HEADINGS -->
+  <aside id="operatorSidebar" class="dashboard-sidebar">
+    <div class="sidebar-header">
+      <a href="index.html">
+        <img src="assets/images/ui/logo.webp" alt="Stackly" class="sidebar-logo">
+      </a>
+      <button type="button" class="sidebar-close-btn" id="operatorSidebarCloseBtn" aria-label="Close Navigation">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Clean Navigation Headings -->
+    <nav class="sidebar-clean-nav">
+      <a href="#overview" class="sidebar-clean-link active" data-target-tab="tabOperatorOverview">
+        <i class="fas fa-th-large"></i>
+        <span>Overview</span>
+      </a>
+
+      <a href="#bookings" class="sidebar-clean-link" data-target-tab="tabOperatorBookings">
+        <i class="fas fa-ticket-alt"></i>
+        <span>Bookings</span>
+      </a>
+
+      <a href="#tour-packages" class="sidebar-clean-link" data-target-tab="tabOperatorPackages">
+        <i class="fas fa-map-marked-alt"></i>
+        <span>Packages</span>
+      </a>
+
+      <div class="sidebar-divider"></div>
+
+      <a href="#analytics" class="sidebar-clean-link" data-target-tab="tabOperatorAnalytics">
+        <i class="fas fa-chart-line"></i>
+        <span>Analytics</span>
+      </a>
+
+      <a href="#inquiries" class="sidebar-clean-link" data-target-tab="tabOperatorInquiries">
+        <i class="fas fa-comments"></i>
+        <span>Inquiries</span>
+      </a>
+    </nav>
+
+    <!-- Sidebar Footer with Pill Log Out Button -->
+    <div class="sidebar-footer">
+      <a href="login.html" class="sidebar-logout-btn" id="sidebarLogoutBtn" title="Sign Out of Stackly">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Log Out</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="dashboard-main">
+
+    <!-- TOPBAR: CLEAN NAVBAR WITHOUT SEARCH, SWITCH BUTTON, OR NOTIFICATION BELL -->
+    <header class="dashboard-topbar">
+      <div class="topbar-left">
+        <button id="operatorMobileToggle" class="topbar-mobile-toggle" aria-label="Toggle Navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h2 id="operatorPageTitle" class="topbar-page-title">Overview</h2>
+      </div>
+
+      <!-- RIGHT SIDE: USER PROFILE WIDGET (INITIALS + NAME + DROPDOWN) -->
+      <div class="topbar-right">
+        <div class="dashboard-profile-widget" id="dashboardProfileWidget">
+          <button type="button" class="dashboard-profile-btn" id="dashboardProfileBtn" aria-label="User Profile Menu">
+            <div class="user-avatar-initials" id="navAvatarInitials">MS</div>
+            <span class="user-nav-name dashboard-profile-name" id="navUserName">Mahesh Sabari</span>
+            <i class="fas fa-chevron-down profile-chevron" style="font-size:0.75rem; color:var(--text-muted); transition:0.2s;"></i>
+          </button>
+
+          <!-- Interactive Dropdown Card Displaying Name, Email, Role -->
+          <div class="profile-dropdown-card" id="profileDropdownCard">
+            <div class="profile-card-header">
+              <div class="user-avatar-initials" id="cardAvatarInitials" style="width:46px; height:46px; font-size:1.1rem;">MS</div>
+              <div class="profile-card-user-info">
+                <div class="profile-card-name" id="cardUserName">Mahesh Sabari</div>
+                <div class="profile-card-email" id="cardUserEmail">maheshsabari@gmail.com</div>
+                <span class="profile-card-badge" id="cardUserRole">Tour Operator</span>
+              </div>
+            </div>
+
+            <div class="profile-card-body">
+              <div class="profile-detail-row">
+                <span class="profile-detail-label"><i class="fas fa-user"></i> Registered Full Name</span>
+                <span class="profile-detail-val" id="profileDetailNameDisplay">Mahesh Sabari</span>
+              </div>
+              <div class="profile-detail-row">
+                <span class="profile-detail-label"><i class="fas fa-envelope"></i> Active Email</span>
+                <span class="profile-detail-val" id="profileDetailEmailDisplay">maheshsabari@gmail.com</span>
+              </div>
+              <div class="profile-detail-row">
+                <span class="profile-detail-label"><i class="fas fa-id-badge"></i> Assigned Role</span>
+                <span class="profile-detail-val" id="profileDetailRoleDisplay">Tour Operator</span>
+              </div>
+              <div class="profile-detail-row">
+                <span class="profile-detail-label"><i class="fas fa-shield-alt"></i> Verification Status</span>
+                <span class="profile-detail-val" style="color:var(--accent-green);"><i class="fas fa-check-circle"></i> Official Partner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT AREA -->
+    <main class="dashboard-content-area">
+
+      <!-- ==========================================
+           PAGE 1: DASHBOARD (OVERVIEW)
+           Contains 5 Relevant Sections
+      =========================================== -->
+      <section id="tabOperatorOverview" class="dashboard-tab-content active">
+
+        <!-- SECTION 1: DYNAMIC WELCOME BANNER -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-welcome-banner animate-slide-left">
+            <div class="welcome-banner-text">
+              <h2>Welcome, <span id="welcomeOperatorName">Mahesh Sabari</span>!</h2>
+              <p>Here is the operational pulse of your tour expeditions, bookings, and revenue today.</p>
+            </div>
+            <div class="welcome-banner-badge">
+              <i class="fas fa-certificate"></i> Verified Operator Portal
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: 4 MAIN OPERATOR KPI CARDS (LIVE RUNNING NUMBERS) -->
+        <div class="dashboard-section-block">
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Total Bookings</span>
+                  <div class="kpi-icon-wrap"><i class="fas fa-ticket-alt"></i></div>
+                </div>
+                <div class="kpi-value" style="position:relative; display:inline-block;">
+                  <span class="live-counter-num" id="opKpiBookings" data-target="1428">1,428</span>
+                  <span id="opBookingsTicker" class="miles-floating-inc">+1</span>
+                </div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +14.2% this month</span>
+                  <span class="live-status-badge"><span class="live-pulse-dot"></span> LIVE FEED</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Active Tours</span>
+                  <div class="kpi-icon-wrap"><i class="fas fa-compass"></i></div>
+                </div>
+                <div class="kpi-value"><span class="live-counter-num" id="opKpiTours" data-target="36">36</span></div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up"><i class="fas fa-globe"></i> Across 18 countries</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Total Travellers</span>
+                  <div class="kpi-icon-wrap"><i class="fas fa-users"></i></div>
+                </div>
+                <div class="kpi-value"><span class="live-counter-num" id="opKpiTravellers" data-target="4890">4,890</span></div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +22.4% YoY</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Total Revenue</span>
+                  <div class="kpi-icon-wrap"><i class="fas fa-dollar-sign"></i></div>
+                </div>
+                <div class="kpi-value" style="position:relative; display:inline-block;">
+                  $<span class="live-counter-num" id="opKpiRevenue" data-target="1284500">1,284,500</span>
+                  <span id="opRevenueTicker" class="miles-floating-inc">+$450</span>
+                </div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +18.5% YoY</span>
+                  <span class="live-status-badge" style="background:rgba(56,35,201,0.1); color:var(--primary-blue); border-color:rgba(56,35,201,0.25);"><span class="live-pulse-dot" style="background-color:var(--primary-blue); box-shadow:0 0 0 0 rgba(56,35,201,0.7);"></span> REAL-TIME</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: CHARTS ROW 1 (Monthly Bookings Area + Booking Status Pie/Doughnut) -->
+        <hr class="dashboard-section-divider">
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-chart-line"></i>
+            <span>3. Operations &amp; Booking Trends</span>
+          </div>
+          <div class="charts-grid-2col">
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3 class="chart-title">1. Monthly Bookings Trend (2026)</h3>
+                <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">Full Year View</span>
+              </div>
+              <div class="chart-container-wrap">
+                <canvas id="chartMonthlyBookings"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3 class="chart-title">2. Booking Status Distribution</h3>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Real-time</span>
+              </div>
+              <div class="chart-container-wrap">
+                <canvas id="chartBookingStatus"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: CHARTS ROW 2 (Revenue Actual vs Target Bar + Destination Popularity Bar) -->
+        <hr class="dashboard-section-divider">
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-chart-bar"></i>
+            <span>4. Revenue &amp; Destination Performance</span>
+          </div>
+          <div class="charts-grid-equal">
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3 class="chart-title">3. Revenue Analytics ($ Thousands)</h3>
+                <span style="font-size:0.8rem; font-weight:700; color:var(--primary-blue);">Actual vs Target</span>
+              </div>
+              <div class="chart-container-wrap">
+                <canvas id="chartRevenueAnalytics"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3 class="chart-title">4. Destination Popularity (Travellers)</h3>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Top 6 Hotspots</span>
+              </div>
+              <div class="chart-container-wrap">
+                <canvas id="chartDestinationPopularity"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 5: UPCOMING EXPEDITIONS & OPERATOR QUICK ACTIONS -->
+        <hr class="dashboard-section-divider">
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-calendar-alt"></i>
+            <span>5. Upcoming Departures &amp; Operator Actions</span>
+          </div>
+          <div class="two-card-row dashboard-grid-2col-responsive" style="margin-top:24px;">
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3 class="chart-title">Upcoming Expeditions (Next 7 Days)</h3>
+                <span style="font-size:0.82rem; color:var(--primary-blue); font-weight:700;">Live Schedule</span>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; padding:12px; background:var(--bg-subtle-blue); border-radius:var(--radius-sm);">
+                  <div>
+                    <strong>Bali Tropical Paradise</strong>
+                    <div style="font-size:0.78rem; color:var(--text-muted);">14 Travellers &bull; Guide: Wayan Arta</div>
+                  </div>
+                  <span class="status-badge confirmed">Departs Nov 15</span>
+                </div>
+                <div style="display:flex; align-items:center; justify-content:space-between; padding:12px; background:var(--bg-subtle-blue); border-radius:var(--radius-sm);">
+                  <div>
+                    <strong>Swiss Alps Glacier Express</strong>
+                    <div style="font-size:0.78rem; color:var(--text-muted);">8 Travellers &bull; Guide: Hans Keller</div>
+                  </div>
+                  <span class="status-badge confirmed">Departs Nov 18</span>
+                </div>
+                <div style="display:flex; align-items:center; justify-content:space-between; padding:12px; background:var(--bg-subtle-blue); border-radius:var(--radius-sm);">
+                  <div>
+                    <strong>Maldives Overwater Retreat</strong>
+                    <div style="font-size:0.78rem; color:var(--text-muted);">6 Travellers &bull; Concierge: Ali Ziyad</div>
+                  </div>
+                  <span class="status-badge pending">Departs Nov 22</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3 class="chart-title">Quick Actions & Operator Hub</h3>
+              </div>
+              <div class="dashboard-grid-2col-responsive" style="gap:12px; margin-bottom:16px;">
+                <a href="404.html" class="btn btn-outline btn-sm">
+                  <i class="fas fa-plus"></i> Create New Tour
+                </a>
+                <a href="404.html" class="btn btn-outline btn-sm">
+                  <i class="fas fa-download"></i> Export Reports
+                </a>
+                <a href="404.html" class="btn btn-outline btn-sm">
+                  <i class="fas fa-broadcast-tower"></i> Broadcast to Guides
+                </a>
+                <a href="404.html" class="btn btn-outline btn-sm">
+                  <i class="fas fa-percentage"></i> Apply Flash Sale
+                </a>
+              </div>
+              <div style="background:rgba(56,35,201,0.06); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:12px; font-size:0.82rem; color:var(--primary-blue);">
+                <i class="fas fa-info-circle"></i> <strong>Peak Season Advisory:</strong> Alpine train allocations for December 2026 are 85% reserved. Ensure advance seating.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ==========================================
+           PAGE 2: BOOKINGS
+           Contains 5 Relevant Sections
+      =========================================== -->
+      <section id="tabOperatorBookings" class="dashboard-tab-content">
+
+        <!-- SECTION 1: BOOKING SUMMARY KPI CARDS -->
+        <div class="dashboard-section-block">
+          <div class="kpi-grid" style="margin-bottom:24px;">
+            <div class="kpi-card" onclick="filterBookings('all');" style="cursor:pointer;" title="Filter: All Bookings">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Total Bookings</span>
+                  <div class="kpi-icon-wrap"><i class="fas fa-list-check"></i></div>
+                </div>
+                <div class="kpi-value">1,428</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up">All-time synced</span>
+                </div>
+              </div>
+            </div>
+            <div class="kpi-card" onclick="filterBookings('pending');" style="cursor:pointer;" title="Filter: Pending Reservations">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Pending Approval</span>
+                  <div class="kpi-icon-wrap" style="background:rgba(245,158,11,0.1); color:var(--accent-gold);"><i class="fas fa-clock"></i></div>
+                </div>
+                <div class="kpi-value" style="color:var(--accent-gold);">28</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up">Awaiting review</span>
+                </div>
+              </div>
+            </div>
+            <div class="kpi-card" onclick="filterBookings('confirmed');" style="cursor:pointer;" title="Filter: Confirmed Bookings">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Confirmed & Ready</span>
+                  <div class="kpi-icon-wrap" style="background:rgba(16,185,129,0.1); color:var(--accent-green);"><i class="fas fa-check-double"></i></div>
+                </div>
+                <div class="kpi-value" style="color:var(--accent-green);">1,365</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up">Vouchers issued</span>
+                </div>
+              </div>
+            </div>
+            <div class="kpi-card" onclick="filterBookings('cancelled');" style="cursor:pointer;" title="Filter: Cancelled Bookings">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Cancellations</span>
+                  <div class="kpi-icon-wrap" style="background:rgba(239,68,68,0.1); color:var(--accent-red);"><i class="fas fa-ban"></i></div>
+                </div>
+                <div class="kpi-value" style="color:var(--accent-red);">35</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend" style="color:var(--accent-red);">2.4% rate</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: STATUS FILTER BUTTONS -->
+        <hr class="dashboard-section-divider">
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-ticket-alt"></i>
+            <span>2. Reservation Filter &amp; Management</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom:20px;">
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button id="btnFilterAll" class="btn btn-primary btn-sm booking-filter-btn" data-filter="all" onclick="filterBookings('all', this)">All Bookings</button>
+              <button id="btnFilterPending" class="btn btn-outline btn-sm booking-filter-btn" data-filter="pending" onclick="filterBookings('pending', this)">Pending</button>
+              <button id="btnFilterConfirmed" class="btn btn-outline btn-sm booking-filter-btn" data-filter="confirmed" onclick="filterBookings('confirmed', this)">Confirmed</button>
+              <button id="btnFilterCancelled" class="btn btn-outline btn-sm booking-filter-btn" data-filter="cancelled" onclick="filterBookings('cancelled', this)">Cancelled</button>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="filterBookings('all');" title="Refresh register">
+              <i class="fas fa-sync-alt"></i> Refresh Register
+            </button>
+          </div>
+        </div>
+
+        <!-- SECTION 3: LIVE BOOKINGS QUEUE TABLE -->
+        <div class="dashboard-section-block">
+          <div class="table-card">
+            <div class="table-header-row">
+              <div>
+                <h3 class="chart-title">3. Live Bookings Register</h3>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:2px;">
+                  Directly connected with frontend checkout. New traveller bookings instantly display here.
+                </p>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Booking ID</th>
+                    <th>Traveller / Guest</th>
+                    <th>Tour Package</th>
+                    <th>Departure Date</th>
+                    <th>Total Amount</th>
+                    <th>Status</th>
+                    <th>Quick Action</th>
+                  </tr>
+                </thead>
+                <tbody id="operatorBookingsTableBody">
+                  <!-- Dynamically populated via js/dashboard-operator.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: PENDING APPROVALS SPOTLIGHT -->
+        <div class="dashboard-section-block">
+          <div class="chart-card" style="margin-top:24px;">
+            <div class="chart-header">
+              <h3 class="chart-title">4. Action Required: Pending Reservation Approvals</h3>
+              <span class="status-badge pending">Priority Verification</span>
+            </div>
+            <div class="dashboard-grid-cards">
+              <div style="background:var(--bg-subtle-blue); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                  <strong>Marcus Sterling</strong>
+                  <span class="status-badge pending">Pending</span>
+                </div>
+                <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">
+                  Maldives Overwater Retreat &bull; Nov 28, 2026 &bull; 2 Guests &bull; <strong>$6,187</strong>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <a href="404.html" class="btn btn-primary btn-sm">Approve Booking</a>
+                  <a href="404.html" class="btn btn-ghost btn-sm" style="color:var(--accent-red);">Decline</a>
+                </div>
+              </div>
+
+              <div style="background:var(--bg-subtle-blue); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                  <strong>Sophia Chen</strong>
+                  <span class="status-badge pending">Pending</span>
+                </div>
+                <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">
+                  Swiss Alps Peaks Odyssey &bull; Dec 10, 2026 &bull; 4 Guests &bull; <strong>$8,796</strong>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <a href="404.html" class="btn btn-primary btn-sm">Approve Booking</a>
+                  <a href="404.html" class="btn btn-ghost btn-sm" style="color:var(--accent-red);">Decline</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 5: SPECIAL CONCIERGE & CUSTOM REQUESTS -->
+        <div class="dashboard-section-block">
+          <div class="table-card" style="margin-top:24px;">
+            <h3 class="chart-title" style="margin-bottom:14px;">5. Special Guest & Concierge Requests</h3>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div style="padding:12px 16px; border:1px solid var(--border-light); border-radius:var(--radius-sm); display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <strong>Vegan dietary meal plan required for Nusa Penida boat tour</strong>
+                  <div style="font-size:0.8rem; color:var(--text-muted);">Traveller: Elena Vance &bull; Bali Tropical Paradise</div>
+                </div>
+                <span class="status-badge confirmed">Noted by Guide</span>
+              </div>
+              <div style="padding:12px 16px; border:1px solid var(--border-light); border-radius:var(--radius-sm); display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <strong>Private glacier helicopter transfer upgrade request</strong>
+                  <div style="font-size:0.8rem; color:var(--text-muted);">Traveller: Liam Thorne &bull; Swiss Alps Odyssey</div>
+                </div>
+                <span class="status-badge pending">Quote Sent</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ==========================================
+           PAGE 3: TOUR PACKAGES
+           Contains 5 Relevant Sections
+      =========================================== -->
+      <section id="tabOperatorPackages" class="dashboard-tab-content">
+
+        <!-- SECTION 1: PORTFOLIO STATS -->
+        <div class="dashboard-section-block">
+          <div class="kpi-grid" style="margin-bottom:24px;">
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Active Packages</span>
+                  <div class="kpi-icon-wrap"><i class="fas fa-globe-americas"></i></div>
+                </div>
+                <div class="kpi-value">36</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up">18 destinations</span>
+                </div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Average Price</span>
+                  <div class="kpi-icon-wrap"><i class="fas fa-tag"></i></div>
+                </div>
+                <div class="kpi-value">$1,895</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up">Per traveller</span>
+                </div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Satisfaction Score</span>
+                  <div class="kpi-icon-wrap" style="color:var(--accent-gold);"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="kpi-value" style="color:var(--accent-green);">4.92 <i class="fas fa-star" style="color:var(--accent-gold); font-size:1.1rem;"></i></div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up">Over 3,200 reviews</span>
+                </div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Seat Fill Rate</span>
+                  <div class="kpi-icon-wrap"><i class="fas fa-chair"></i></div>
+                </div>
+                <div class="kpi-value" style="color:var(--primary-blue);">91.4%</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up">High season occupancy</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: ACTIVE TOUR PACKAGES CATALOG -->
+        <hr class="dashboard-section-divider">
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-box-open"></i>
+            <span>2. Tour Packages Portfolio</span>
+          </div>
+          <div class="table-card">
+            <div class="table-header-row">
+              <div>
+                <h3 class="chart-title">Tour Packages Portfolio</h3>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:2px;">Currently published and open for traveller bookings.</p>
+              </div>
+              <a href="404.html" class="btn btn-outline btn-sm">Preview Public Tours</a>
+            </div>
+
+            <div class="dashboard-grid-cards">
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:18px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                  <h4 style="font-size:1.15rem; margin:0;">Bali Tropical Paradise & Nusa Penida</h4>
+                  <span class="status-badge confirmed">Active</span>
+                </div>
+                <div style="font-size:0.85rem; color:var(--primary-blue); font-weight:700; margin-bottom:10px;">
+                  $1,250 / Person &bull; 7 Days &bull; Indonesia
+                </div>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:14px;">
+                  Luxury villa retreat, private driver, and secluded Nusa Penida catamaran cruise.
+                </p>
+                <div style="display:flex; gap:8px;">
+                  <a href="404.html" class="btn btn-outline btn-sm">Edit Package</a>
+                  <a href="404.html" class="btn btn-ghost btn-sm">Pause</a>
+                </div>
+              </div>
+
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:18px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                  <h4 style="font-size:1.15rem; margin:0;">Swiss Alps Glacier Express Odyssey</h4>
+                  <span class="status-badge confirmed">Active</span>
+                </div>
+                <div style="font-size:0.85rem; color:var(--primary-blue); font-weight:700; margin-bottom:10px;">
+                  $2,199 / Person &bull; 8 Days &bull; Switzerland
+                </div>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:14px;">
+                  First-class panoramic rail journey through Zermatt, Matterhorn, and St. Moritz.
+                </p>
+                <div style="display:flex; gap:8px;">
+                  <a href="404.html" class="btn btn-outline btn-sm">Edit Package</a>
+                  <a href="404.html" class="btn btn-ghost btn-sm">Pause</a>
+                </div>
+              </div>
+
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:18px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                  <h4 style="font-size:1.15rem; margin:0;">Maldives Overwater Sunset Villa</h4>
+                  <span class="status-badge confirmed">Active</span>
+                </div>
+                <div style="font-size:0.85rem; color:var(--primary-blue); font-weight:700; margin-bottom:10px;">
+                  $2,899 / Person &bull; 6 Days &bull; Maldives
+                </div>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:14px;">
+                  All-inclusive luxury overwater bungalow with sea-plane transfers and private snorkeling.
+                </p>
+                <div style="display:flex; gap:8px;">
+                  <a href="404.html" class="btn btn-outline btn-sm">Edit Package</a>
+                  <a href="404.html" class="btn btn-ghost btn-sm">Pause</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: REAL-TIME DEPARTURE SLOT AVAILABILITY -->
+        <hr class="dashboard-section-divider">
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-chair"></i>
+            <span>3. Tour Slot &amp; Capacity Monitor</span>
+          </div>
+          <div class="table-card">
+            <div class="table-header-row">
+              <div>
+                <h3 class="chart-title">Tour Slot &amp; Capacity Monitor</h3>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:2px;">Real-time departure seat bookings and remaining capacity.</p>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div style="padding:14px 18px; border:1px solid var(--border-light); border-radius:var(--radius-sm); display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <strong>Bali Island Hopping (Departure: Nov 15)</strong>
+                  <div style="font-size:0.8rem; color:var(--text-muted);">Max capacity: 12 travellers</div>
+                </div>
+                <span style="color:var(--accent-green); font-weight:700; font-size:0.9rem;">8 / 12 Seats Booked (4 Left)</span>
+              </div>
+              <div style="padding:14px 18px; border:1px solid var(--border-light); border-radius:var(--radius-sm); display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <strong>Swiss Alps Glacier Express (Departure: Dec 05)</strong>
+                  <div style="font-size:0.8rem; color:var(--text-muted);">Max capacity: 10 travellers</div>
+                </div>
+                <span style="color:var(--accent-red); font-weight:700; font-size:0.9rem;">9 / 10 Seats Booked (1 Left - Almost Full)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: ACTIVE CATEGORIES -->
+        <hr class="dashboard-section-divider">
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-tags"></i>
+            <span>4. Tour Classifications</span>
+          </div>
+          <div class="table-card">
+            <div class="table-header-row">
+              <div>
+                <h3 class="chart-title">Active Tour Categories</h3>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:2px;">Published category groupings across your portfolio.</p>
+              </div>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:10px;">
+              <span class="status-badge confirmed" style="font-size:0.85rem; padding:8px 16px;">Adventure Tours (12)</span>
+              <span class="status-badge confirmed" style="font-size:0.85rem; padding:8px 16px;">Honeymoon Packages (8)</span>
+              <span class="status-badge confirmed" style="font-size:0.85rem; padding:8px 16px;">Family Holidays (10)</span>
+              <span class="status-badge confirmed" style="font-size:0.85rem; padding:8px 16px;">Luxury Retreats (6)</span>
+              <span class="status-badge confirmed" style="font-size:0.85rem; padding:8px 16px;">Alpine Treks (5)</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ==========================================
+           PAGE 4: ANALYTICS
+           Contains 5 Relevant Sections
+      =========================================== -->
+      <section id="tabOperatorAnalytics" class="dashboard-tab-content">
+
+        <!-- SECTION 1: PERFORMANCE KPI CARDS -->
+        <div class="dashboard-section-block">
+          <div class="kpi-grid" style="margin-bottom:24px;">
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Conversion Rate</span>
+                  <div class="kpi-icon-wrap"><i class="fas fa-bullseye"></i></div>
+                </div>
+                <div class="kpi-value" style="color:var(--accent-green);">4.8%</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +1.2% industry avg</span>
+                </div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Repeat Travellers</span>
+                  <div class="kpi-icon-wrap"><i class="fas fa-redo"></i></div>
+                </div>
+                <div class="kpi-value" style="color:var(--primary-blue);">38%</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up">Loyalty explorer return</span>
+                </div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Net Profit Margin</span>
+                  <div class="kpi-icon-wrap"><i class="fas fa-coins"></i></div>
+                </div>
+                <div class="kpi-value">26.4%</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up">After host fee</span>
+                </div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-label">Avg Booking Value</span>
+                  <div class="kpi-icon-wrap"><i class="fas fa-receipt"></i></div>
+                </div>
+                <div class="kpi-value">$2,450</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend trend-up">Up $220 vs 2025</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: CUMULATIVE TRAVELLER GROWTH CHART -->
+        <hr class="dashboard-section-divider">
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-chart-line"></i>
+            <span>2. Traveller Growth &amp; Tour Quality</span>
+          </div>
+          <div class="chart-card" style="margin-bottom:24px;">
+            <div class="chart-header">
+              <h3 class="chart-title">5. Cumulative Traveller Growth (Quarterly)</h3>
+              <span style="font-size:0.75rem; color:var(--accent-green); font-weight:700;">+24% Quarterly</span>
+            </div>
+            <div class="chart-container-wrap" style="height:320px;">
+              <canvas id="chartTravellerGrowth"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: TOUR QUALITY & REVIEWS BAR CHART -->
+        <div class="dashboard-section-block">
+          <div class="chart-card" style="margin-bottom:24px;">
+            <div class="chart-header">
+              <h3 class="chart-title">6. Tour Performance & Ratings (Score / 100)</h3>
+              <span style="font-size:0.75rem; color:var(--text-muted);">Customer Quality</span>
+            </div>
+            <div class="chart-container-wrap" style="height:300px;">
+              <canvas id="chartTourPerformance"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: FINANCIAL BREAKDOWN CARD -->
+        <hr class="dashboard-section-divider">
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-coins"></i>
+            <span>4. Financial Settlement &amp; Platform Commission</span>
+          </div>
+          <div class="table-card" style="margin-bottom:24px;">
+            <h3 class="chart-title" style="margin-bottom:16px;">Revenue & Commission Summary</h3>
+            <div class="dashboard-grid-cards-sm" style="text-align:center;">
+              <div style="background:var(--bg-subtle-blue); padding:16px; border-radius:var(--radius-md);">
+                <div style="font-size:0.8rem; color:var(--text-muted);">Gross Bookings</div>
+                <div style="font-size:1.4rem; font-weight:800; color:var(--text-dark-navy); margin-top:4px;">$1,284,500</div>
+              </div>
+              <div style="background:var(--bg-subtle-blue); padding:16px; border-radius:var(--radius-md);">
+                <div style="font-size:0.8rem; color:var(--text-muted);">Stackly Platform Fee (10%)</div>
+                <div style="font-size:1.4rem; font-weight:800; color:var(--accent-red); margin-top:4px;">-$128,450</div>
+              </div>
+              <div style="background:var(--bg-subtle-blue); padding:16px; border-radius:var(--radius-md);">
+                <div style="font-size:0.8rem; color:var(--text-muted);">Net Settled to Bank</div>
+                <div style="font-size:1.4rem; font-weight:800; color:var(--accent-green); margin-top:4px;">$1,156,050</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 5: DOWNLOAD AUDIT REPORTS -->
+        <hr class="dashboard-section-divider">
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>5. Official Accounting &amp; Performance Reports</span>
+          </div>
+          <div class="table-card">
+            <div class="table-header-row" style="margin-bottom:0;">
+              <div>
+                <h3 class="chart-title">Official Accounting &amp; Performance Reports</h3>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:2px;">Export verified PDF audits for tax and business planning.</p>
+              </div>
+              <a href="404.html" class="btn btn-primary btn-sm">
+                <i class="fas fa-file-pdf"></i> Download Q3 2026 Audit
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ==========================================
+           PAGE 5: INQUIRIES & REVIEWS (REPLACED GENERIC SETTINGS)
+           Contains 5 Rich Operational Sections
+      =========================================== -->
+      <section id="tabOperatorInquiries" class="dashboard-tab-content">
+
+        <!-- SECTION 1: GUEST REVIEWS & SATISFACTION RATINGS -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-star" style="color:var(--accent-gold);"></i>
+            <span>1. Verified Traveler Reviews &amp; Testimonials (Score: 4.92 / 5.0)</span>
+          </div>
+          <div class="table-card" style="margin-bottom:24px;">
+            <div class="dashboard-grid-cards">
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:18px; background:var(--bg-subtle-blue);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                  <strong style="font-size:0.95rem;">Sophia Laurent</strong>
+                  <span style="color:#f59e0b; font-size:0.85rem;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                </div>
+                <span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:8px;">Bali Tropical Paradise &bull; Traveled Oct 2026</span>
+                <p style="font-size:0.85rem; color:var(--text-charcoal); font-style:italic; line-height:1.5; margin-bottom:12px;">
+                  "Wayan Arta was the best guide we have ever had! The sunrise trek and secluded Nusa Penida snorkel were organized flawlessly."
+                </p>
+                <a href="404.html" class="btn btn-outline btn-sm"><i class="fas fa-comment-dots"></i> Public Reply</a>
+              </div>
+
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:18px; background:var(--bg-subtle-blue);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                  <strong style="font-size:0.95rem;">Hiroshi Tanaka</strong>
+                  <span style="color:#f59e0b; font-size:0.85rem;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                </div>
+                <span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:8px;">Swiss Alps Glacier Odyssey &bull; Traveled Sep 2026</span>
+                <p style="font-size:0.85rem; color:var(--text-charcoal); font-style:italic; line-height:1.5; margin-bottom:12px;">
+                  "Pristine logistics! Luggage transferred seamlessly between Zermatt and St. Moritz hotels. Truly a 5-star experience."
+                </p>
+                <a href="404.html" class="btn btn-outline btn-sm"><i class="fas fa-comment-dots"></i> Public Reply</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dashboard-section-divider">
+
+        <!-- SECTION 2: TOUR GUIDES & CERTIFIED FIELD OPERATIONS -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-id-badge"></i>
+            <span>2. Certified Tour Guides &amp; Field Operations</span>
+          </div>
+          <div class="table-card" style="margin-bottom:24px;">
+            <div class="dashboard-grid-cards-sm">
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px; background:#fff;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+                  <strong style="font-size:1rem;">Wayan Arta</strong>
+                  <span class="status-badge confirmed"><i class="fas fa-check-circle"></i> On Tour</span>
+                </div>
+                <span style="font-size:0.8rem; color:var(--primary-blue); font-weight:700;">Lead Explorer &bull; Bali, Indonesia</span>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin:6px 0 10px;">Languages: English, Bahasa, Japanese &bull; 8 Years with Stackly</p>
+                <div style="font-size:0.78rem; color:var(--text-muted);"><i class="fas fa-phone"></i> +62 812-3456-7890</div>
+              </div>
+
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px; background:#fff;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+                  <strong style="font-size:1rem;">Hans Keller</strong>
+                  <span class="status-badge confirmed"><i class="fas fa-check-circle"></i> Standby Ready</span>
+                </div>
+                <span style="font-size:0.8rem; color:var(--accent-green); font-weight:700;">Alpine Guide &bull; Zermatt, Switzerland</span>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin:6px 0 10px;">Languages: German, English, French &bull; Certified UIAGM Guide</p>
+                <div style="font-size:0.78rem; color:var(--text-muted);"><i class="fas fa-phone"></i> +41 27-966-8800</div>
+              </div>
+
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px; background:#fff;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+                  <strong style="font-size:1rem;">Aisha Al-Maktoum</strong>
+                  <span class="status-badge confirmed"><i class="fas fa-check-circle"></i> Standby Ready</span>
+                </div>
+                <span style="font-size:0.8rem; color:var(--accent-gold); font-weight:700;">Desert Escort &bull; Dubai, UAE</span>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin:6px 0 10px;">Languages: Arabic, English, Russian &bull; Luxury Concierge Certified</p>
+                <div style="font-size:0.78rem; color:var(--text-muted);"><i class="fas fa-phone"></i> +971 4-388-9900</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dashboard-section-divider">
+
+        <!-- SECTION 3: BANKING & AUTOMATED SETTLEMENT STATUS -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-university"></i>
+            <span>3. Banking Credentials &amp; Automated Payout Details</span>
+          </div>
+          <div class="table-card" style="margin-bottom:24px; max-width:820px;">
+            <div class="dashboard-grid-cards-sm" style="background:var(--bg-subtle-blue); padding:18px; border-radius:var(--radius-md); font-size:0.85rem;">
+              <div>
+                <span style="color:var(--text-muted); font-size:0.75rem; display:block;">Payout Method</span>
+                <strong>Direct Bank ACH Transfer</strong>
+              </div>
+              <div>
+                <span style="color:var(--text-muted); font-size:0.75rem; display:block;">Account Ending In</span>
+                <strong>****-8842 (Chase Commercial)</strong>
+              </div>
+              <div>
+                <span style="color:var(--text-muted); font-size:0.75rem; display:block;">Payout Frequency</span>
+                <strong style="color:var(--accent-green);">Bi-Weekly (Alternate Tuesdays)</strong>
+              </div>
+              <div>
+                <span style="color:var(--text-muted); font-size:0.75rem; display:block;">Next Settlement</span>
+                <strong style="color:var(--primary-blue);">Nov 03, 2026 ($48,200 Est.)</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/dashboard-operator.js"></script>
+</body>
+</html>

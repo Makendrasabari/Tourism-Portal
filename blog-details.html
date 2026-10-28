@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Ultimate Guide to Island Hopping in Bali & Nusa Penida — Stackly</title>
+  <meta name="description" content="Discover secluded beaches, secret coral reefs, cliffside viewpoints, and authentic Balinese cultural rituals with Stackly's comprehensive Bali travel guide.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- STACKLY PRELOADER: BUILDING REVEAL + TRAVEL ANIMATION + LOGO REVEAL -->
+  <div id="stacklyPreloader" class="stackly-preloader" aria-label="Loading Stackly Travel Portal">
+    <div class="preloader-stage">
+      <svg class="flight-path-svg" viewBox="0 0 300 120">
+        <path class="flight-arc" d="M 20,100 Q 150,-10 280,100" />
+        <path id="preloaderPlane" class="plane-marker" d="M 0,-6 L 8,0 L 0,6 L 2,1 L -6,4 L -4,0 L -6,-4 L 2,-1 Z">
+          <animateMotion path="M 20,100 Q 150,-10 280,100" dur="2.2s" repeatCount="indefinite" rotate="auto" />
+        </path>
+      </svg>
+      <svg class="building-reveal-svg" viewBox="0 0 220 130">
+        <line x1="10" y1="125" x2="210" y2="125" class="arch-line" stroke-width="3" />
+        <rect x="25" y="60" width="28" height="65" class="arch-fill" />
+        <rect x="25" y="60" width="28" height="65" class="arch-line" />
+        <rect x="63" y="40" width="34" height="85" class="arch-fill" />
+        <rect x="63" y="40" width="34" height="85" class="arch-line" />
+        <rect x="107" y="20" width="45" height="105" class="arch-fill" />
+        <rect x="107" y="20" width="45" height="105" class="arch-line" />
+        <rect x="162" y="50" width="32" height="75" class="arch-fill" />
+        <rect x="162" y="50" width="32" height="75" class="arch-line" />
+        <path d="M 107,20 L 129.5,2 L 152,20 Z" class="arch-line" />
+        <path d="M 32,80 Q 39,70 46,80 L 46,125 L 32,125 Z" class="arch-line" />
+        <path d="M 72,60 Q 80,50 88,60 L 88,125 L 72,125 Z" class="arch-line" />
+        <path d="M 120,45 Q 129.5,35 139,45 L 139,125 L 120,125 Z" class="arch-line" />
+        <path d="M 170,70 Q 178,60 186,70 L 186,125 L 170,125 Z" class="arch-line" />
+      </svg>
+      <div id="preloaderLogoWrap" class="preloader-logo-wrap">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="preloader-logo">
+      </div>
+      <div id="preloaderBrandText" class="preloader-text">EXPLORE • DISCOVER • JOURNEY</div>
+      <div class="preloader-bar-wrap">
+        <div id="preloaderProgressBar" class="preloader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITE HEADER -->
+  <header class="site-header">
+    <div class="container-wide header-inner">
+      <a href="index.html" class="brand-logo-link" aria-label="Stackly Home">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="brand-logo-img">
+      </a>
+      <nav class="main-navigation" aria-label="Primary Navigation">
+        <ul class="nav-menu-list">
+          <li class="nav-menu-item"><a href="index.html" class="nav-menu-link">Home</a></li>
+          <li class="nav-menu-item"><a href="about.html" class="nav-menu-link">About Us</a></li>
+          <li class="nav-menu-item"><a href="services.html" class="nav-menu-link">Services</a></li>
+          <li class="nav-menu-item"><a href="blog.html" class="nav-menu-link active">Blog</a></li>
+          <li class="nav-menu-item"><a href="contact.html" class="nav-menu-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-primary btn-sm"><i class="fas fa-user-circle"></i> Login</a>
+        <button id="mobileNavToggle" class="mobile-nav-toggle" aria-label="Open Navigation"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER (NAVIGATION + AUTH) -->
+  <div id="drawerBackdrop" class="drawer-backdrop"></div>
+  <aside id="mobileDrawer" class="mobile-drawer" aria-label="Mobile Navigation">
+    <div class="drawer-header">
+      <img src="assets/images/ui/logo.webp" alt="Stackly" class="drawer-logo-img">
+      <button id="drawerCloseBtn" class="drawer-close-btn" aria-label="Close Menu">&times;</button>
+    </div>
+    <ul class="drawer-nav-list">
+      <li><a href="index.html" class="drawer-nav-link"><i class="fas fa-home"></i> <span>Home</span></a></li>
+      <li><a href="about.html" class="drawer-nav-link"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+      <li><a href="services.html" class="drawer-nav-link"><i class="fas fa-concierge-bell"></i> <span>Services &amp; Tours</span></a></li>
+      <li><a href="blog.html" class="drawer-nav-link active"><i class="fas fa-newspaper"></i> <span>Blog</span></a></li>
+      <li><a href="contact.html" class="drawer-nav-link"><i class="fas fa-envelope"></i> <span>Contact</span></a></li>
+    </ul>
+    <div class="drawer-footer">
+      <a href="login.html" class="btn btn-primary" style="width:100%; justify-content:center;">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </a>
+      <a href="signup.html" class="btn btn-outline" style="width:100%; justify-content:center;">
+        <i class="fas fa-user-plus"></i> Create Account
+      </a>
+    </div>
+  </aside>
+
+  <!-- ARTICLE HERO -->
+  <article class="section-padding bg-white" style="padding-top:130px;">
+    <div class="container" style="max-width:920px;">
+      <div class="breadcrumb-nav" style="justify-content:flex-start;">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="blog.html">Travel Journal</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Bali & Nusa Penida Guide</span>
+      </div>
+
+      <span style="background:var(--primary-blue); color:#fff; font-size:0.75rem; font-weight:700; padding:5px 14px; border-radius:var(--radius-full); text-transform:uppercase; display:inline-block; margin-bottom:16px;">
+        Destination Guides &bull; Southeast Asia
+      </span>
+
+      <h1 style="font-size:3rem; line-height:1.2; margin-bottom:24px;">The Ultimate Guide to Island Hopping in Bali & Nusa Penida: Secret Spots and Cultural Gems</h1>
+
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding-bottom:24px; border-bottom:1px solid var(--border-light); margin-bottom:32px;">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <img src="assets/images/testimonials/avatar-1.webp" alt="Elena Vance" style="width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid var(--primary-blue);">
+          <div>
+            <strong style="display:block; font-size:1rem; color:var(--text-dark-navy);">Elena Vance</strong>
+            <span style="font-size:0.82rem; color:var(--text-muted);">Senior Travel Editor & Photojournalist &bull; Oct 24, 2026</span>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <a href="#" class="social-icon-btn" title="Share on Twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="social-icon-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon-btn" title="Share on Pinterest"><i class="fab fa-pinterest"></i></a>
+          <a href="#" class="social-icon-btn" title="Copy Link"><i class="fas fa-link"></i></a>
+        </div>
+      </div>
+
+      <!-- Main Feature Image -->
+      <div style="border-radius:var(--radius-xl); overflow:hidden; box-shadow:var(--shadow-card); margin-bottom:40px;">
+        <img src="assets/images/blog/blog-1.webp" alt="Bali & Nusa Penida" style="width:100%; height:480px; object-fit:cover;">
+      </div>
+
+      <!-- Article Body -->
+      <div style="font-size:1.1rem; line-height:1.8; color:var(--text-charcoal);">
+        <p style="margin-bottom:24px;">
+          For decades, Bali has captured the imaginations of intrepid wanderers. But beyond the bustling beach clubs of Canggu and Seminyak lies an archipelago rich with ancient temple rituals, jungle ravines, and the wild, dramatic limestone cliffs of neighboring Nusa Penida.
+        </p>
+
+        <h2 style="font-size:1.8rem; margin:36px 0 16px; color:var(--text-dark-navy);">1. Escaping the Crowds in Nusa Penida</h2>
+        <p style="margin-bottom:20px;">
+          Just a 40-minute high-speed catamaran ride from Sanur harbor brings you to Nusa Penida. Most day-trippers arrive at 10:00 AM and rush to Kelingking Beach (the iconic 'T-Rex' cliff). To experience this geologic wonder in peace, our Stackly guides recommend staying overnight on the island and arriving at the cliff lookout at 6:30 AM when the morning mist still hugs the sheer rock face.
+        </p>
+
+        <div style="background:var(--bg-subtle-blue); border-left:4px solid var(--primary-blue); padding:20px 24px; border-radius:0 var(--radius-sm) var(--radius-sm) 0; margin:30px 0;">
+          <strong style="color:var(--primary-blue); font-size:1rem; display:block; margin-bottom:6px;"><i class="fas fa-lightbulb"></i> Stackly Pro-Tip:</strong>
+          <span style="font-size:0.95rem; color:var(--text-charcoal);">
+            Rent a private driver with an air-conditioned 4WD vehicle instead of scooters. The roads across western Nusa Penida can be rugged and narrow, and having an experienced native driver saves hours of navigational stress.
+          </span>
+        </div>
+
+        <h2 style="font-size:1.8rem; margin:36px 0 16px; color:var(--text-dark-navy);">2. The Spiritual Serenity of Ubud's Sacred Waters</h2>
+        <p style="margin-bottom:20px;">
+          In the central highlands, Ubud is the cultural heartbeat of Bali. While the Sacred Monkey Forest is delightful, make time for an early morning pilgrimage to Tirta Empul. Here, underground spring waters fill sacred stone pools where locals perform the Melukat purification ritual. Participating with an elder guide who explains the offerings (canang sari) is a deeply moving experience that grounds your entire stay.
+        </p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:32px 0;">
+          <img src="assets/images/destinations/bali.webp" alt="Temple" style="border-radius:var(--radius-md); width:100%; height:250px; object-fit:cover;">
+          <img src="assets/images/hotels/resort-1.webp" alt="Resort" style="border-radius:var(--radius-md); width:100%; height:250px; object-fit:cover;">
+        </div>
+
+        <h2 style="font-size:1.8rem; margin:36px 0 16px; color:var(--text-dark-navy);">3. Marine Encounters: Swimming Alongside Giant Manta Rays</h2>
+        <p style="margin-bottom:24px;">
+          Manta Point on Nusa Penida's south coast is one of the world's most reliable year-round cleaning stations for Reef Manta Rays (Mobula alfredi). Floating calmly on the ocean surface while these gentle oceanic giants glide just feet beneath you with three-meter wingspans is an unforgettable testament to marine beauty.
+        </p>
+
+        <blockquote style="border-left:4px solid var(--primary-blue); padding-left:24px; margin:36px 0; font-family:var(--font-heading); font-size:1.35rem; font-style:italic; color:var(--primary-blue);">
+          "Travel is not about ticking tourist checkpoints off a bucket list; it is about finding those rare moments where the world makes you feel wonderfully tiny and completely alive."
+        </blockquote>
+
+        <h2 style="font-size:1.8rem; margin:36px 0 16px; color:var(--text-dark-navy);">Recommended Tour Package</h2>
+        <p style="margin-bottom:20px;">
+          Ready to experience this exact itinerary with 5-star private villas, certified guides, and private speedboat transfers? Explore our full Bali package:
+        </p>
+        <div style="background:#fff; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:24px; box-shadow:var(--shadow-card); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+          <div>
+            <h4 style="font-size:1.2rem; margin-bottom:4px;">Bali Tropical Paradise & Nusa Penida Island</h4>
+            <span style="font-size:0.85rem; color:var(--text-muted);"><i class="far fa-clock"></i> 7 Days / 6 Nights &bull; 4.9 Rating</span>
+          </div>
+          <a href="404.html" class="btn btn-primary"><i class="fas fa-ticket-alt"></i> View Itinerary &amp; Book ($1,250)</a>
+        </div>
+      </div>
+
+      <!-- Author Bio Card -->
+      <div style="background:var(--bg-subtle-blue); border:1px solid var(--border-light); border-radius:var(--radius-lg); padding:32px; margin-top:60px; display:flex; gap:24px; align-items:center;">
+        <img src="assets/images/testimonials/avatar-1.webp" alt="Elena Vance" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:3px solid var(--primary-blue);">
+        <div>
+          <h4 style="font-size:1.2rem; margin-bottom:6px;">Written by Elena Vance</h4>
+          <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6;">
+            Elena has traveled to over 60 countries across six continents as a documentary photographer. She leads Stackly's editorial desk and coordinates with native conservationists in Southeast Asia.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <a href="index.html">
+            <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="footer-logo-img">
+          </a>
+          <p class="footer-brand-desc">Discover new destinations, experience unforgettable journeys, and explore the world with Stackly.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="social-icon-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="services.html" class="footer-link">Services &amp; Tours</a></li>
+            <li><a href="blog.html" class="footer-link">Travel Journal</a></li>
+            <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Explore World</h4>
+          <ul class="footer-links-list">
+            <li><a href="tour-details.html" class="footer-link">Bali Paradise Escape</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Swiss Alps Odyssey</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Maldives Overwater Villa</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Kashmir Dal Lake</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Dubai Desert Safari</a></li>
+            <li><a href="services.html#tourPackagesSection" class="footer-link">Tokyo Cultural Journey</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact Stackly</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone-alt footer-contact-icon"></i>
+            <div><strong>+1 (800) 782-2559</strong><div style="font-size:0.8rem; color:#94a3b8;">Mon - Sat, 9:00 AM - 7:00 PM EST</div></div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope footer-contact-icon"></i>
+            <div><strong>support@stacklytravel.com</strong></div>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Stackly+MMR+Complex+Chinna+Thirupathi+Salem+Tamil+Nadu+636008" target="_blank" rel="noopener" class="footer-contact-item footer-address-link" title="Open Stackly Salem on Google Maps">
+            <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+            <div>
+              <strong style="color:var(--text-dark-navy);">Stackly Salem HQ</strong>
+              <div style="font-size:0.82rem; color:var(--text-muted); line-height:1.4;">MMR Complex, Chinna Thirupathi, Salem, Tamil Nadu &ndash; 636008</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Stackly. All Rights Reserved.</div>
+        <div class="footer-legal-links">
+          <a href="contact.html">Privacy Policy</a>
+          <a href="contact.html">Terms and Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

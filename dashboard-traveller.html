@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveller Portal — Stackly Tourism & Travel Portal</title>
+  <meta name="description" content="Personalized explorer command center. Track your upcoming trips, booking vouchers, travel statistics, and custom itineraries with Stackly.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dashboard-body">
+
+  <!-- STACKLY PRELOADER: BUILDING REVEAL + TRAVEL ANIMATION + LOGO REVEAL -->
+  <div id="stacklyPreloader" class="stackly-preloader" aria-label="Loading Stackly Travel Portal">
+    <div class="preloader-stage">
+      <svg class="flight-path-svg" viewBox="0 0 300 120">
+        <path class="flight-arc" d="M 20,100 Q 150,-10 280,100" />
+        <path id="preloaderPlane" class="plane-marker" d="M 0,-6 L 8,0 L 0,6 L 2,1 L -6,4 L -4,0 L -6,-4 L 2,-1 Z">
+          <animateMotion path="M 20,100 Q 150,-10 280,100" dur="2.2s" repeatCount="indefinite" rotate="auto" />
+        </path>
+      </svg>
+      <svg class="building-reveal-svg" viewBox="0 0 220 130">
+        <line x1="10" y1="125" x2="210" y2="125" class="arch-line" stroke-width="3" />
+        <rect x="25" y="60" width="28" height="65" class="arch-fill" />
+        <rect x="25" y="60" width="28" height="65" class="arch-line" />
+        <rect x="63" y="40" width="34" height="85" class="arch-fill" />
+        <rect x="63" y="40" width="34" height="85" class="arch-line" />
+        <rect x="107" y="20" width="45" height="105" class="arch-fill" />
+        <rect x="107" y="20" width="45" height="105" class="arch-line" />
+        <rect x="162" y="50" width="32" height="75" class="arch-fill" />
+        <rect x="162" y="50" width="32" height="75" class="arch-line" />
+        <path d="M 107,20 L 129.5,2 L 152,20 Z" class="arch-line" />
+        <path d="M 32,80 Q 39,70 46,80 L 46,125 L 32,125 Z" class="arch-line" />
+        <path d="M 72,60 Q 80,50 88,60 L 88,125 L 72,125 Z" class="arch-line" />
+        <path d="M 120,45 Q 129.5,35 139,45 L 139,125 L 120,125 Z" class="arch-line" />
+        <path d="M 170,70 Q 178,60 186,70 L 186,125 L 170,125 Z" class="arch-line" />
+      </svg>
+      <div id="preloaderLogoWrap" class="preloader-logo-wrap">
+        <img src="assets/images/ui/logo.webp" alt="Stackly Tourism & Travel" class="preloader-logo">
+      </div>
+      <div id="preloaderBrandText" class="preloader-text">EXPLORE • DISCOVER • JOURNEY</div>
+      <div class="preloader-bar-wrap">
+        <div id="preloaderProgressBar" class="preloader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Bulletproof failsafe: Ensure preloader NEVER blocks dashboard even if CDN/scripts lag
+    setTimeout(function() {
+      var p = document.getElementById('stacklyPreloader');
+      if (p && p.style.display !== 'none') {
+        p.classList.add('fade-out');
+        p.style.opacity = '0';
+        p.style.pointerEvents = 'none';
+        setTimeout(function() { p.style.display = 'none'; }, 300);
+      }
+    }, 700);
+  </script>
+
+  <!-- SIDEBAR (EXACTLY 5 CLEAN HEADINGS - NO SUBHEADINGS) -->
+  <aside id="travellerSidebar" class="dashboard-sidebar">
+    <div class="sidebar-header">
+      <a href="index.html">
+        <img src="assets/images/ui/logo.webp" alt="Stackly" class="sidebar-logo">
+      </a>
+      <button type="button" class="sidebar-close-btn" id="travellerSidebarCloseBtn" aria-label="Close Navigation">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="sidebar-nav-container">
+      <ul class="sidebar-clean-nav">
+        <li>
+          <a href="#overview" class="sidebar-clean-link active" data-tab="tabTravellerOverview" data-target-tab="tabTravellerOverview" onclick="switchToTab('tabTravellerOverview')">
+            <i class="fas fa-th-large"></i>
+            <span>Overview</span>
+          </a>
+        </li>
+        <li>
+          <a href="#my-trips" class="sidebar-clean-link" data-tab="tabTravellerTrips" data-target-tab="tabTravellerTrips" onclick="switchToTab('tabTravellerTrips')">
+            <i class="fas fa-suitcase"></i>
+            <span>My Trips</span>
+          </a>
+        </li>
+        <li>
+          <a href="#tour-packages" class="sidebar-clean-link" data-tab="tabTravellerExplore" data-target-tab="tabTravellerExplore" onclick="switchToTab('tabTravellerExplore')">
+            <i class="fas fa-box-open"></i>
+            <span>Packages</span>
+          </a>
+        </li>
+        <li class="sidebar-divider"></li>
+        <li>
+          <a href="#analytics" class="sidebar-clean-link" data-tab="tabTravellerAnalytics" data-target-tab="tabTravellerAnalytics" onclick="switchToTab('tabTravellerAnalytics')">
+            <i class="fas fa-chart-pie"></i>
+            <span>Analytics</span>
+          </a>
+        </li>
+        <li>
+          <a href="#wishlist" class="sidebar-clean-link" data-tab="tabTravellerWishlist" data-target-tab="tabTravellerWishlist" onclick="switchToTab('tabTravellerWishlist')">
+            <i class="fas fa-heart"></i>
+            <span>Wishlist</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sidebar-footer">
+      <a href="login.html" class="sidebar-logout-btn" id="sidebarLogoutBtn" title="Sign Out of Stackly">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Log Out</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="dashboard-main">
+
+    <!-- TOPBAR (SEARCH/SWITCH/NOTIFICATIONS REMOVED, USER INITIALS PROFILE WIDGET ON RIGHT END) -->
+    <header class="dashboard-topbar">
+      <div class="topbar-left">
+        <button id="travellerMobileToggle" class="topbar-mobile-toggle" aria-label="Toggle Navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h2 id="travellerPageTitle" class="topbar-page-title">Overview</h2>
+      </div>
+
+      <div class="topbar-right">
+        <!-- User Profile Dropdown Widget (Name + Initials Icon) -->
+        <div class="dashboard-profile-widget" id="profileDropdownContainer">
+          <button type="button" class="dashboard-profile-btn" id="dashboardProfileBtn" aria-label="Open User Profile Menu">
+            <div class="user-avatar-initials" id="navAvatarInitials">MS</div>
+            <span class="user-nav-name" id="navUserName">Mahesh Sabari</span>
+            <i class="fas fa-chevron-down profile-chevron"></i>
+          </button>
+
+          <!-- Interactive Profile Modal Dropdown (Displays Name, Email, Selected Role) -->
+          <div class="profile-dropdown-card" id="profileDropdownCard">
+            <div class="profile-card-header">
+              <div class="user-avatar-initials large" id="cardAvatarInitials">MS</div>
+              <div class="profile-card-user-info">
+                <h4 class="profile-card-name" id="cardUserName">Mahesh Sabari</h4>
+                <p class="profile-card-email" id="cardUserEmail">maheshsabari@gmail.com</p>
+                <span class="profile-card-badge" id="cardUserRole">Traveller</span>
+              </div>
+            </div>
+            <div class="profile-card-body">
+              <div class="profile-detail-row">
+                <span class="profile-detail-label"><i class="fas fa-user-circle"></i> Full Name</span>
+                <strong class="profile-detail-val" id="detailFullName">Mahesh Sabari</strong>
+              </div>
+              <div class="profile-detail-row">
+                <span class="profile-detail-label"><i class="fas fa-envelope"></i> Email Address</span>
+                <strong class="profile-detail-val" id="detailEmail">maheshsabari@gmail.com</strong>
+              </div>
+              <div class="profile-detail-row">
+                <span class="profile-detail-label"><i class="fas fa-user-tag"></i> Selected Role</span>
+                <strong class="profile-detail-val" id="detailRole">Traveller</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT AREA: 5 DISTINCT MAIN TAB PAGES -->
+    <main class="dashboard-content-area">
+
+      <!-- ===================================================================
+           TAB 1: DASHBOARD (OVERVIEW)
+           =================================================================== -->
+      <section id="tabTravellerOverview" class="dashboard-tab-content active">
+
+        <!-- SECTION 1: DYNAMIC WELCOME NOTE (Welcome Hari! / Kumar Swami) -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-welcome-banner animate-slide-left">
+            <div class="welcome-banner-text">
+              <span class="welcome-tag"><i class="fas fa-sparkles"></i> Welcome to Stackly</span>
+              <h1 class="welcome-heading">Welcome, <span id="welcomeUserName">Kumar Swami</span>!</h1>
+              <p class="welcome-sub">Your personal travel command center is ready. Review upcoming departures, track rewards, and explore new itineraries.</p>
+            </div>
+            <div class="welcome-banner-actions">
+              <button type="button" class="btn btn-primary" onclick="window.location.href='404.html'">
+                <i class="fas fa-suitcase"></i> View My Trips
+              </button>
+              <button type="button" class="btn btn-outline-white" onclick="window.location.href='404.html'" style="background:rgba(255,255,255,0.18) !important; color:#ffffff !important; border-color:rgba(255,255,255,0.7) !important;">
+                <i class="fas fa-compass" style="color:#ffffff !important;"></i> Explore Tours
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: NEXT CONFIRMED ADVENTURE COUNTDOWN HERO -->
+        <div class="dashboard-section-block">
+          <div class="traveller-hero-trip animate-slide-right">
+            <div>
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                <span style="background:rgba(255,255,255,0.2); padding:4px 12px; border-radius:var(--radius-full); font-size:0.75rem; font-weight:700; text-transform:uppercase;">
+                  Next Confirmed Adventure
+                </span>
+                <span class="live-status-badge" style="background:rgba(16,185,129,0.28); color:#a7f3d0; border-color:rgba(16,185,129,0.55);">
+                  <span class="live-pulse-dot"></span> LIVE COUNTDOWN
+                </span>
+              </div>
+              <h2 style="font-size:1.8rem; margin:8px 0 6px; color:#fff;">Bali Tropical Paradise &amp; Nusa Penida</h2>
+              <p style="color:rgba(255,255,255,0.85); font-size:0.95rem; margin-bottom:20px;">
+                <i class="fas fa-calendar-alt"></i> Departure: November 15, 2026 &bull; 7 Days &bull; Private Villa &amp; Guide Reserved
+              </p>
+              <div class="countdown-trip-badge" id="tripCountdownLive">
+                <div class="countdown-box">
+                  <span class="countdown-num" id="heroCountDays">19</span>
+                  <span class="countdown-unit">Days</span>
+                </div>
+                <div class="countdown-box">
+                  <span class="countdown-num" id="heroCountHours">08</span>
+                  <span class="countdown-unit">Hours</span>
+                </div>
+                <div class="countdown-box">
+                  <span class="countdown-num" id="heroCountMins">45</span>
+                  <span class="countdown-unit">Mins</span>
+                </div>
+                <div class="countdown-box countdown-secs-box">
+                  <span class="countdown-num" id="heroCountSecs">28</span>
+                  <span class="countdown-unit">Secs</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <button type="button" class="btn btn-white" style="background:#fff; color:var(--primary-blue);" onclick="window.location.href='404.html'">
+                <i class="fas fa-map-marked-alt"></i> View Trip Itinerary
+              </button>
+              <button class="btn btn-outline-white" style="background:rgba(255,255,255,0.18) !important; color:#ffffff !important; border-color:rgba(255,255,255,0.7) !important;" onclick="window.location.href='404.html'">
+                <i class="fas fa-download" style="color:#ffffff !important;"></i> Download E-Ticket
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: 4 SUMMARY KPI CARDS (LIVE RUNNING NUMBERS) -->
+        <div class="dashboard-section-block">
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-title">Active Bookings</span>
+                  <div class="kpi-icon-wrap" style="background:rgba(16,185,129,0.1); color:var(--accent-green);"><i class="fas fa-suitcase-rolling"></i></div>
+                </div>
+                <div class="kpi-value"><span class="live-counter-num" id="kpiActiveBookings" data-target="2">2</span> <span style="font-size:1.1rem; font-weight:600; color:var(--text-muted);">Trips</span></div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-trend positive"><i class="fas fa-check"></i> Confirmed &amp; Ready</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-title">Total Trips Completed</span>
+                  <div class="kpi-icon-wrap" style="background:rgba(56,35,201,0.1); color:var(--primary-blue);"><i class="fas fa-passport"></i></div>
+                </div>
+                <div class="kpi-value"><span class="live-counter-num" id="kpiTripsCompleted" data-target="9">9</span> <span style="font-size:1.1rem; font-weight:600; color:var(--text-muted);">Journeys</span></div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-subtext"><i class="fas fa-globe"></i> 14 Countries Visited</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-title" style="margin-bottom:0;">Reward Travel Miles</span>
+                  <div class="kpi-icon-wrap" style="background:rgba(245,158,11,0.1); color:var(--accent-gold);"><i class="fas fa-medal"></i></div>
+                </div>
+                <div class="kpi-value" style="position:relative; display:inline-block;">
+                  <span class="live-counter-num" id="kpiRewardMiles" data-target="18420">18,420</span>
+                  <span id="milesFloatingTicker" class="miles-floating-inc">+1 mi</span>
+                </div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-subtext" style="color:var(--accent-green);"><i class="fas fa-award"></i> Gold Tier Explorer</span>
+                  <span class="live-status-badge" title="Live satellite mileage sync active"><span class="live-pulse-dot"></span> LIVE SYNC</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-title">Wishlist Hotspots</span>
+                  <div class="kpi-icon-wrap" style="background:rgba(239,68,68,0.1); color:var(--accent-red);"><i class="fas fa-heart"></i></div>
+                </div>
+                <div class="kpi-value"><span class="live-counter-num" id="kpiWishlistCount" data-target="6">6</span> <span style="font-size:1.1rem; font-weight:600; color:var(--text-muted);">Saved</span></div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-subtext"><i class="fas fa-heart" style="color:var(--accent-red);"></i> Ready for 2027</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: CHARTS GRID: MONTHLY TRAVEL DAYS & EXPENDITURE BREAKDOWN -->
+        <hr class="dashboard-section-divider">
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-chart-line"></i>
+            <span>4. Travel Activity &amp; Expenditure Analysis</span>
+          </div>
+          <div class="charts-grid-2col">
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3 class="chart-title">1. Monthly Travel Activity (Days on Journey)</h3>
+                <span class="chart-badge">2026 Season</span>
+              </div>
+              <div class="chart-container-wrap chart-container-box">
+                <canvas id="chartTravelActivity"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3 class="chart-title">2. Travel Expenditure Breakdown</h3>
+                <span class="chart-badge">Budget Distribution</span>
+              </div>
+              <div class="chart-container-wrap chart-container-box">
+                <canvas id="chartExpenditure"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TAB 2: MY TRIPS (BOOKINGS & ITINERARIES)
+           =================================================================== -->
+      <!-- ===================================================================
+           TAB 2: MY TRIPS (BOOKINGS, ITINERARIES & READINESS - 4 SECTIONS)
+           =================================================================== -->
+      <section id="tabTravellerTrips" class="dashboard-tab-content">
+
+        <!-- SECTION 1: ACTIVE & UPCOMING EXPEDITIONS -->
+        <div class="dashboard-section-block">
+          <div class="table-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:24px;">
+              <div>
+                <h3 class="chart-title" style="margin-bottom:4px;">1. Active &amp; Upcoming Expeditions</h3>
+                <p style="color:var(--text-muted); font-size:0.88rem; margin:0;">Real-time synchronized bookings managed with verified local hosts.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="window.location.href='404.html'">
+                <i class="fas fa-plus"></i> Book Another Trip
+              </button>
+            </div>
+
+            <!-- Dynamic Booking Cards List -->
+            <div id="travellerTripsList">
+              <!-- Rendered dynamically by js/dashboard-traveller.js -->
+            </div>
+          </div>
+        </div>
+
+        <hr class="dashboard-section-divider">
+
+        <!-- SECTION 2: DAILY EXPEDITION ITINERARY & LIVE ROUTE TIMELINE -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>2. Expedition Itinerary &amp; Daily Waypoints (Bali Adventure)</span>
+          </div>
+          <div class="table-card" style="margin-bottom:24px;">
+            <div class="dashboard-grid-cards-sm">
+              <div style="border-left:3px solid var(--primary-blue); padding:12px 16px; background:var(--bg-subtle-blue); border-radius:0 var(--radius-md) var(--radius-md) 0;">
+                <span style="font-size:0.75rem; font-weight:700; color:var(--primary-blue); text-transform:uppercase;">Day 1 &bull; Nov 15</span>
+                <h4 style="font-size:1.05rem; margin:4px 0 6px;">Ngurah Rai Arrival &amp; Villa Check-In</h4>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin:0;">Private airport chauffeur transfer to Seminyak beachfront luxury pool villa.</p>
+              </div>
+              <div style="border-left:3px solid var(--accent-green); padding:12px 16px; background:var(--bg-subtle-blue); border-radius:0 var(--radius-md) var(--radius-md) 0;">
+                <span style="font-size:0.75rem; font-weight:700; color:var(--accent-green); text-transform:uppercase;">Day 2 &bull; Nov 16</span>
+                <h4 style="font-size:1.05rem; margin:4px 0 6px;">Ubud Sacred Forest &amp; Rice Terraces</h4>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin:0;">Guided walk through Tegallalang terraces, traditional batik atelier, and coffee plantation.</p>
+              </div>
+              <div style="border-left:3px solid var(--accent-gold); padding:12px 16px; background:var(--bg-subtle-blue); border-radius:0 var(--radius-md) var(--radius-md) 0;">
+                <span style="font-size:0.75rem; font-weight:700; color:var(--accent-gold); text-transform:uppercase;">Day 3 &bull; Nov 17</span>
+                <h4 style="font-size:1.05rem; margin:4px 0 6px;">Nusa Penida Catamaran &amp; Snorkel</h4>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin:0;">Speedboat expedition to Kelingking T-Rex cliff, manta ray bay, and coral lagoon swim.</p>
+              </div>
+              <div style="border-left:3px solid #8b5cf6; padding:12px 16px; background:var(--bg-subtle-blue); border-radius:0 var(--radius-md) var(--radius-md) 0;">
+                <span style="font-size:0.75rem; font-weight:700; color:#8b5cf6; text-transform:uppercase;">Day 4-7 &bull; Nov 18-21</span>
+                <h4 style="font-size:1.05rem; margin:4px 0 6px;">Mount Batur Sunrise &amp; Spa Retreat</h4>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin:0;">Volcanic 4x4 dawn safari, hot spring mineral dip, and sunset seafood banquet at Jimbaran.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dashboard-section-divider">
+
+        <!-- SECTION 3: COMPLETED JOURNEYS SHOWCASE & CERTIFICATES -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-history"></i>
+            <span>3. Completed Journeys &amp; Certified Travel Archive</span>
+          </div>
+          <div class="table-card" style="margin-bottom:24px;">
+            <div class="two-card-row dashboard-grid-2col-responsive">
+              <div class="archive-journey-card chart-card" style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:18px; background:#fff; box-shadow:var(--shadow-subtle);">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                  <h4 style="font-size:1.1rem; margin:0;">Swiss Alps Peaks &amp; Glacier Express</h4>
+                  <span class="status-badge confirmed"><i class="fas fa-check-circle"></i> Completed</span>
+                </div>
+                <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:12px;">Visited: Zermatt &bull; August 2025 &bull; 8 Days</p>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:0.82rem; font-weight:700; color:#f59e0b;"><i class="fas fa-star"></i> 5.0 Explorer Rating</span>
+                  <button class="btn btn-outline btn-sm" onclick="window.location.href='404.html'"><i class="fas fa-award"></i> Certificate</button>
+                </div>
+              </div>
+
+              <div class="archive-journey-card chart-card" style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:18px; background:#fff; box-shadow:var(--shadow-subtle);">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                  <h4 style="font-size:1.1rem; margin:0;">Kashmir Dal Lake Shikara Expedition</h4>
+                  <span class="status-badge confirmed"><i class="fas fa-check-circle"></i> Completed</span>
+                </div>
+                <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:12px;">Visited: Srinagar &bull; April 2025 &bull; 6 Days</p>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:0.82rem; font-weight:700; color:#f59e0b;"><i class="fas fa-star"></i> 4.9 Explorer Rating</span>
+                  <button class="btn btn-outline btn-sm" onclick="window.location.href='404.html'"><i class="fas fa-award"></i> Certificate</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dashboard-section-divider">
+
+        <!-- SECTION 4: PRE-DEPARTURE READINESS & TRAVEL CHECKLIST -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-clipboard-check"></i>
+            <span>4. Pre-Departure Readiness Checklist &amp; Document Sync</span>
+          </div>
+          <div class="table-card">
+            <div class="dashboard-grid-cards-sm">
+              <div style="padding:16px; background:var(--bg-subtle-blue); border-radius:var(--radius-md); display:flex; align-items:center; gap:14px;">
+                <i class="fas fa-passport" style="font-size:1.8rem; color:var(--accent-green);"></i>
+                <div>
+                  <strong style="font-size:0.92rem; display:block;">Passport Status</strong>
+                  <span style="font-size:0.8rem; color:var(--accent-green);"><i class="fas fa-check"></i> Valid until June 2028</span>
+                </div>
+              </div>
+              <div style="padding:16px; background:var(--bg-subtle-blue); border-radius:var(--radius-md); display:flex; align-items:center; gap:14px;">
+                <i class="fas fa-stamp" style="font-size:1.8rem; color:var(--primary-blue);"></i>
+                <div>
+                  <strong style="font-size:0.92rem; display:block;">Visa on Arrival</strong>
+                  <span style="font-size:0.8rem; color:var(--primary-blue);"><i class="fas fa-check"></i> Indonesia e-VOA Approved</span>
+                </div>
+              </div>
+              <div style="padding:16px; background:var(--bg-subtle-blue); border-radius:var(--radius-md); display:flex; align-items:center; gap:14px;">
+                <i class="fas fa-shield-alt" style="font-size:1.8rem; color:var(--accent-gold);"></i>
+                <div>
+                  <strong style="font-size:0.92rem; display:block;">Travel Insurance</strong>
+                  <span style="font-size:0.8rem; color:var(--accent-green);"><i class="fas fa-check"></i> Active Policy #STK-992</span>
+                </div>
+              </div>
+              <div style="padding:16px; background:var(--bg-subtle-blue); border-radius:var(--radius-md); display:flex; align-items:center; gap:14px;">
+                <i class="fas fa-plane-departure" style="font-size:1.8rem; color:#8b5cf6;"></i>
+                <div>
+                  <strong style="font-size:0.92rem; display:block;">Flight Boarding Pass</strong>
+                  <span style="font-size:0.8rem; color:var(--text-muted);"><i class="fas fa-clock"></i> Web Check-in T-24h</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===================================================================
+           TAB 3: TOUR PACKAGES (FEATURED, SEASONAL, TAILOR & PASSES - 4 SECTIONS)
+           =================================================================== -->
+      <section id="tabTravellerExplore" class="dashboard-tab-content">
+
+        <!-- SECTION 1: CURATED SIGNATURE EXPEDITIONS -->
+        <div class="dashboard-section-block">
+          <div class="table-card">
+            <div class="chart-header">
+              <div>
+                <h3 class="chart-title">1. Curated Signature Expeditions</h3>
+                <p style="color:var(--text-muted); font-size:0.88rem; margin:0;">Handpicked escapes across 20+ world regions available for immediate reservation.</p>
+              </div>
+            </div>
+
+            <div class="dashboard-grid-cards" style="margin-top:20px;">
+              <!-- Bali Card -->
+              <div class="tour-card" style="border:1px solid var(--border-light); border-radius:var(--radius-md); overflow:hidden; background:#fff;">
+                <img src="assets/images/destinations/bali.webp" alt="Bali" style="width:100%; height:190px; object-fit:cover;">
+                <div style="padding:20px;">
+                  <span style="font-size:0.75rem; color:var(--primary-blue); font-weight:700; text-transform:uppercase;">Tropical Island &bull; 7 Days</span>
+                  <h4 style="font-size:1.2rem; margin:6px 0;">Bali Tropical Paradise &amp; Nusa Penida</h4>
+                  <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:16px;">Ubud art villages, oceanfront villas, and snorkel reef exploration.</p>
+                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                    <strong style="color:var(--primary-blue); font-size:1.2rem;">$1,250 <span style="font-size:0.8rem; font-weight:400; color:var(--text-muted);">/ guest</span></strong>
+                    <a href="404.html" class="btn btn-primary btn-sm">
+                      Book Tour
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Swiss Alps Card -->
+              <div class="tour-card" style="border:1px solid var(--border-light); border-radius:var(--radius-md); overflow:hidden; background:#fff;">
+                <img src="assets/images/destinations/switzerland.webp" alt="Swiss Alps" style="width:100%; height:190px; object-fit:cover;">
+                <div style="padding:20px;">
+                  <span style="font-size:0.75rem; color:var(--primary-blue); font-weight:700; text-transform:uppercase;">Alpine Trek &bull; 8 Days</span>
+                  <h4 style="font-size:1.2rem; margin:6px 0;">Swiss Alps Glacier Odyssey</h4>
+                  <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:16px;">Matterhorn mountain vistas, alpine cogwheel trains, and scenic fondue chalets.</p>
+                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                    <strong style="color:var(--primary-blue); font-size:1.2rem;">$2,199 <span style="font-size:0.8rem; font-weight:400; color:var(--text-muted);">/ guest</span></strong>
+                    <a href="404.html" class="btn btn-primary btn-sm">
+                      Book Tour
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Maldives Card -->
+              <div class="tour-card" style="border:1px solid var(--border-light); border-radius:var(--radius-md); overflow:hidden; background:#fff;">
+                <img src="assets/images/destinations/maldives.webp" alt="Maldives" style="width:100%; height:190px; object-fit:cover;">
+                <div style="padding:20px;">
+                  <span style="font-size:0.75rem; color:var(--primary-blue); font-weight:700; text-transform:uppercase;">Luxury Lagoon &bull; 5 Days</span>
+                  <h4 style="font-size:1.2rem; margin:6px 0;">Maldives Overwater Sanctuary</h4>
+                  <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:16px;">Private sundeck villa, manta ray reef cruises, and all-inclusive sunset dining.</p>
+                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                    <strong style="color:var(--primary-blue); font-size:1.2rem;">$2,899 <span style="font-size:0.8rem; font-weight:400; color:var(--text-muted);">/ guest</span></strong>
+                    <a href="404.html" class="btn btn-primary btn-sm">
+                      Book Tour
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dashboard-section-divider">
+
+        <!-- SECTION 2: TRENDING SEASONAL ADVENTURES & REGIONAL ESCAPES -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-fire-alt"></i>
+            <span>2. Trending Seasonal Escapes &amp; Limited Departures</span>
+          </div>
+          <div class="table-card" style="margin-bottom:24px;">
+            <div class="dashboard-grid-cards-sm">
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px; background:var(--bg-subtle-blue);">
+                <span style="font-size:0.72rem; font-weight:700; color:var(--accent-red); text-transform:uppercase;">Spring Departure</span>
+                <h4 style="font-size:1.1rem; margin:6px 0 4px;">Kyoto Cherry Blossom Discovery</h4>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:12px;">7 Days &bull; Pagoda tea ceremonies &bull; Gion district</p>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="color:var(--text-dark-navy); font-size:1.1rem;">$1,650</strong>
+                  <button class="btn btn-outline btn-sm" onclick="window.location.href='404.html'">Reserve</button>
+                </div>
+              </div>
+
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px; background:var(--bg-subtle-blue);">
+                <span style="font-size:0.72rem; font-weight:700; color:var(--primary-blue); text-transform:uppercase;">Winter Aurora</span>
+                <h4 style="font-size:1.1rem; margin:6px 0 4px;">Northern Lights Tromso Safari</h4>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:12px;">6 Days &bull; Glass igloo night &bull; Husky sledding</p>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="color:var(--text-dark-navy); font-size:1.1rem;">$2,450</strong>
+                  <button class="btn btn-outline btn-sm" onclick="window.location.href='404.html'">Reserve</button>
+                </div>
+              </div>
+
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px; background:var(--bg-subtle-blue);">
+                <span style="font-size:0.72rem; font-weight:700; color:var(--accent-gold); text-transform:uppercase;">Desert Glamour</span>
+                <h4 style="font-size:1.1rem; margin:6px 0 4px;">Dubai Golden Dunes &amp; Sky Lounge</h4>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:12px;">5 Days &bull; Camel trekking &bull; Burj Khalifa VIP</p>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="color:var(--text-dark-navy); font-size:1.1rem;">$1,380</strong>
+                  <button class="btn btn-outline btn-sm" onclick="window.location.href='404.html'">Reserve</button>
+                </div>
+              </div>
+
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px; background:var(--bg-subtle-blue);">
+                <span style="font-size:0.72rem; font-weight:700; color:var(--accent-green); text-transform:uppercase;">Wildlife Trek</span>
+                <h4 style="font-size:1.1rem; margin:6px 0 4px;">Serengeti Great Migration Safari</h4>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:12px;">9 Days &bull; Big Five Game drives &bull; Eco luxury tents</p>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="color:var(--text-dark-navy); font-size:1.1rem;">$3,450</strong>
+                  <button class="btn btn-outline btn-sm" onclick="window.location.href='404.html'">Reserve</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dashboard-section-divider">
+
+        <!-- SECTION 3: INTERACTIVE CUSTOM TRIP TAILOR & ESTIMATOR -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-sliders-h"></i>
+            <span>3. Interactive Custom Trip Tailor &amp; Budget Estimator</span>
+          </div>
+          <div class="table-card" style="margin-bottom:24px;">
+            <div class="dashboard-grid-2col-responsive" style="align-items:center;">
+              <div>
+                <h4 style="font-size:1.15rem; margin-bottom:8px;">Design Your Bespoke Itinerary</h4>
+                <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px;">
+                  Specify your ideal travel parameters to calculate estimated group rates and receive an expert-curated quote.
+                </p>
+                <div style="display:flex; flex-direction:column; gap:12px;">
+                  <div>
+                    <label style="font-size:0.82rem; font-weight:700; display:block; margin-bottom:4px;">Target Region</label>
+                    <select id="tailorRegionSelect" class="form-input" style="padding:10px 14px; background:#fff; width:100%;">
+                      <option value="Southeast Asia">Southeast Asia (Bali, Thailand, Vietnam)</option>
+                      <option value="Western Europe">Western Europe (Switzerland, Italy, France)</option>
+                      <option value="Nordics">Nordics &amp; Polar (Norway, Iceland, Finland)</option>
+                      <option value="Middle East">Middle East (Dubai, Oman, Jordan)</option>
+                    </select>
+                  </div>
+                  <div class="tailor-inputs-row">
+                    <div>
+                      <label style="font-size:0.82rem; font-weight:700; display:block; margin-bottom:4px;">Days of Journey</label>
+                      <input type="number" id="tailorDaysInput" class="form-input" value="7" min="3" max="30" style="padding:10px 14px; width:100%;">
+                    </div>
+                    <div>
+                      <label style="font-size:0.82rem; font-weight:700; display:block; margin-bottom:4px;">Travellers</label>
+                      <input type="number" id="tailorGuestsInput" class="form-input" value="2" min="1" max="12" style="padding:10px 14px; width:100%;">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tailor-quote-card" style="background:var(--bg-subtle-blue); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:24px; text-align:center;">
+                <span style="font-size:0.8rem; text-transform:uppercase; font-weight:700; color:var(--text-muted); display:block;">Estimated Package Quote</span>
+                <div style="font-size:2.2rem; font-weight:800; color:var(--primary-blue); margin:8px 0;" id="tailorPriceDisplay">$2,450</div>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:16px;">Includes verified 5-star lodging, private transfers, and English-speaking certified host.</p>
+                <button class="btn btn-primary" style="width:100%; max-width:100%; justify-content:center; white-space:normal; padding:12px 18px;" onclick="window.location.href='404.html'">
+                  <i class="fas fa-paper-plane"></i> Request Custom Itinerary
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dashboard-section-divider">
+
+        <!-- SECTION 4: STACKLY MEMBER PASSES & EARLY BIRD VOUCHERS -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-ticket-alt"></i>
+            <span>4. Explorer Member Passes &amp; Early-Bird Vouchers</span>
+          </div>
+          <div class="table-card">
+            <div class="dashboard-grid-cards-sm">
+              <div style="border:1.5px dashed var(--primary-blue); border-radius:var(--radius-md); padding:16px; background:#fafbff;">
+                <span class="status-badge confirmed"><i class="fas fa-tag"></i> 15% OFF VOUCHER</span>
+                <h4 style="font-size:1.05rem; margin:8px 0 4px;">Early Bird 2027 Explorer Pass</h4>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:10px;">Use code <strong>STACKLY2027</strong> at checkout on all Alpine and Tropical tours.</p>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Expires: Dec 31, 2026</span>
+              </div>
+
+              <div style="border:1.5px dashed var(--accent-green); border-radius:var(--radius-md); padding:16px; background:#f6fbf8;">
+                <span class="status-badge confirmed" style="background:rgba(16,185,129,0.1); color:var(--accent-green);"><i class="fas fa-couch"></i> VIP LOUNGE PASS</span>
+                <h4 style="font-size:1.05rem; margin:8px 0 4px;">Complimentary Airport Lounge</h4>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:10px;">Valid at over 1,200 international terminals for your next flight.</p>
+                <span style="font-size:0.75rem; color:var(--accent-green); font-weight:700;"><i class="fas fa-check"></i> 1 Pass Available</span>
+              </div>
+
+              <div style="border:1.5px dashed var(--accent-gold); border-radius:var(--radius-md); padding:16px; background:#fffdf8;">
+                <span class="status-badge pending" style="background:rgba(245,158,11,0.1); color:var(--accent-gold);"><i class="fas fa-swimmer"></i> EQUIPMENT PERK</span>
+                <h4 style="font-size:1.05rem; margin:8px 0 4px;">Free Island Snorkel &amp; Fin Kit</h4>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:10px;">Complimentary premium scuba snorkel set for all Bali and Maldives departures.</p>
+                <span style="font-size:0.75rem; color:var(--accent-gold); font-weight:700;">Included on Next Trip</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===================================================================
+           TAB 4: ANALYTICS (METRICS, CHARTS, FOOTPRINT & BUDGET - 4 SECTIONS)
+           =================================================================== -->
+      <section id="tabTravellerAnalytics" class="dashboard-tab-content">
+
+        <!-- SECTION 1: 4 TRAVEL HEALTH METRICS -->
+        <div class="dashboard-section-block">
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-title">Average Journey Length</span>
+                  <div class="kpi-icon-wrap" style="background:rgba(56,35,201,0.1); color:var(--primary-blue);"><i class="fas fa-calendar-check"></i></div>
+                </div>
+                <div class="kpi-value"><span class="live-counter-num" id="kpiAvgJourney" data-target="7.8" data-float="true">7.8</span> Days</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-subtext">Peak season: Summer &bull; Winter</span>
+                </div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-title">Favorite Style</span>
+                  <div class="kpi-icon-wrap" style="background:rgba(16,185,129,0.1); color:var(--accent-green);"><i class="fas fa-hiking"></i></div>
+                </div>
+                <div class="kpi-value">Adventure</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-subtext" style="color:var(--accent-green);">45% of completed tours</span>
+                </div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-title">Air Miles Flown</span>
+                  <div class="kpi-icon-wrap" style="background:rgba(245,158,11,0.1); color:var(--accent-gold);"><i class="fas fa-plane"></i></div>
+                </div>
+                <div class="kpi-value"><span class="live-counter-num" id="kpiAirMiles" data-target="32850">32,850</span> mi</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-subtext">Top route: NYC &bull; DPS</span>
+                </div>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-info">
+                <div class="kpi-header-row">
+                  <span class="kpi-title">Carbon Offset Rate</span>
+                  <div class="kpi-icon-wrap" style="background:rgba(16,185,129,0.1); color:var(--accent-green);"><i class="fas fa-seedling"></i></div>
+                </div>
+                <div class="kpi-value"><span class="live-counter-num" id="kpiCarbonOffset" data-target="100">100</span>% Offset</div>
+                <div class="kpi-footer-row">
+                  <span class="kpi-subtext" style="color:var(--accent-green);">Certified Green Explorer</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dashboard-section-divider">
+
+        <!-- SECTION 2: 3 ANALYTICAL CHARTS -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-chart-bar"></i>
+            <span>2. Deep Travel Analytics &amp; Breakdown</span>
+          </div>
+          <div class="charts-grid-3col" style="margin-bottom:24px;">
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3 class="chart-title">Destination Categories</h3>
+              </div>
+              <div class="chart-container-wrap chart-container-box">
+                <canvas id="chartDestCategories"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3 class="chart-title">5-Year Trip Growth</h3>
+              </div>
+              <div class="chart-container-wrap chart-container-box">
+                <canvas id="chartBookingHistory"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3 class="chart-title">Trip Completion Rate</h3>
+              </div>
+              <div class="chart-container-wrap chart-container-box">
+                <canvas id="chartTripCompletion"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dashboard-section-divider">
+
+        <!-- SECTION 3: GLOBAL EXPLORATION FOOTPRINT & PASSPORT STAMPS -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-globe-asia"></i>
+            <span>3. Global Exploration Footprint &amp; Passport Stamps</span>
+          </div>
+          <div class="table-card" style="margin-bottom:24px;">
+            <div class="dashboard-grid-2col-responsive" style="gap:28px;">
+              <div>
+                <h4 style="font-size:1.1rem; margin-bottom:16px;">Continents Explored</h4>
+                <div style="display:flex; flex-direction:column; gap:14px;">
+                  <div>
+                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:4px;">
+                      <strong>Asia</strong>
+                      <span style="color:var(--primary-blue); font-weight:700;">55% (8 Journeys)</span>
+                    </div>
+                    <div style="height:8px; background:var(--bg-subtle-blue); border-radius:99px; overflow:hidden;">
+                      <div style="width:55%; height:100%; background:var(--primary-blue); border-radius:99px;"></div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:4px;">
+                      <strong>Europe</strong>
+                      <span style="color:var(--accent-green); font-weight:700;">30% (4 Journeys)</span>
+                    </div>
+                    <div style="height:8px; background:var(--bg-subtle-blue); border-radius:99px; overflow:hidden;">
+                      <div style="width:30%; height:100%; background:var(--accent-green); border-radius:99px;"></div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:4px;">
+                      <strong>Middle East &amp; Africa</strong>
+                      <span style="color:var(--accent-gold); font-weight:700;">15% (2 Journeys)</span>
+                    </div>
+                    <div style="height:8px; background:var(--bg-subtle-blue); border-radius:99px; overflow:hidden;">
+                      <div style="width:15%; height:100%; background:var(--accent-gold); border-radius:99px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 style="font-size:1.1rem; margin-bottom:16px;">Official Digital Passport Stamps</h4>
+                <div class="dashboard-grid-cards-sm" style="grid-template-columns:repeat(auto-fit, minmax(90px, 1fr)); gap:10px; text-align:center;">
+                  <div style="border:2px dashed var(--primary-blue); border-radius:var(--radius-sm); padding:10px; background:#f4f6fe;">
+                    <i class="fas fa-stamp" style="color:var(--primary-blue); font-size:1.3rem;"></i>
+                    <strong style="font-size:0.78rem; display:block; margin-top:4px;">INDONESIA</strong>
+                    <span style="font-size:0.68rem; color:var(--text-muted);">DPS &bull; 2026</span>
+                  </div>
+                  <div style="border:2px dashed var(--accent-red); border-radius:var(--radius-sm); padding:10px; background:#fff5f5;">
+                    <i class="fas fa-stamp" style="color:var(--accent-red); font-size:1.3rem;"></i>
+                    <strong style="font-size:0.78rem; display:block; margin-top:4px;">SWITZERLAND</strong>
+                    <span style="font-size:0.68rem; color:var(--text-muted);">ZRH &bull; 2025</span>
+                  </div>
+                  <div style="border:2px dashed var(--accent-green); border-radius:var(--radius-sm); padding:10px; background:#f0fdf4;">
+                    <i class="fas fa-stamp" style="color:var(--accent-green); font-size:1.3rem;"></i>
+                    <strong style="font-size:0.78rem; display:block; margin-top:4px;">JAPAN</strong>
+                    <span style="font-size:0.68rem; color:var(--text-muted);">HND &bull; 2024</span>
+                  </div>
+                  <div style="border:2px dashed var(--accent-gold); border-radius:var(--radius-sm); padding:10px; background:#fffbeb;">
+                    <i class="fas fa-stamp" style="color:var(--accent-gold); font-size:1.3rem;"></i>
+                    <strong style="font-size:0.78rem; display:block; margin-top:4px;">UAE</strong>
+                    <span style="font-size:0.68rem; color:var(--text-muted);">DXB &bull; 2023</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dashboard-section-divider">
+
+        <!-- SECTION 4: TRAVEL SPENDING VS SAVINGS EFFICIENCY BREAKDOWN -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-coins"></i>
+            <span>4. Travel Spending &amp; Budget Savings Breakdown</span>
+          </div>
+          <div class="table-card">
+            <div style="overflow-x:auto;">
+              <table class="dashboard-table" style="width:100%; text-align:left; border-collapse:collapse;">
+                <thead>
+                  <tr style="border-bottom:1.5px solid var(--border-light); font-size:0.82rem; color:var(--text-muted);">
+                    <th style="padding:10px 14px;">Expenditure Category</th>
+                    <th style="padding:10px 14px;">Total Allocated</th>
+                    <th style="padding:10px 14px;">Actual Spent</th>
+                    <th style="padding:10px 14px;">Savings Achieved</th>
+                    <th style="padding:10px 14px;">Efficiency Rating</th>
+                  </tr>
+                </thead>
+                <tbody style="font-size:0.88rem;">
+                  <tr style="border-bottom:1px solid var(--border-light);">
+                    <td style="padding:12px 14px; font-weight:700;"><i class="fas fa-plane" style="color:var(--primary-blue); margin-right:8px;"></i> Flight Reservations</td>
+                    <td style="padding:12px 14px;">$4,200</td>
+                    <td style="padding:12px 14px;">$3,680</td>
+                    <td style="padding:12px 14px; color:var(--accent-green); font-weight:700;">+$520 (12.4%)</td>
+                    <td style="padding:12px 14px;"><span class="status-badge confirmed">Optimal</span></td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border-light);">
+                    <td style="padding:12px 14px; font-weight:700;"><i class="fas fa-hotel" style="color:var(--accent-gold); margin-right:8px;"></i> Villas &amp; Luxury Resorts</td>
+                    <td style="padding:12px 14px;">$5,800</td>
+                    <td style="padding:12px 14px;">$5,150</td>
+                    <td style="padding:12px 14px; color:var(--accent-green); font-weight:700;">+$650 (11.2%)</td>
+                    <td style="padding:12px 14px;"><span class="status-badge confirmed">Optimal</span></td>
+                  </tr>
+                  <tr>
+                    <td style="padding:12px 14px; font-weight:700;"><i class="fas fa-compass" style="color:var(--accent-green); margin-right:8px;"></i> Guided Tours &amp; Snorkel Reefs</td>
+                    <td style="padding:12px 14px;">$2,400</td>
+                    <td style="padding:12px 14px;">$2,100</td>
+                    <td style="padding:12px 14px; color:var(--accent-green); font-weight:700;">+$300 (12.5%)</td>
+                    <td style="padding:12px 14px;"><span class="status-badge confirmed">Optimal</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===================================================================
+           TAB 5: SAVED WISHLIST (HOTSPOTS, FARE WATCH & PREFERENCES - 3 SECTIONS)
+           (REPLACED GENERIC SETTINGS AS REQUESTED)
+           =================================================================== -->
+      <section id="tabTravellerWishlist" class="dashboard-tab-content">
+
+        <!-- SECTION 1: SAVED BUCKET-LIST HOTSPOTS -->
+        <div class="dashboard-section-block">
+          <div class="table-card" style="margin-bottom:24px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:20px;">
+              <div>
+                <h3 class="chart-title" style="margin-bottom:4px;">1. Saved Bucket-List Destinations</h3>
+                <p style="color:var(--text-muted); font-size:0.88rem; margin:0;">Hotspots pinned for future 2026-2027 expeditions with live seasonal pricing.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="window.location.href='404.html'">
+                <i class="fas fa-compass"></i> Discover More Destinations
+              </button>
+            </div>
+
+            <div class="dashboard-grid-cards">
+              <!-- Amalfi Coast -->
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); overflow:hidden; background:#fff; box-shadow:var(--shadow-subtle);">
+                <img src="assets/images/gallery/gallery-2.webp" alt="Amalfi Coast" style="width:100%; height:150px; object-fit:cover;">
+                <div style="padding:16px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <span style="font-size:0.75rem; color:var(--primary-blue); font-weight:700; text-transform:uppercase;">Italy &bull; 6 Days</span>
+                    <span class="status-badge confirmed"><i class="fas fa-sun"></i> Best: May-Sep</span>
+                  </div>
+                  <h4 style="font-size:1.1rem; margin-bottom:6px;">Amalfi Coast Cliffside Path</h4>
+                  <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:12px;">Positano lemon groves, Capri grotto cruises, and coastal villas.</p>
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <strong style="color:var(--primary-blue); font-size:1.1rem;">$1,890</strong>
+                    <a href="404.html" class="btn btn-primary btn-sm">Book Now</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Santorini -->
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); overflow:hidden; background:#fff; box-shadow:var(--shadow-subtle);">
+                <img src="assets/images/gallery/gallery-6.webp" alt="Santorini" style="width:100%; height:150px; object-fit:cover;">
+                <div style="padding:16px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <span style="font-size:0.75rem; color:var(--primary-blue); font-weight:700; text-transform:uppercase;">Greece &bull; 5 Days</span>
+                    <span class="status-badge confirmed"><i class="fas fa-sun"></i> Best: Jun-Oct</span>
+                  </div>
+                  <h4 style="font-size:1.1rem; margin-bottom:6px;">Santorini Sunset Caldera Villa</h4>
+                  <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:12px;">Oia whitewashed rooftops, volcanic hot spring sails, and cliffside dinners.</p>
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <strong style="color:var(--primary-blue); font-size:1.1rem;">$2,150</strong>
+                    <a href="404.html" class="btn btn-primary btn-sm">Book Now</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Machu Picchu -->
+              <div style="border:1px solid var(--border-light); border-radius:var(--radius-md); overflow:hidden; background:#fff; box-shadow:var(--shadow-subtle);">
+                <img src="assets/images/gallery/gallery-1.webp" alt="Machu Picchu" style="width:100%; height:150px; object-fit:cover;">
+                <div style="padding:16px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <span style="font-size:0.75rem; color:var(--accent-green); font-weight:700; text-transform:uppercase;">Peru &bull; 7 Days</span>
+                    <span class="status-badge pending"><i class="fas fa-mountain"></i> High Altitude</span>
+                  </div>
+                  <h4 style="font-size:1.1rem; margin-bottom:6px;">Machu Picchu &amp; Sacred Valley</h4>
+                  <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:12px;">Inca Trail panoramic train, Cusco colonial plaza, and Quechua ruins.</p>
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <strong style="color:var(--primary-blue); font-size:1.1rem;">$1,720</strong>
+                    <a href="404.html" class="btn btn-primary btn-sm">Book Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dashboard-section-divider">
+
+        <!-- SECTION 2: REAL-TIME FARE WATCH & PRICE DROP RADAR -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-bell"></i>
+            <span>2. Live Fare Watch &amp; Price Drop Radar</span>
+          </div>
+          <div class="table-card" style="margin-bottom:24px;">
+            <div style="overflow-x:auto;">
+              <table class="dashboard-table" style="width:100%; text-align:left; border-collapse:collapse;">
+                <thead>
+                  <tr style="border-bottom:1.5px solid var(--border-light); font-size:0.82rem; color:var(--text-muted);">
+                    <th style="padding:10px 14px;">Tracked Expedition</th>
+                    <th style="padding:10px 14px;">Original Price</th>
+                    <th style="padding:10px 14px;">Current Price</th>
+                    <th style="padding:10px 14px;">Price Drop</th>
+                    <th style="padding:10px 14px;">Fare Alert Status</th>
+                    <th style="padding:10px 14px;">Action</th>
+                  </tr>
+                </thead>
+                <tbody style="font-size:0.88rem;">
+                  <tr style="border-bottom:1px solid var(--border-light);">
+                    <td style="padding:12px 14px; font-weight:700;">Amalfi Coast Cliffside Path (Italy)</td>
+                    <td style="padding:12px 14px; text-decoration:line-through; color:var(--text-muted);">$2,110</td>
+                    <td style="padding:12px 14px; font-weight:800; color:var(--primary-blue);">$1,890</td>
+                    <td style="padding:12px 14px; color:var(--accent-green); font-weight:700;"><i class="fas fa-arrow-down"></i> -$220 (-10.4%)</td>
+                    <td style="padding:12px 14px;"><span class="status-badge confirmed"><i class="fas fa-bell"></i> Alert Active</span></td>
+                    <td style="padding:12px 14px;"><a href="404.html" class="btn btn-primary btn-sm">Book Now</a></td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border-light);">
+                    <td style="padding:12px 14px; font-weight:700;">Santorini Sunset Caldera Villa (Greece)</td>
+                    <td style="padding:12px 14px; text-decoration:line-through; color:var(--text-muted);">$2,300</td>
+                    <td style="padding:12px 14px; font-weight:800; color:var(--primary-blue);">$2,150</td>
+                    <td style="padding:12px 14px; color:var(--accent-green); font-weight:700;"><i class="fas fa-arrow-down"></i> -$150 (-6.5%)</td>
+                    <td style="padding:12px 14px;"><span class="status-badge confirmed"><i class="fas fa-bell"></i> Alert Active</span></td>
+                    <td style="padding:12px 14px;"><a href="404.html" class="btn btn-primary btn-sm">Book Now</a></td>
+                  </tr>
+                  <tr>
+                    <td style="padding:12px 14px; font-weight:700;">Machu Picchu Inca Trail (Peru)</td>
+                    <td style="padding:12px 14px; text-decoration:line-through; color:var(--text-muted);">$1,950</td>
+                    <td style="padding:12px 14px; font-weight:800; color:var(--primary-blue);">$1,720</td>
+                    <td style="padding:12px 14px; color:var(--accent-green); font-weight:700;"><i class="fas fa-arrow-down"></i> -$230 (-11.8%)</td>
+                    <td style="padding:12px 14px;"><span class="status-badge confirmed"><i class="fas fa-bell"></i> Alert Active</span></td>
+                    <td style="padding:12px 14px;"><a href="404.html" class="btn btn-primary btn-sm">Book Now</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <hr class="dashboard-section-divider">
+
+        <!-- SECTION 3: EXPLORER PREFERENCES & PROFILE FORM -->
+        <div class="dashboard-section-block">
+          <div class="dashboard-section-header">
+            <i class="fas fa-user-cog"></i>
+            <span>3. Explorer Profile Coordinates &amp; Travel Preferences</span>
+          </div>
+          <div class="table-card" style="max-width:760px;">
+            <form id="travellerProfileForm" novalidate>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="settingsFullName">Full Name *</label>
+                  <div class="form-control-wrap">
+                    <i class="fas fa-user form-control-icon"></i>
+                    <input type="text" id="settingsFullName" class="form-input" placeholder="Enter your full name" autocomplete="name">
+                  </div>
+                  <div class="field-error-text" id="settingsFullNameError" style="display:none;">
+                    <i class="fas fa-exclamation-circle"></i> Please enter your name
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="settingsEmail">Email Address *</label>
+                  <div class="form-control-wrap">
+                    <i class="fas fa-envelope form-control-icon"></i>
+                    <input type="email" id="settingsEmail" class="form-input" placeholder="Enter your email address" autocomplete="email">
+                  </div>
+                  <div class="field-error-text" id="settingsEmailError" style="display:none;">
+                    <i class="fas fa-exclamation-circle"></i> Please enter your email
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="settingsPhone">Contact Phone *</label>
+                  <div class="form-control-wrap">
+                    <i class="fas fa-phone form-control-icon"></i>
+                    <input type="tel" id="settingsPhone" class="form-input" placeholder="Enter your phone number" autocomplete="tel">
+                  </div>
+                  <div class="field-error-text" id="settingsPhoneError" style="display:none;">
+                    <i class="fas fa-exclamation-circle"></i> Please enter your phone number
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="settingsCountry">Passport Country *</label>
+                  <div class="form-control-wrap">
+                    <i class="fas fa-passport form-control-icon"></i>
+                    <input type="text" id="settingsCountry" class="form-input" placeholder="Enter your passport country">
+                  </div>
+                  <div class="field-error-text" id="settingsCountryError" style="display:none;">
+                    <i class="fas fa-exclamation-circle"></i> Please enter your passport country
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Flight &amp; Villa Preferences</label>
+                <div style="display:flex; gap:16px; flex-wrap:wrap;">
+                  <label class="form-checkbox-label">
+                    <input type="checkbox">
+                    <span>Window Seating</span>
+                  </label>
+                  <label class="form-checkbox-label">
+                    <input type="checkbox">
+                    <span>Vegetarian / Organic Meal Option</span>
+                  </label>
+                  <label class="form-checkbox-label">
+                    <input type="checkbox">
+                    <span>Ground Floor Room Request</span>
+                  </label>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-sm" id="btnSaveProfileDetails">
+                <i class="fas fa-save"></i> Save Profile Details
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Universal Booking Modal Container -->
+  <div id="universalBookingModal" class="modal-overlay"></div>
+
+  <!-- Dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/dashboard-traveller.js"></script>
+</body>
+</html>
